@@ -4,7 +4,7 @@
   /* Layout: single column, RTL, cards. Colors are tokens. */
   :root {
     --bg: #f7f8fa; --surface: #ffffff; --fg: #1a1d23; --fg-soft: #5a6072;
-    --accent: #1b6ca8; --accent-light: #e8f2fb;
+    --accent: #0f766e; --accent-light: #e6f4f2; --on-accent: #ffffff;
     --success: #1a8a4a; --success-bg: #e8f7ef;
     --danger: #c0392b; --danger-bg: #fdecea;
     --border: #e2e6ed; --radius: 14px; --shadow: 0 2px 12px rgba(0,0,0,0.07);
@@ -13,7 +13,7 @@
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #12151c; --surface: #1c2030; --fg: #e8ecf4; --fg-soft: #8892a8;
-      --accent: #4a9edd; --accent-light: #1a2d42;
+      --accent: #2dd4bf; --accent-light: #12302d; --on-accent: #042f2b;
       --success: #34c974; --success-bg: #0f2a1c;
       --danger: #f07070; --danger-bg: #2a0f0f;
       --border: #2a3045; color-scheme: dark;
@@ -21,7 +21,7 @@
   }
   :root[data-theme="dark"] {
     --bg: #12151c; --surface: #1c2030; --fg: #e8ecf4; --fg-soft: #8892a8;
-    --accent: #4a9edd; --accent-light: #1a2d42;
+    --accent: #2dd4bf; --accent-light: #12302d; --on-accent: #042f2b;
     --success: #34c974; --success-bg: #0f2a1c;
     --danger: #f07070; --danger-bg: #2a0f0f;
     --border: #2a3045; color-scheme: dark;
@@ -32,46 +32,52 @@
     min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
     padding-block: 24px; padding-inline: 16px; direction: rtl;
   }
-  /* Center only the start screen; quiz and result screens start at the top. */
-  body:has(#screen-start.active) { justify-content: center; }
   .app { width: 100%; max-width: 760px; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
-  .header { background: var(--accent); border-radius: var(--radius); padding: 22px 26px; color: #fff; }
+  .header { background: linear-gradient(135deg, #0f766e 0%, #115e59 100%); border-radius: 18px; padding: 24px 26px; color: #fff; box-shadow: 0 10px 30px -12px rgba(15,118,110,.55); }
+  .brand { display: flex; align-items: center; gap: 16px; }
+  .brand-icon { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,.16); display: grid; place-items: center; }
+  .brand-icon svg { width: 28px; height: 28px; }
   .header h1 { font-size: 1.9rem; font-weight: 900; line-height: 1.3; }
   .header p { font-size: 1.1rem; opacity: 0.88; margin-top: 4px; }
   .lang-bar {
-    background: var(--surface); border-radius: var(--radius); padding: 14px 20px;
-    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-    border: 1px solid var(--border); box-shadow: var(--shadow);
+    background: var(--surface); border-radius: 999px; padding: 5px;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+    box-shadow: 0 1px 2px rgba(15,23,42,.05), 0 6px 18px rgba(15,23,42,.05);
   }
-  .lang-bar span { font-size: 0.82rem; color: var(--fg-soft); font-weight: 600; }
+  .lang-bar span { display: none; }
   .lang-btn {
-    background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px;
-    padding: 9px 16px; font-family: 'Cairo', sans-serif; font-size: 1.05rem;
+    background: transparent; border: none; border-radius: 999px;
+    padding: 9px 2px; white-space: nowrap; font-family: 'Cairo', sans-serif; font-size: 0.92rem;
     font-weight: 700; color: var(--fg-soft); cursor: pointer;
   }
-  .lang-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .lang-btn.active { background: var(--accent); color: var(--on-accent); }
   .screen { display: none; flex-direction: column; gap: 16px; }
   .screen.active { display: flex; }
   .card {
-    background: var(--surface); border-radius: var(--radius); padding: 24px;
-    border: 1px solid var(--border); box-shadow: var(--shadow);
+    background: var(--surface); border-radius: 18px; padding: 24px;
+    box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 10px 30px rgba(15,23,42,.06);
   }
+  .form-card { display: flex; flex-direction: column; gap: 18px; padding: 28px 24px; }
+  .form-card h2 { font-size: 1.6rem; margin-bottom: 0; }
+  .form-card p { margin-bottom: 4px; }
   .card h2 { font-size: 1.45rem; font-weight: 800; margin-bottom: 6px; }
   .card p { color: var(--fg-soft); font-size: 1.15rem; line-height: 1.7; }
   .input-group { display: flex; flex-direction: column; gap: 6px; }
-  .input-group label { font-size: 0.88rem; font-weight: 700; color: var(--fg-soft); }
+  .input-group label { font-size: 0.95rem; font-weight: 700; color: var(--fg); }
   .text-input {
-    background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px;
-    padding: 16px 18px; font-family: 'Cairo', sans-serif; font-size: 1rem;
+    background: var(--bg); border: 1.5px solid transparent; border-radius: 12px;
+    padding: 15px 16px; font-family: 'Cairo', sans-serif; font-size: 1rem;
     color: var(--fg); width: 100%;
   }
-  .text-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .text-input:focus { outline: none; border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 4px var(--accent-light); }
+  .btn-block { width: 100%; padding: 17px 24px; font-size: 1.1rem; }
   .btn {
     padding: 18px 32px; border-radius: 10px; font-family: 'Cairo', sans-serif;
     font-size: 1rem; font-weight: 800; cursor: pointer; border: none; text-align: center;
   }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-secondary { background: var(--bg); color: var(--fg); border: 1.5px solid var(--border); }
+  .btn-primary { background: var(--accent); color: var(--on-accent); box-shadow: 0 8px 18px -8px var(--accent); }
+  .btn-primary:hover { filter: brightness(1.06); }
+  .btn-secondary { background: var(--surface); color: var(--accent); border: 1.5px solid var(--border); }
   .btn-danger { background: var(--danger); color: #fff; }
   .btn-small { padding: 8px 14px; font-size: 0.85rem; }
   .btn:focus-visible, .lang-btn:focus-visible, .option-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -170,8 +176,13 @@
 
 <div class="app">
   <div class="header">
-    <h1 id="hdr-title">اختبار الوعي الصحي للموظفين</h1>
-    <p id="hdr-sub">٤٠ سؤال من بنك أسئلة متنوع</p>
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+      <div>
+        <h1 id="hdr-title">اختبار الوعي الصحي للموظفين</h1>
+        <p id="hdr-sub">٤٠ سؤال من بنك أسئلة متنوع</p>
+      </div>
+    </div>
   </div>
 
   <div class="lang-bar">
@@ -185,24 +196,23 @@
 
   <!-- START -->
   <div id="screen-start" class="screen active">
-    <div class="card">
+    <div class="card form-card">
       <h2 id="s-title"></h2>
       <p id="s-sub"></p>
+      <div class="input-group">
+        <label id="lbl-name" for="emp-name"></label>
+        <input type="text" id="emp-name" class="text-input" autocomplete="off">
+        <p id="name-error" class="error-msg" style="display:none"></p>
+      </div>
+      <div class="input-group">
+        <label id="lbl-code" for="test-code"></label>
+        <input type="password" inputmode="numeric" id="test-code" class="text-input" autocomplete="off">
+        <p id="code-error" class="error-msg" style="display:none"></p>
+      </div>
+      <button class="btn btn-primary btn-block" id="btn-start">ابدأ الاختبار ◄</button>
     </div>
-    <button class="btn btn-primary" id="nav-study" style="margin-bottom:12px">📖 المذكرة</button>
-    
-    <div class="card input-group">
-      <label id="lbl-name" for="emp-name"></label>
-      <input type="text" id="emp-name" class="text-input" autocomplete="off">
-      <p id="name-error" class="error-msg" style="display:none"></p>
-    </div>
-    <div class="card input-group">
-      <label id="lbl-code" for="test-code"></label>
-      <input type="password" inputmode="numeric" id="test-code" class="text-input" autocomplete="off">
-      <p id="code-error" class="error-msg" style="display:none"></p>
-    </div>
-    <button class="btn btn-primary" id="btn-start">ابدأ الاختبار ◄</button>
-    <div class="bottom-nav" style="gap:14px;flex-wrap:wrap"><button class="nav-link" id="nav-records">📋 سجل النتائج</button></div>
+    <button class="btn btn-secondary btn-block" id="nav-study">📖 المذكرة</button>
+    <div class="bottom-nav"><button class="nav-link" id="nav-records">📋 سجل النتائج</button></div>
   </div>
 
   <!-- QUIZ -->
