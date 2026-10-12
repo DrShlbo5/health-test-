@@ -255,638 +255,538 @@ const PASSWORD = "1122";
 // Each question: q = question text, o = options (same order in all languages), c = index of correct option.
 // Options are shuffled per employee, so the position of the answer is never fixed.
 const BANK = [
-  // ───── Food safety knowledge ─────
+  // ───── Health and food safety (medium to hard) ─────
   {
-    cat: { ar:"النظافة الشخصية", en:"Personal hygiene", hi:"व्यक्तिगत स्वच्छता", bn:"ব্যক্তিগত পরিচ্ছন্নতা" },
-    q: { ar:"متى يجب أن تغسل يديك؟", en:"When should you wash your hands?", hi:"आपको कब हाथ धोने चाहिए?", bn:"কখন হাত ধোয়া উচিত?" },
+    cat: { ar:"أرز مطبوخ", en:"Cooked rice", hi:"पका चावल", bn:"রান্না করা ভাত", id:"Nasi matang" },
+    q: { ar:"لماذا يعتبر ترك الأرز المطبوخ في حرارة الغرفة خطراً حتى لو أعيد تسخينه لاحقاً؟", en:"Why is cooked rice left at room temperature risky even if it is reheated later?", hi:"कमरे के तापमान पर छोड़ा गया पका चावल दोबारा गर्म करने के बाद भी खतरनाक क्यों है?", bn:"ঘরের তাপমাত্রায় রাখা রান্না করা ভাত পরে গরম করলেও কেন ঝুঁকিপূর্ণ?", id:"Mengapa nasi matang yang dibiarkan di suhu ruang berisiko meski nanti dipanaskan ulang?" },
     o: {
-      ar:["قبل التعامل مع الطعام وبعد الحمام","قبل الطعام فقط عند بدء الدوام","عند الشعور بأن يديك متسختان فقط","مرة واحدة في بداية اليوم كافية"],
-      en:["Before handling food and after the bathroom","Only before eating at the start of shift","Only when your hands look dirty","Once at the start of the day is enough"],
-      hi:["खाना छूने से पहले और शौचालय के बाद","केवल शिफ्ट शुरू होने पर खाने से पहले","केवल जब हाथ गंदे दिखें","दिन की शुरुआत में एक बार काफी है"],
-      bn:["খাবার ধরার আগে ও টয়লেটের পরে","শুধু শিফট শুরুতে খাওয়ার আগে","শুধু হাত নোংরা দেখালে","দিনের শুরুতে একবার যথেষ্ট"]
+      ar:["بعض البكتيريا تنتج سموماً لا يزيلها التسخين","التسخين يقتل كل البكتيريا فلا يوجد خطر","الأرز يصبح غير آمن فقط وهو نيء","الخطر في الرائحة فقط وليس في البكتيريا"],
+      en:["Some bacteria produce toxins that reheating does not destroy","Reheating kills all bacteria, so there is no risk","Rice only becomes unsafe when it is raw","The risk is only the smell, not bacteria"],
+      hi:["कुछ बैक्टीरिया ऐसे विष बनाते हैं जो गर्म करने से नष्ट नहीं होते","गर्म करने से सारे बैक्टीरिया मर जाते हैं, इसलिए खतरा नहीं","चावल तभी असुरक्षित होता है जब वह कच्चा हो","खतरा केवल गंध का है, बैक्टीरिया का नहीं"],
+      bn:["কিছু ব্যাকটেরিয়া এমন টক্সিন তৈরি করে যা গরম করলেও নষ্ট হয় না","গরম করলে সব ব্যাকটেরিয়া মরে, তাই কোনো ঝুঁকি নেই","ভাত তখনই অনিরাপদ হয় যখন তা কাঁচা থাকে","ঝুঁকি শুধু গন্ধে, ব্যাকটেরিয়ায় নয়"],
+      id:["Beberapa bakteri menghasilkan racun yang tidak hancur saat dipanaskan","Pemanasan membunuh semua bakteri sehingga tidak ada risiko","Nasi hanya tidak aman jika masih mentah","Risikonya hanya bau, bukan bakteri"]
     }, c: 0
   },
   {
-    cat: { ar:"درجات الحرارة", en:"Temperature control", hi:"तापमान नियंत्रण", bn:"তাপমাত্রা নিয়ন্ত্রণ" },
-    q: { ar:"ما الحد الآمن لحرارة الثلاجة؟", en:"What is the safe temperature for a fridge?", hi:"फ्रिज का सुरक्षित तापमान क्या है?", bn:"ফ্রিজের নিরাপদ তাপমাত্রা কত?" },
+    cat: { ar:"تتبيل اللحم", en:"Marinating", hi:"मैरिनेशन", bn:"ম্যারিনেট", id:"Marinasi" },
+    q: { ar:"تبقى صلصة التتبيل التي لامست دجاجاً نيئاً. ما الإجراء الصحيح لاستخدامها كصلصة للتقديم؟", en:"A marinade touched raw chicken. What is the correct action if you want to serve it as a sauce?", hi:"एक मैरिनेड कच्चे चिकन को छू चुका है। इसे सॉस के रूप में परोसने के लिए सही कदम क्या है?", bn:"একটি ম্যারিনেড কাঁচা মুরগির সংস্পর্শে এসেছে। এটি সস হিসেবে পরিবেশনের জন্য সঠিক পদক্ষেপ কী?", id:"Marinasi pernah menyentuh ayam mentah. Apa tindakan yang benar jika ingin disajikan sebagai saus?" },
     o: {
-      ar:["أقل من 5 درجات مئوية","بين 10 و15 درجة مئوية","بين 20 و25 درجة مئوية","الحرارة لا تؤثر على الطعام"],
-      en:["Below 5°C","Between 10 and 15°C","Between 20 and 25°C","Temperature does not affect food"],
-      hi:["5°C से नीचे","10 से 15°C के बीच","20 से 25°C के बीच","तापमान खाने को प्रभावित नहीं करता"],
-      bn:["৫°C এর নিচে","১০ থেকে ১৫°C এর মধ্যে","২০ থেকে ২৫°C এর মধ্যে","তাপমাত্রা খাবারকে প্রভাবিত করে না"]
+      ar:["نغليها بغليان كامل قبل التقديم أو نتخلص منها","نضيف إليها ملحاً فقط ونقدمها","نخففها بالماء ونقدمها باردة","تكفي إزالة الجزء الظاهر منها"],
+      en:["Bring it to a full boil before serving or discard it","Add salt only and serve it","Dilute it with water and serve it cold","Removing the visible part is enough"],
+      hi:["परोसने से पहले पूरी तरह उबालें या फेंक दें","केवल नमक डालकर परोसें","पानी मिलाकर ठंडा परोसें","ऊपर का दिखने वाला हिस्सा हटाना काफी है"],
+      bn:["পরিবেশনের আগে পুরোপুরি ফুটিয়ে নিন বা ফেলে দিন","শুধু লবণ মিশিয়ে পরিবেশন করুন","পানি মিশিয়ে ঠান্ডা করে পরিবেশন করুন","উপরের দৃশ্যমান অংশ সরানোই যথেষ্ট"],
+      id:["Didihkan sampai benar-benar mendidih sebelum disajikan atau buang","Tambahkan garam saja lalu sajikan","Encerkan dengan air lalu sajikan dingin","Cukup buang bagian yang terlihat"]
     }, c: 0
   },
   {
-    cat: { ar:"درجات الحرارة", en:"Temperature control", hi:"तापमान नियंत्रण", bn:"তাপমাত্রা নিয়ন্ত্রণ" },
-    q: { ar:"ما منطقة الخطر لحرارة الطعام؟", en:"What is the food danger zone temperature range?", hi:"खाने का खतरनाक तापमान क्षेत्र कौन सा है?", bn:"খাবারের বিপদ অঞ্চলের তাপমাত্রা কত?" },
+    cat: { ar:"تبريد الحساء", en:"Cooling soup", hi:"सूप ठंडा करना", bn:"স্যুপ ঠান্ডা করা", id:"Mendinginkan sup" },
+    q: { ar:"وعاء كبير من الحساء الساخن يجب تبريده من 60 درجة إلى 21 درجة. خلال كم ساعة يجب أن يتم ذلك؟", en:"A large pot of hot soup must be cooled from 60°C to 21°C. Within how many hours must this be done?", hi:"गर्म सूप के एक बड़े बर्तन को 60°C से 21°C तक ठंडा करना है। यह कितने घंटे में होना चाहिए?", bn:"গরম স্যুপের একটি বড় পাত্র ৬০°C থেকে ২১°C-তে ঠান্ডা করতে হবে। কত ঘণ্টার মধ্যে এটি করতে হবে?", id:"Panci besar sup panas harus didinginkan dari 60°C ke 21°C. Dalam berapa jam harus selesai?" },
     o: {
-      ar:["بين 5 و60 درجة مئوية","أقل من صفر درجة مئوية","أكثر من 100 درجة مئوية","بين 60 و80 درجة مئوية"],
-      en:["Between 5°C and 60°C","Below 0°C","Above 100°C","Between 60°C and 80°C"],
-      hi:["5°C से 60°C के बीच","0°C से नीचे","100°C से ऊपर","60°C से 80°C के बीच"],
-      bn:["৫°C থেকে ৬০°C এর মধ্যে","০°C এর নিচে","১০০°C এর উপরে","৬০°C থেকে ৮০°C এর মধ্যে"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"الحشرات والآفات", en:"Pests", hi:"कीट", bn:"কীটপতঙ্গ" },
-    q: { ar:"شفت صرصاراً في المطبخ، ماذا تفعل؟", en:"You see a cockroach in the kitchen. What do you do?", hi:"रसोई में एक तिलचट्टा दिखा, आप क्या करेंगे?", bn:"রান্নাঘরে একটি তেলাপোকা দেখলেন, কী করবেন?" },
-    o: {
-      ar:["أبلّغ المسؤول فوراً وأوقف العمل في المنطقة","أقتله وأكمل شغلي بدون إبلاغ أحد","أتجاهله ما دام بعيداً عن الطعام","أضع طعاماً لأصطاد المزيد منها"],
-      en:["Report to the supervisor and stop work in that area","Kill it and continue without telling anyone","Ignore it as long as it is far from food","Put food out to catch more of them"],
-      hi:["तुरंत सुपरवाइजर को बताएं और उस जगह काम रोकें","उसे मार कर बिना बताए काम जारी रखें","जब तक खाने से दूर हो, नजरअंदाज करें","और पकड़ने के लिए खाना रखें"],
-      bn:["সুপারভাইজারকে জানান ও ওই জায়গায় কাজ বন্ধ করুন","মেরে কাউকে না জানিয়ে কাজ চালিয়ে যান","খাবার থেকে দূরে থাকলে উপেক্ষা করুন","আরো ধরতে খাবার রাখুন"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"تخزين الطعام", en:"Food storage", hi:"खाद्य भंडारण", bn:"খাবার সংরক্ষণ" },
-    q: { ar:"ماذا يعني FIFO في المخزن؟", en:"What does FIFO mean in a storeroom?", hi:"गोदाम में FIFO का क्या मतलब है?", bn:"গুদামে FIFO মানে কী?" },
-    o: {
-      ar:["الأقدم يُستخدم أولاً","الأغلى يُستخدم أولاً","الأجدد يُستخدم أولاً","الأثقل يُستخدم أولاً"],
-      en:["The oldest stock is used first","The most expensive stock is used first","The newest stock is used first","The heaviest stock is used first"],
-      hi:["सबसे पुराना स्टॉक पहले इस्तेमाल होता है","सबसे महंगा स्टॉक पहले इस्तेमाल होता है","सबसे नया स्टॉक पहले इस्तेमाल होता है","सबसे भारी स्टॉक पहले इस्तेमाल होता है"],
-      bn:["সবচেয়ে পুরনো স্টক আগে ব্যবহৃত হয়","সবচেয়ে দামি স্টক আগে ব্যবহৃত হয়","সবচেয়ে নতুন স্টক আগে ব্যবহৃত হয়","সবচেয়ে ভারী স্টক আগে ব্যবহৃত হয়"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"الموظف المريض", en:"Sick employee", hi:"बीमार कर्मचारी", bn:"অসুস্থ কর্মচারী" },
-    q: { ar:"عندك إسهال وقيء، ماذا تسوي؟", en:"You have diarrhea and vomiting. What should you do?", hi:"आपको दस्त और उल्टी हो रही है, आप क्या करेंगे?", bn:"আপনার ডায়রিয়া ও বমি হচ্ছে, কী করবেন?" },
-    o: {
-      ar:["أبلّغ المشرف وأبقى بعيداً عن العمل حتى أتعافى","ألبس قفازات وأكمل الشغل بحذر","آخذ دواء مسكّن وأكمل الدوام","أتجنب لمس الطعام مباشرة فقط"],
-      en:["Inform my supervisor and stay away from work until I recover","Wear gloves and carefully keep working","Take a painkiller and finish my shift","Just avoid touching food directly"],
-      hi:["सुपरवाइजर को बताऊं और ठीक होने तक काम से दूर रहूं","दस्ताने पहनकर सावधानी से काम जारी रखूं","दर्द की दवा लेकर शिफ्ट पूरी करूं","बस खाने को सीधे न छूऊं"],
-      bn:["সুপারভাইজারকে জানাব ও সুস্থ না হওয়া পর্যন্ত কাজ থেকে দূরে থাকব","গ্লাভস পরে সাবধানে কাজ চালিয়ে যাব","ব্যথার ওষুধ খেয়ে শিফট শেষ করব","শুধু খাবার সরাসরি না ছুঁলেই হবে"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"الطهي", en:"Cooking", hi:"पकाना", bn:"রান্না" },
-    q: { ar:"ما الحرارة الداخلية الآمنة للدجاج عند الطهي؟", en:"What internal temperature must chicken reach when cooked?", hi:"पकाते समय चिकन का अंदरूनी तापमान कितना होना चाहिए?", bn:"রান্নার সময় মুরগির ভেতরের তাপমাত্রা কত হওয়া উচিত?" },
-    o: {
-      ar:["75 درجة مئوية","50 درجة مئوية","60 درجة مئوية","90 درجة مئوية"],
-      en:["75°C","50°C","60°C","90°C"],
-      hi:["75°C","50°C","60°C","90°C"],
-      bn:["৭৫°C","৫০°C","৬০°C","৯০°C"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"التلوث المتقاطع", en:"Cross-contamination", hi:"क्रॉस-कंटैमिनेशन", bn:"ক্রস-কনটামিনেশন" },
-    q: { ar:"أين تحفظ اللحم النيء في الثلاجة؟", en:"Where do you store raw meat in the fridge?", hi:"फ्रिज में कच्चा मांस कहाँ रखेंगे?", bn:"ফ্রিজে কাঁচা মাংস কোথায় রাখবেন?" },
-    o: {
-      ar:["في الرف السفلي تحت الأطعمة الجاهزة","فوق الأطعمة الجاهزة مباشرة","بجانب الأطعمة الجاهزة","ترتيبه لا يهم أبداً"],
-      en:["On the bottom shelf, below ready-to-eat food","Directly above ready-to-eat food","Next to ready-to-eat food","The order never matters"],
-      hi:["निचली शेल्फ पर, तैयार खाने के नीचे","तैयार खाने के ठीक ऊपर","तैयार खाने के बगल में","क्रम कभी मायने नहीं रखता"],
-      bn:["নিচের শেলফে, তৈরি খাবারের নিচে","তৈরি খাবারের ঠিক উপরে","তৈরি খাবারের পাশে","ক্রম কখনো গুরুত্বপূর্ণ নয়"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"المواد الكيميائية", en:"Chemicals", hi:"रसायन", bn:"রাসায়নিক" },
-    q: { ar:"أين تحفظ مواد التنظيف بالنسبة للطعام؟", en:"Where should cleaning chemicals be stored relative to food?", hi:"सफाई के रसायन खाने के संबंध में कहाँ रखें?", bn:"খাবারের সাপেক্ষে পরিষ্কারের রাসায়নিক কোথায় রাখবেন?" },
-    o: {
-      ar:["في مكان منفصل تماماً وبعيد عن الطعام","في نفس الرف مع الطعام المغلق","فوق الطعام لأنه أبعد عن الأيدي","بجانب الطعام لسهولة الوصول"],
-      en:["In a separate place, far away from food","On the same shelf as sealed food","Above food to keep them out of reach","Next to food for easy access"],
-      hi:["खाने से पूरी तरह अलग और दूर जगह पर","बंद खाने के साथ एक ही शेल्फ पर","खाने के ऊपर, ताकि पहुंच से दूर रहें","खाने के बगल में, आसान पहुंच के लिए"],
-      bn:["খাবার থেকে সম্পূর্ণ আলাদা ও দূরের জায়গায়","বন্ধ খাবারের সাথে একই শেলফে","খাবারের উপরে, যেন নাগালের বাইরে থাকে","খাবারের পাশে, সহজে পাওয়ার জন্য"]
-    }, c: 0
-  },
-
-  // ───── Reasoning and judgment ─────
-  {
-    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
-    q: { ar:"ما الرقم التالي في النمط: 2، 4، 8، 16، ؟", en:"What is the next number in the pattern: 2, 4, 8, 16, ?", hi:"पैटर्न में अगला संख्या क्या है: 2, 4, 8, 16, ?", bn:"প্যাটার্নের পরের সংখ্যা কী: 2, 4, 8, 16, ?" },
-    o: {
-      ar:["24","30","32","36"], en:["24","30","32","36"], hi:["24","30","32","36"], bn:["২৪","৩০","৩২","৩৬"]
+      ar:["4 ساعات","8 ساعات","ساعتان","12 ساعة"],
+      en:["4 hours","8 hours","2 hours","12 hours"],
+      hi:["4 घंटे","8 घंटे","2 घंटे","12 घंटे"],
+      bn:["৪ ঘণ্টা","৮ ঘণ্টা","২ ঘণ্টা","১২ ঘণ্টা"],
+      id:["4 jam","8 jam","2 jam","12 jam"]
     }, c: 2
   },
   {
-    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
-    q: {
-      ar:"كل الأغراض المفتوحة لازم تكون مغطاة. الزيت مفتوح. أيش الاستنتاج الصحيح؟",
-      en:"All opened items must be covered. The oil is open. What is the correct conclusion?",
-      hi:"सभी खुली चीज़ों को ढकना ज़रूरी है। तेल खुला है। सही निष्कर्ष क्या है?",
-      bn:"সব খোলা জিনিস ঢাকা রাখতে হবে। তেল খোলা আছে। সঠিক সিদ্ধান্ত কী?"
-    },
+    cat: { ar:"حساسية الطعام", en:"Food allergy", hi:"खाद्य एलर्जी", bn:"খাদ্য অ্যালার্জি", id:"Alergi makanan" },
+    q: { ar:"عميل لديه حساسية شديدة من المكسرات يسأل عن طبق. ما أفضل تصرف؟", en:"A customer with a severe nut allergy asks about a dish. What is the best action?", hi:"गंभीर मेवा एलर्जी वाला एक ग्राहक किसी व्यंजन के बारे में पूछता है। सबसे अच्छा कदम क्या है?", bn:"তীব্র বাদাম অ্যালার্জিযুক্ত একজন গ্রাহক একটি খাবার সম্পর্কে জানতে চান। সবচেয়ে ভালো পদক্ষেপ কী?", id:"Pelanggan dengan alergi kacang berat menanyakan sebuah hidangan. Tindakan terbaik apa?" },
     o: {
-      ar:["الزيت لازم يكون مغطى","الزيت ممكن يبقى مكشوفاً","الزيت ما يحتاج تغطية","لا يمكن معرفة شيء عن الزيت"],
-      en:["The oil must be covered","The oil may stay uncovered","The oil does not need covering","Nothing can be known about the oil"],
-      hi:["तेल को ढकना ज़रूरी है","तेल खुला रह सकता है","तेल को ढकने की ज़रूरत नहीं","तेल के बारे में कुछ भी नहीं कहा जा सकता"],
-      bn:["তেল ঢাকা রাখতে হবে","তেল খোলা থাকতে পারে","তেল ঢাকার দরকার নেই","তেল সম্পর্কে কিছুই বলা যায় না"]
+      ar:["مراجعة المكونات والأدوات والإجابة بصدق عن أي خطر تلوث","تأكيد أن الطبق آمن لضمان البيع","التخمين حسب الوصفة المعتادة","إخباره بأن يزيل المكسرات بنفسه"],
+      en:["Check ingredients and equipment and answer honestly about any cross-contact risk","Confirm the dish is safe to make sure of the sale","Guess based on the usual recipe","Tell them to remove the nuts themselves"],
+      hi:["सामग्री और बर्तनों की जांच करें और क्रॉस-संपर्क के खतरे के बारे में सच बताएं","बिक्री पक्की करने के लिए कहें कि व्यंजन सुरक्षित है","सामान्य रेसिपी के आधार पर अनुमान लगाएं","उसे खुद मेवे हटाने को कहें"],
+      bn:["উপাদান ও সরঞ্জাম যাচাই করুন এবং ক্রস-সংস্পর্শের ঝুঁকি সম্পর্কে সৎভাবে জানান","বিক্রি নিশ্চিত করতে বলুন খাবারটি নিরাপদ","সাধারণ রেসিপি দেখে অনুমান করুন","তাকে নিজে থেকে বাদাম সরাতে বলুন"],
+      id:["Periksa bahan dan peralatan lalu jujur tentang risiko kontaminasi silang","Pastikan hidangan aman demi penjualan","Menebak berdasarkan resep biasa","Minta dia sendiri menyingkirkan kacangnya"]
     }, c: 0
   },
   {
-    cat: { ar:"ترتيب الأولويات", en:"Prioritizing", hi:"प्राथमिकता तय करना", bn:"অগ্রাধিকার নির্ধারণ" },
-    q: {
-      ar:"وصلت شاحنة مواد مجمدة الساعة 10، والأرضية مبلولة، والرفوف غير مرتبة. أيش تبدأ فيه أولاً؟",
-      en:"A freezer delivery arrived at 10:00, the floor is wet, and shelves are untidy. What do you handle first?",
-      hi:"10 बजे फ्रीज़ेन सामान आया, फर्श गीला है, और शेल्फ अव्यवस्थित हैं। पहले क्या संभालेंगे?",
-      bn:"১০টায় হিমায়িত মালের ডেলিভারি এসেছে, মেঝে ভেজা, শেলফ অগোছালো। প্রথমে কী সামলাবেন?"
-    },
+    cat: { ar:"الكشف عن الحرارة", en:"Probe temperature", hi:"तापमान मापन", bn:"তাপমাত্রা পরিমাপ", id:"Pengukuran suhu" },
+    q: { ar:"عند قياس الحرارة الداخلية لصدر دجاج، أين يوضع مقياس الحرارة؟", en:"When checking the core temperature of a chicken breast, where should the probe go?", hi:"चिकन ब्रेस्ट का आंतरिक तापमान मापते समय थर्मामीटर कहां रखना चाहिए?", bn:"মুরগির বুকের মাংসের অভ্যন্তরীণ তাপমাত্রা মাপার সময় থার্মোমিটার কোথায় রাখতে হবে?", id:"Saat mengukur suhu inti dada ayam, di mana probe harus ditempatkan?" },
     o: {
-      ar:["أدخل المواد المجمدة للفريزر فوراً","أنشف الأرضية أولاً","أرتب الرفوف أولاً","أرد على الهاتف أولاً"],
-      en:["Put the frozen goods into the freezer immediately","Dry the floor first","Tidy the shelves first","Answer the phone first"],
-      hi:["जमा हुआ सामान तुरंत फ्रीज़र में रखें","पहले फर्श सुखाएं","पहले शेल्फ ठीक करें","पहले फोन उठाएं"],
-      bn:["হিমায়িত মাল তাৎক্ষণিক ফ্রিজারে রাখুন","আগে মেঝে শুকান","আগে শেলফ গোছান","আগে ফোন ধরুন"]
+      ar:["في أسمك جزء، بعيداً عن العظم","على سطح اللحم من الخارج","بجانب العظم مباشرة","أي مكان، لا فرق"],
+      en:["In the thickest part, away from the bone","On the outside surface of the meat","Right next to the bone","Anywhere, it makes no difference"],
+      hi:["सबसे मोटे हिस्से में, हड्डी से दूर","मांस की बाहरी सतह पर","हड्डी के ठीक बगल में","कहीं भी, कोई फर्क नहीं"],
+      bn:["সবচেয়ে মোটা অংশে, হাড় থেকে দূরে","মাংসের বাইরের পৃষ্ঠে","হাড়ের ঠিক পাশে","যেকোনো জায়গায়, কোনো পার্থক্য নেই"],
+      id:["Di bagian paling tebal, jauh dari tulang","Di permukaan luar daging","Tepat di sebelah tulang","Di mana saja, tidak ada bedanya"]
     }, c: 0
   },
   {
-    cat: { ar:"حساب", en:"Calculation", hi:"गणना", bn:"হিসাব" },
-    q: {
-      ar:"عندك 40 كيس رز، وتستخدم 8 أكياس يومياً. كم يوم يكفي المخزون؟",
-      en:"You have 40 bags of rice and use 8 bags per day. How many days will the stock last?",
-      hi:"आपके पास चावल के 40 बैग हैं और रोज़ 8 बैग इस्तेमाल होते हैं। स्टॉक कितने दिन चलेगा?",
-      bn:"আপনার কাছে ৪০ ব্যাগ চাল আছে, প্রতিদিন ৮ ব্যাগ ব্যবহার হয়। স্টক কত দিন চলবে?"
-    },
+    cat: { ar:"الإنهاك والتعرض", en:"Holding temperature", hi:"गर्म रखने का तापमान", bn:"গরম রাখার তাপমাত্রা", id:"Suhu penyajian panas" },
+    q: { ar:"ما أدنى درجة حرارة داخلية يجب أن يحافظ عليها الطعام المطبوخ المعد للتقديم لاحقاً؟", en:"What is the minimum internal temperature for cooked food held hot for later service?", hi:"बाद में परोसने के लिए रखे गए पके खाने का न्यूनतम आंतरिक तापमान क्या होना चाहिए?", bn:"পরে পরিবেশনের জন্য গরম রাখা রান্না করা খাবারের ন্যূনতম অভ্যন্তরীণ তাপমাত্রা কত?", id:"Berapa suhu inti minimum untuk makanan matang yang disimpan panas untuk disajikan nanti?" },
     o: {
-      ar:["4 أيام","5 أيام","6 أيام","8 أيام"], en:["4 days","5 days","6 days","8 days"],
-      hi:["4 दिन","5 दिन","6 दिन","8 दिन"], bn:["৪ দিন","৫ দিন","৬ দিন","৮ দিন"]
+      ar:["60 درجة مئوية أو أعلى","45 درجة مئوية","35 درجة مئوية","25 درجة مئوية"],
+      en:["60°C or higher","45°C","35°C","25°C"],
+      hi:["60°C या उससे अधिक","45°C","35°C","25°C"],
+      bn:["৬০°C বা তার বেশি","৪৫°C","৩৫°C","২৫°C"],
+      id:["60°C atau lebih","45°C","35°C","25°C"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"التخزين المشترك", en:"Storage order", hi:"भंडारण क्रम", bn:"সংরক্ষণের ক্রম", id:"Urutan penyimpanan" },
+    q: { ar:"لماذا يُخزَّن اللحم النيء في أسفل الثلاجة دائماً؟", en:"Why is raw meat always stored at the bottom of the fridge?", hi:"कच्चे मांस को हमेशा फ्रिज के सबसे निचले हिस्से में क्यों रखा जाता है?", bn:"কাঁচা মাংস ফ্রিজের সবচেয়ে নিচের তাকে কেন রাখা হয়?", id:"Mengapa daging mentah selalu disimpan di bagian bawah kulkas?" },
+    o: {
+      ar:["حتى لا تسقط قطرات منه على الأطعمة الموجودة تحته","لأنه يحتاج إلى حرارة أقل من غيره","لتسهيل الوصول إليه","لتوفير المساحة في الثلاجة"],
+      en:["So its drips cannot contaminate foods stored below it","Because it needs less cold than other foods","To make it easier to reach","To save shelf space"],
+      hi:["ताकि इसकी बूंदें नीचे रखे खाने को दूषित न करें","क्योंकि इसे दूसरे खाने से कम ठंड चाहिए","ताकि इसे आसानी से निकाला जा सके","जगह बचाने के लिए"],
+      bn:["যাতে এর চুঁইয়ে পড়া রস নিচের খাবার দূষিত করতে না পারে","কারণ অন্য খাবারের চেয়ে কম ঠান্ডা লাগে","যাতে সহজে নাগাল পাওয়া যায়","জায়গা বাঁচাতে"],
+      id:["Agar tetesannya tidak mengontaminasi makanan di bawahnya","Karena membutuhkan suhu lebih hangat","Agar mudah dijangkau","Untuk menghemat ruang"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الصحة الشخصية", en:"Staff health", hi:"कर्मचारी स्वास्थ्य", bn:"কর্মী স্বাস্থ্য", id:"Kesehatan karyawan" },
+    q: { ar:"موظف عاد للعمل بعد أسبوع من إصابته بالتهاب الكبد الوبائي (يرقان)، وهو الآن بصحة جيدة. ما الإجراء الصحيح؟", en:"An employee returns after a week of jaundice from hepatitis A and feels well. What is the correct procedure?", hi:"एक कर्मचारी हेपेटाइटिस A से पीलिया के एक सप्ताह बाद काम पर लौटता है और ठीक महसूस करता है। सही प्रक्रिया क्या है?", bn:"একজন কর্মী হেপাটাইটিস A-এর জন্ডিসে এক সপ্তাহ ভুগে কাজে ফিরেছেন এবং ভালো বোধ করছেন। সঠিক পদ্ধতি কী?", id:"Karyawan kembali bekerja setelah seminggu mengalami penyakit kuning akibat hepatitis A dan merasa sehat. Prosedur yang benar?" },
+    o: {
+      ar:["يُبلَّغ المشرف ويحتاج إلى تصريح طبي قبل مناولة الطعام","يعمل بشكل طبيعي لأنه يشعر بتحسن","يرتدي قفازين ويستمر","يقتصر عمله على المشروبات فقط"],
+      en:["Report to the supervisor and get medical clearance before handling food","Work normally since he feels better","Wear two pairs of gloves and continue","Limit him to serving drinks only"],
+      hi:["सुपरवाइजर को बताएं और खाना संभालने से पहले डॉक्टर की मंजूरी लें","सामान्य रूप से काम करे क्योंकि वह बेहतर महसूस करता है","दो जोड़ी दस्ताने पहनकर जारी रखे","उसे केवल पेय परोसने तक सीमित करें"],
+      bn:["সুপারভাইজারকে জানান এবং খাবার ধরার আগে চিকিৎসকের অনুমতি নিন","স্বাভাবিকভাবে কাজ করবেন কারণ ভালো লাগছে","দুই জোড়া গ্লাভস পরে চালিয়ে যাবেন","শুধু পানীয় পরিবেশনের কাজ দিন"],
+      id:["Lapor ke penyelia dan dapatkan izin medis sebelum menangani makanan","Bekerja seperti biasa karena merasa lebih baik","Pakai dua lapis sarung tangan dan lanjutkan","Batasi hanya menyajikan minuman"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"المواد الكيميائية", en:"Chemicals", hi:"रसायन", bn:"রাসায়নিক", id:"Bahan kimia" },
+    q: { ar:"أي مزيج من مواد التنظيف يجب ألا يُخلط أبداً؟", en:"Which combination of cleaning products must never be mixed?", hi:"सफाई के किन उत्पादों को कभी नहीं मिलाना चाहिए?", bn:"কোন পরিষ্কারক পণ্যগুলো কখনো একসাথে মেশানো উচিত নয়?", id:"Kombinasi produk pembersih mana yang tidak boleh dicampur?" },
+    o: {
+      ar:["المبيض (الكلور) مع منظفات الأمونيا","صابون الأطباق مع الماء الدافئ","المطهر مع الماء البارد","المنظف مع قطعة قماش نظيفة"],
+      en:["Bleach with ammonia-based cleaners","Dish soap with warm water","Sanitizer with cold water","Detergent with a clean cloth"],
+      hi:["ब्लीच और अमोनिया वाले क्लीनर","डिश साबुन और गुनगुना पानी","सैनिटाइज़र और ठंडा पानी","डिटर्जेंट और साफ कपड़ा"],
+      bn:["ব্লিচ ও অ্যামোনিয়াভিত্তিক ক্লিনার","ডিশ সাবান ও গরম পানি","স্যানিটাইজার ও ঠান্ডা পানি","ডিটারজেন্ট ও পরিষ্কার কাপড়"],
+      id:["Pemutih dengan pembersih berbahan amonia","Sabun cuci piring dengan air hangat","Sanitizer dengan air dingin","Deterjen dengan lap bersih"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"إزالة التجميد", en:"Thawing", hi:"पिघलाना", bn:"গলানো", id:"Pencairan" },
+    q: { ar:"تحتاج إلى إذابة 10 كيلو من الدجاج المجمد. ما الطريقة الأكثر أماناً؟", en:"You need to thaw 10 kg of frozen chicken. What is the safest method?", hi:"आपको 10 किलो जमे हुए चिकन को पिघलाना है। सबसे सुरक्षित तरीका कौन सा है?", bn:"আপনাকে ১০ কেজি জমে থাকা মুরগি গলাতে হবে। সবচেয়ে নিরাপদ উপায় কোনটি?", id:"Anda perlu mencairkan 10 kg ayam beku. Metode paling aman?" },
+    o: {
+      ar:["في الثلاجة على رف سفلي","على طاولة في حرارة الغرفة","في ماء دافئ لمدة ساعة","مغمورة في ماء ساخن"],
+      en:["In the fridge on a lower shelf","On the counter at room temperature","In warm water left for one hour","Submerged in hot water"],
+      hi:["फ्रिज में निचले शेल्फ पर","कमरे के तापमान पर काउंटर पर","एक घंटे के लिए गुनगुने पानी में","गर्म पानी में डुबोकर"],
+      bn:["ফ্রিজে নিচের তাকে","ঘরের তাপমাত্রায় টেবিলে","এক ঘণ্টা গুনগুনে পানিতে রেখে","গরম পানিতে ডুবিয়ে"],
+      id:["Di kulkas pada rak bawah","Di meja pada suhu ruang","Dalam air hangat selama satu jam","Direndam dalam air panas"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"التبريد والتجميد", en:"Freezing", hi:"जमाना", bn:"হিমায়ন", id:"Pembekuan" },
+    q: { ar:"تم تجميد لحم مفروم ثم أذيب في الثلاجة. هل يمكن إعادة تجميده؟", en:"Minced meat was frozen, thawed in the fridge, and not used. Can it be frozen again?", hi:"कीमा जमाया गया, फ्रिज में पिघलाया गया और इस्तेमाल नहीं हुआ। क्या इसे फिर से जमाया जा सकता है?", bn:"কিমা মাংস জমানো হয়েছিল, ফ্রিজে গলানো হয়েছিল এবং ব্যবহার করা হয়নি। এটি কি আবার জমানো যায়?", id:"Daging cincang dibekukan, dicairkan di kulkas, dan tidak dipakai. Bisakah dibekukan lagi?" },
+    o: {
+      ar:["نعم، لأن التجميد الثاني لا يضر بالطعام","لا، إلا إذا طُبخ أولاً ثم جُمّد","نعم، إذا كان لونه طبيعياً","لا يهم، المهم أن يكون مغلقاً"],
+      en:["Yes, because refreezing does not harm the food","No, unless it was cooked first and then frozen","Yes, if its colour looks normal","It does not matter, as long as it is sealed"],
+      hi:["हां, क्योंकि दोबारा जमाने से खाने को नुकसान नहीं होता","नहीं, जब तक पहले पकाकर फिर न जमाया गया हो","हां, अगर रंग सामान्य दिखे","कोई फर्क नहीं, बस बंद हो"],
+      bn:["হ্যাঁ, কারণ আবার জমানোতে খাবারের ক্ষতি হয় না","না, যদি না আগে রান্না করে তারপর জমানো হয়","হ্যাঁ, যদি রং স্বাভাবিক দেখায়","কিছু যায় আসে না, শুধু বন্ধ থাকলেই হলো"],
+      id:["Ya, karena pembekuan ulang tidak merusak makanan","Tidak, kecuali sudah dimasak dulu lalu dibekukan","Ya, jika warnanya terlihat normal","Tidak masalah, asal tertutup rapat"]
     }, c: 1
   },
   {
-    cat: { ar:"حساب", en:"Calculation", hi:"गणना", bn:"হিসাব" },
-    q: {
-      ar:"عندك 3 صناديق، كل صندوق فيه 12 علبة، واستخدمت 10 علب. كم علبة باقية؟",
-      en:"You have 3 boxes with 12 cans each, and you used 10 cans. How many cans are left?",
-      hi:"आपके पास 3 डिब्बे हैं, हर डिब्बे में 12 कैन हैं, और आपने 10 कैन इस्तेमाल किए। कितने कैन बचे?",
-      bn:"আপনার কাছে ৩টি বাক্স আছে, প্রতিটিতে ১২টি ক্যান, আপনি ১০টি ব্যবহার করেছেন। কতটি ক্যান বাকি?"
-    },
+    cat: { ar:"تاريخ الاستخدام", en:"Date marking", hi:"तारीख अंकन", bn:"তারিখ চিহ্নিতকরণ", id:"Penandaan tanggal" },
+    q: { ar:"حُضّر سلطة جاهزة للأكل يوم الاثنين، ومدة استخدامها بعد التحضير 3 أيام. ما آخر يوم يجوز استخدامها فيه؟", en:"A ready-to-eat salad is prepared on Monday and is safe for 3 days after preparation. What is the last day to use it?", hi:"सोमवार को एक तैयार सलाद बनाया गया, जो बनाने के बाद 3 दिन तक सुरक्षित है। इसे इस्तेमाल करने का आखिरी दिन कौन सा है?", bn:"সোমবার একটি রেডি-টু-ইট সালাদ তৈরি হয়েছে, যা তৈরির পর ৩ দিন নিরাপদ। ব্যবহারের শেষ দিন কোনটি?", id:"Salad siap saji dibuat hari Senin dan aman dipakai 3 hari setelah dibuat. Hari terakhir penggunaannya?" },
     o: {
-      ar:["24 علبة","26 علبة","30 علبة","36 علبة"], en:["24 cans","26 cans","30 cans","36 cans"],
-      hi:["24 कैन","26 कैन","30 कैन","36 कैन"], bn:["২৪টি","২৬টি","৩০টি","৩৬টি"]
+      ar:["الخميس","الأربعاء","الجمعة","الثلاثاء"],
+      en:["Thursday","Wednesday","Friday","Tuesday"],
+      hi:["गुरुवार","बुधवार","शुक्रवार","मंगलवार"],
+      bn:["বৃহস্পতিবার","বুধবার","শুক্রবার","মঙ্গলবার"],
+      id:["Kamis","Rabu","Jumat","Selasa"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"غسل اليدين", en:"Glove use", hi:"दस्ताने का उपयोग", bn:"গ্লাভস ব্যবহার", id:"Penggunaan sarung tangan" },
+    q: { ar:"عامل يرتدي قفازات أثناء تحضير الطعام، ثم لمس هاتفه. ما الإجراء الصحيح؟", en:"A worker wearing gloves while preparing food touches his phone. What should he do?", hi:"खाना बनाते समय दस्ताने पहने एक कर्मचारी ने अपना फोन छू लिया। उसे क्या करना चाहिए?", bn:"খাবার তৈরির সময় গ্লাভস পরা একজন কর্মী ফোন ধরেছেন। তার কী করা উচিত?", id:"Pekerja yang memakai sarung tangan saat menyiapkan makanan menyentuh ponselnya. Apa yang harus dilakukan?" },
+    o: {
+      ar:["يخلع القفازات ويغسل يديه ثم يرتدي قفازات جديدة قبل المناولة","يمسح الهاتف بالقفاز ويكمل","يبقي القفازات ويلمس الطعام بعد ذلك","يعقم الهاتف فقط"],
+      en:["Remove gloves, wash hands, and put on new gloves before handling food","Wipe the phone with the glove and continue","Keep the gloves on and touch food afterwards","Only sanitize the phone"],
+      hi:["दस्ताने उतारे, हाथ धोए और खाना छूने से पहले नए दस्ताने पहने","दस्ताने से फोन पोंछकर काम जारी रखे","दस्ताने पहने रहे और बाद में खाना छुए","केवल फोन को सैनिटाइज़ करे"],
+      bn:["গ্লাভস খুলে হাত ধুয়ে খাবার ধরার আগে নতুন গ্লাভস পরবেন","গ্লাভস দিয়ে ফোন মুছে কাজ চালিয়ে যাবেন","গ্লাভস পরে থেকে পরে খাবার ছোঁবেন","শুধু ফোন স্যানিটাইজ করবেন"],
+      id:["Lepas sarung tangan, cuci tangan, lalu pakai sarung tangan baru sebelum menangani makanan","Lap ponsel dengan sarung tangan lalu lanjut","Tetap pakai sarung tangan lalu sentuh makanan","Cukup sanitasi ponsel"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الثلج", en:"Ice handling", hi:"बर्फ संभालना", bn:"বরফ পরিচালনা", id:"Penanganan es" },
+    q: { ar:"تُترك مغرفة الثلج داخل صندوق الثلج. ما المشكلة؟", en:"A scoop is left sitting inside the ice bin. What is the problem?", hi:"बर्फ के डिब्बे में स्कूप छोड़ा गया है। समस्या क्या है?", bn:"বরফের পাত্রের ভেতর একটি স্কুপ রাখা আছে। সমস্যা কী?", id:"Sendok es dibiarkan di dalam wadah es. Apa masalahnya?" },
+    o: {
+      ar:["قد تتلوث المغرفة، ويجب استخدام مغرفة نظيفة تُحفظ خارج الثلج بمقبض للأعلى","لا توجد مشكلة لأن الثلج بارد","الثلج يذوب بسرعة أكبر","المغرفة تقلل من حجم القطع"],
+      en:["The scoop can become contaminated; use a clean scoop stored in a holder with the handle up","There is no problem because ice is cold","Ice melts faster","The scoop reduces the size of the pieces"],
+      hi:["स्कूप दूषित हो सकता है; साफ स्कूप का उपयोग करें जो हैंडल ऊपर रखकर होल्डर में रखा हो","बर्फ ठंडी होती है, इसलिए कोई समस्या नहीं","बर्फ जल्दी पिघलती है","स्कूप से टुकड़े छोटे हो जाते हैं"],
+      bn:["স্কুপ দূষিত হতে পারে; হাতল উপরে রেখে হোল্ডারে রাখা পরিষ্কার স্কুপ ব্যবহার করুন","বরফ ঠান্ডা থাকে তাই কোনো সমস্যা নেই","বরফ দ্রুত গলে যায়","স্কুপে বরফের টুকরো ছোট হয়"],
+      id:["Sendok bisa terkontaminasi; gunakan sendok bersih yang disimpan di tempatnya dengan gagang ke atas","Tidak ada masalah karena es dingin","Es mencair lebih cepat","Sendok membuat potongan es lebih kecil"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الأسماك", en:"Fish", hi:"मछली", bn:"মাছ", id:"Ikan" },
+    q: { ar:"التسمم الهستامني من الأسماك (مثل التونة والماكريل) يرتبط بأي خطأ في التخزين؟", en:"Scombroid (histamine) poisoning from fish like tuna is linked to which storage error?", hi:"ट्यूना और मैकरेल जैसी मछलियों से होने वाला हिस्टामीन विषाक्तता किस भंडारण गलती से जुड़ा है?", bn:"টুনা ও ম্যাকারেলের মতো মাছ থেকে হিস্টামিন বিষক্রিয়া কোন সংরক্ষণ ত্রুটির সঙ্গে সম্পর্কিত?", id:"Keracunan histamin (scombroid) dari ikan seperti tuna terkait kesalahan penyimpanan apa?" },
+    o: {
+      ar:["عدم تبريد السمك بالسرعة الكافية بعد الصيد","تخزين السمك في مكان جاف","تمليح السمك","تجميد السمك فوراً"],
+      en:["Fish not cooled quickly enough after being caught","Storing fish in a dry place","Salting the fish","Freezing the fish immediately"],
+      hi:["पकड़े जाने के बाद मछली को पर्याप्त जल्दी ठंडा न करना","मछली को सूखी जगह पर रखना","मछली को नमक लगाना","मछली को तुरंत जमाना"],
+      bn:["ধরার পর মাছ যথেষ্ট দ্রুত ঠান্ডা না করা","মাছ শুকনো জায়গায় রাখা","মাছে লবণ দেওয়া","মাছ তৎক্ষণাৎ জমানো"],
+      id:["Ikan tidak didinginkan cukup cepat setelah ditangkap","Menyimpan ikan di tempat kering","Mengasinkan ikan","Membekukan ikan segera"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الحرارة المرتفعة", en:"Dishwashing", hi:"बर्तन धोना", bn:"থালা-বাসন ধোয়া", id:"Mencuci peralatan" },
+    q: { ar:"ما الحرارة الدنيا لمياه الشطف الأخير في غسالة الأطباق الصناعية لتعقيم الأواني؟", en:"What is the minimum final-rinse temperature in a commercial dishwasher for sanitizing dishes with heat?", hi:"हीट से बर्तन सैनिटाइज़ करने के लिए व्यावसायिक डिशवॉशर में अंतिम रिंस का न्यूनतम तापमान क्या है?", bn:"তাপ দিয়ে থালা জীবাণুমুক্ত করতে বাণিজ্যিক ডিশওয়াশারের চূড়ান্ত ধোয়ার পানির ন্যূনতম তাপমাত্রা কত?", id:"Berapa suhu bilas akhir minimum pada mesin cuci piring komersial untuk sanitasi dengan panas?" },
+    o: {
+      ar:["أعلى من 82 درجة مئوية","أعلى من 40 درجة مئوية","أعلى من 25 درجة مئوية","لا تؤثر الحرارة"],
+      en:["Above 82°C","Above 40°C","Above 25°C","Temperature does not matter"],
+      hi:["82°C से अधिक","40°C से अधिक","25°C से अधिक","तापमान मायने नहीं रखता"],
+      bn:["৮২°C-এর বেশি","৪০°C-এর বেশি","২৫°C-এর বেশি","তাপমাত্রা গুরুত্বপূর্ণ নয়"],
+      id:["Di atas 82°C","Di atas 40°C","Di atas 25°C","Suhu tidak penting"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"ترتيب التحضير", en:"Prep order", hi:"तैयारी का क्रम", bn:"প্রস্তুতির ক্রম", id:"Urutan persiapan" },
+    q: { ar:"ما الترتيب الصحيح لتحضير الطعام في بداية الوردية لتجنب التلوث المتبادل؟", en:"What is the correct order at the start of a shift to avoid cross-contamination?", hi:"क्रॉस-संदूषण से बचने के लिए शिफ्ट की शुरुआत में तैयारी का सही क्रम क्या है?", bn:"ক্রস-দূষণ এড়াতে শিফটের শুরুতে প্রস্তুতির সঠিক ক্রম কী?", id:"Apa urutan yang benar di awal shift untuk menghindari kontaminasi silang?" },
+    o: {
+      ar:["الجاهز للأكل قبل النيء، والخالي من المسببات قبل الذي يحتويها","النيء قبل الجاهز، ثم الذي يحتوي على المسببات","الترتيب لا يهم إذا تم التنظيف بين كل مهمة","الأطعمة الكبيرة أولاً ثم الصغيرة"],
+      en:["Ready-to-eat before raw, and allergen-free before foods containing allergens","Raw before ready-to-eat, then foods with allergens","Order does not matter if you clean between tasks","Large items first, then small ones"],
+      hi:["कच्चे से पहले तैयार खाना, और एलर्जन वाले खाने से पहले बिना एलर्जन वाला खाना","तैयार से पहले कच्चा, फिर एलर्जन वाला खाना","सफाई होती रहे तो क्रम मायने नहीं रखता","बड़ी चीजें पहले, फिर छोटी"],
+      bn:["কাঁচার আগে রেডি-টু-ইট, এবং অ্যালার্জেনযুক্ত খাবারের আগে অ্যালার্জেনমুক্ত খাবার","রেডি-টু-ইটের আগে কাঁচা, তারপর অ্যালার্জেনযুক্ত খাবার","কাজের মাঝে পরিষ্কার করলে ক্রম গুরুত্বপূর্ণ নয়","বড় জিনিস আগে, ছোটগুলো পরে"],
+      id:["Siap saji sebelum mentah, dan bebas alergen sebelum makanan yang mengandung alergen","Mentah sebelum siap saji, lalu makanan beralergen","Urutan tidak penting jika dibersihkan di antara tugas","Barang besar dulu, baru yang kecil"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الصحة الشخصية", en:"Hand hygiene", hi:"हाथ की स्वच्छता", bn:"হাতের পরিচ্ছন্নতা", id:"Kebersihan tangan" },
+    q: { ar:"ما الترتيب الصحيح لخطوات غسل اليدين بشكل فعال؟", en:"What is the correct sequence for effective handwashing?", hi:"प्रभावी हाथ धोने के सही चरण कौन से हैं?", bn:"কার্যকর হাত ধোয়ার সঠিক ধাপ কোনটি?", id:"Urutan yang benar untuk mencuci tangan secara efektif?" },
+    o: {
+      ar:["بلل اليدين، ثم الصابون، والفرك 20 ثانية على الأقل، ثم الشطف والتجفيف","الصابون أولاً، ثم الشطف مباشرة دون فرك","الماء البارد فقط لمدة 5 ثوانٍ","تبليل اليدين ثم التجفيف بالمنشفة نفسها"],
+      en:["Wet hands, apply soap, scrub for at least 20 seconds, rinse, and dry","Apply soap first, then rinse immediately without scrubbing","Cold water only for 5 seconds","Wet hands and dry them on the same towel used before"],
+      hi:["हाथ गीले करें, साबुन लगाएं, कम से कम 20 सेकंड रगड़ें, धोएं और सुखाएं","पहले साबुन लगाएं, फिर बिना रगड़े तुरंत धो लें","केवल 5 सेकंड ठंडे पानी से","हाथ गीले करें और पहले वाले तौलिये से सुखाएं"],
+      bn:["হাত ভিজিয়ে সাবান লাগান, কমপক্ষে ২০ সেকেন্ড ঘষুন, ধুয়ে শুকান","আগে সাবান, তারপর না ঘষে সঙ্গে সঙ্গে ধোয়া","শুধু ৫ সেকেন্ড ঠান্ডা পানিতে","হাত ভিজিয়ে আগের তোয়ালেতেই শুকানো"],
+      id:["Basahi tangan, sabuni, gosok minimal 20 detik, bilas, lalu keringkan","Sabun dulu, lalu bilas langsung tanpa menggosok","Hanya air dingin selama 5 detik","Basahi tangan lalu keringkan dengan handuk yang sama"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"السيطرة على الآفات", en:"Pest control", hi:"कीट नियंत्रण", bn:"কীটপতঙ্গ নিয়ন্ত্রণ", id:"Pengendalian hama" },
+    q: { ar:"تكررت مشكلة الحشرات في المخزن كل أسبوع. ما الحل الأفضل على المدى الطويل؟", en:"Insects keep appearing in the storeroom every week. What is the best long-term solution?", hi:"भंडारण कक्ष में हर सप्ताह कीड़े दिखते हैं। लंबे समय के लिए सबसे अच्छा हल क्या है?", bn:"স্টোররুমে প্রতি সপ্তাহে পোকা দেখা যাচ্ছে। দীর্ঘমেয়াদি সবচেয়ে ভালো সমাধান কী?", id:"Serangga terus muncul di gudang setiap minggu. Solusi jangka panjang terbaik?" },
+    o: {
+      ar:["تحديد مصدر الدخول وسد الثغرات والمراقبة الدورية","رش المبيد يومياً دون أي فحص آخر","نقل الطعام إلى مكان آخر فقط","تجاهلها لأنها تختفي أحياناً"],
+      en:["Find the entry point, seal gaps, and monitor regularly","Spray pesticide daily with no other checks","Only move the food to another place","Ignore it because it sometimes disappears"],
+      hi:["प्रवेश का स्रोत खोजें, दरारें बंद करें और नियमित निगरानी करें","हर दिन कीटनाशक छिड़कें और कोई और जांच न करें","केवल खाना दूसरी जगह रखें","अनदेखा करें क्योंकि कभी-कभी वे गायब हो जाते हैं"],
+      bn:["প্রবেশের পথ খুঁজে বের করুন, ফাঁক বন্ধ করুন এবং নিয়মিত পর্যবেক্ষণ করুন","প্রতিদিন কীটনাশক ছড়ান, অন্য কোনো পরীক্ষা ছাড়া","শুধু খাবার অন্য জায়গায় সরানো","উপেক্ষা করা কারণ মাঝে মাঝে তারা চলে যায়"],
+      id:["Cari sumber masuk, tutup celah, dan pantau secara rutin","Semprot pestisida setiap hari tanpa pemeriksaan lain","Hanya memindahkan makanan ke tempat lain","Abaikan karena kadang hilang sendiri"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تعقيم الأسطح", en:"Sanitizing", hi:"सैनिटाइज़िंग", bn:"জীবাণুমুক্তকরণ", id:"Sanitasi" },
+    q: { ar:"يُستخدم مطهر كيميائي على سطح تحضير. ما الذي يحدد فعاليته؟", en:"A chemical sanitizer is used on a prep surface. What determines whether it works?", hi:"प्रेप सतह पर रासायनिक सैनिटाइज़र लगाया गया है। इसकी प्रभावशीलता किस पर निर्भर है?", bn:"একটি প্রস্তুতির পৃষ্ঠে রাসায়নিক স্যানিটাইজার ব্যবহার করা হয়েছে। এটি কাজ করবে কি না তা কিসের উপর নির্ভর করে?", id:"Sanitizer kimia digunakan pada permukaan persiapan. Apa yang menentukan keefektifannya?" },
+    o: {
+      ar:["مدة التلامس المحددة على الملصق وتركيز المحلول الصحيح","قوة الرائحة فقط","لون المطهر فقط","تطبيقه بالماء البارد دائماً"],
+      en:["The contact time on the label and the correct solution strength","Only how strong the smell is","Only the colour of the sanitizer","Always applying it with cold water"],
+      hi:["लेबल पर लिखा संपर्क समय और सही घोल की सांद्रता","केवल गंध कितनी तेज है","केवल सैनिटाइज़र का रंग","हमेशा ठंडे पानी के साथ लगाना"],
+      bn:["লেবেলে লেখা সংস্পর্শের সময় ও সঠিক দ্রবণের ঘনত্ব","শুধু গন্ধ কতটা তীব্র","শুধু স্যানিটাইজারের রং","সবসময় ঠান্ডা পানি দিয়ে ব্যবহার"],
+      id:["Waktu kontak pada label dan kekuatan larutan yang tepat","Hanya seberapa kuat baunya","Hanya warna sanitizer","Selalu dipakai dengan air dingin"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"التبريد", en:"Refrigeration", hi:"प्रशीतन", bn:"রেফ্রিজারেশন", id:"Pendinginan" },
+    q: { ar:"سجلات الثلاجة تُظهر 7 درجات مئوية لثلاثة أيام متتالية. ما الرد الصحيح؟", en:"Fridge logs show 7°C for three days in a row. What is the correct response?", hi:"फ्रिज के रिकॉर्ड में लगातार तीन दिनों तक 7°C दिख रहा है। सही प्रतिक्रिया क्या है?", bn:"ফ্রিজের রেকর্ডে টানা তিন দিন ৭°C দেখাচ্ছে। সঠিক প্রতিক্রিয়া কী?", id:"Catatan kulkas menunjukkan 7°C tiga hari berturut-turut. Respons yang benar?" },
+    o: {
+      ar:["الإبلاغ وفحص الإغلاق والإعدادات ونقل الأطعمة عالية الخطورة إن لزم","تجاهلها لأنها قريبة من 5 درجات","كتابة 5 في السجل","إطفاء الثلاجة"],
+      en:["Report it, check door seals and settings, and move high-risk food if needed","Ignore it because it is close to 5°C","Write 5 in the log","Turn off the fridge"],
+      hi:["रिपोर्ट करें, दरवाज़े की सील और सेटिंग जांचें, और ज़रूरत हो तो उच्च जोखिम वाला खाना हटाएं","5°C के करीब है इसलिए अनदेखा करें","रिकॉर्ड में 5 लिख दें","फ्रिज बंद कर दें"],
+      bn:["রিপোর্ট করুন, দরজার সিল ও সেটিং দেখুন, এবং প্রয়োজনে ঝুঁকিপূর্ণ খাবার সরান","৫°C-এর কাছাকাছি তাই উপেক্ষা করুন","রেকর্ডে ৫ লিখে দিন","ফ্রিজ বন্ধ করে দিন"],
+      id:["Laporkan, periksa segel pintu dan pengaturan, dan pindahkan makanan berisiko tinggi jika perlu","Abaikan karena dekat 5°C","Tulis 5 di catatan","Matikan kulkas"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"زيت القلي", en:"Frying oil", hi:"तलने का तेल", bn:"ভাজার তেল", id:"Minyak goreng" },
+    q: { ar:"زيت القلي أصبح داكناً ورغوياً ويدخن عند حرارة منخفضة. ما الإجراء الصحيح؟", en:"Frying oil has turned dark and foamy and smokes at low heat. What should you do?", hi:"तलने का तेल गहरा और झागदार हो गया है और कम गर्मी पर धुआं दे रहा है। क्या करें?", bn:"ভাজার তেল কালচে ও ফেনাযুক্ত হয়ে গেছে এবং কম তাপে ধোঁয়া দিচ্ছে। কী করা উচিত?", id:"Minyak goreng menjadi gelap, berbusa, dan berasap pada suhu rendah. Apa yang harus dilakukan?" },
+    o: {
+      ar:["استبداله لأنه متحلل وغير آمن للاستخدام","إضافة زيت طازج فوقه والاستمرار","ترشيحه مرة واحدة والاستمرار","استعماله لفترة أطول لأنه أكثر نكهة"],
+      en:["Replace it; it is degraded and unsafe to use","Add fresh oil on top and continue","Filter it once and continue","Use it longer because it has more flavour"],
+      hi:["बदल दें; यह खराब हो चुका है और इस्तेमाल के लिए असुरक्षित है","ऊपर ताजा तेल डालकर जारी रखें","एक बार छानकर जारी रखें","ज्यादा स्वाद के लिए इसे और लंबे समय तक इस्तेमाल करें"],
+      bn:["বদলে ফেলুন; এটি নষ্ট হয়ে গেছে এবং ব্যবহারের জন্য অনিরাপদ","উপরে তাজা তেল মিশিয়ে চালিয়ে যান","একবার ছেঁকে চালিয়ে যান","বেশি স্বাদের জন্য আরও বেশি সময় ব্যবহার করুন"],
+      id:["Ganti; minyak sudah rusak dan tidak aman dipakai","Tambahkan minyak segar di atasnya lalu lanjut","Saring sekali lalu lanjut","Pakai lebih lama karena rasanya lebih kuat"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الملصقات", en:"Labelling", hi:"लेबलिंग", bn:"লেবেলিং", id:"Pelabelan" },
+    q: { ar:"تم نقل صلصة إلى حاوية بدون ملصق. ما الإجراء الصحيح؟", en:"A sauce was transferred to a container without a label. What is the correct action?", hi:"एक सॉस बिना लेबल के कंटेनर में डाला गया। सही कदम क्या है?", bn:"একটি সস লেবেলবিহীন পাত্রে স্থানান্তর করা হয়েছে। সঠিক পদক্ষেপ কী?", id:"Saus dipindahkan ke wadah tanpa label. Tindakan yang benar?" },
+    o: {
+      ar:["تُلصق عليها البيانات (المحتوى والتاريخ وتاريخ الانتهاء) قبل الاستخدام أو التخزين","تُترك دون ملصق لأنك تعرف محتواها","تُلصق بعد استخدامها","يكتب اسمها فقط"],
+      en:["Label it with contents, date, and use-by date before using or storing","Keep it unlabelled since you know what it is","Label it after it is used","Only write its name"],
+      hi:["उपयोग या भंडारण से पहले सामग्री, तारीख और उपयोग-अवधि के साथ लेबल लगाएं","बिना लेबल रखें क्योंकि आप जानते हैं कि यह क्या है","इस्तेमाल के बाद लेबल लगाएं","केवल नाम लिखें"],
+      bn:["ব্যবহার বা সংরক্ষণের আগে উপাদান, তারিখ ও মেয়াদের তারিখসহ লেবেল লাগান","লেবেল ছাড়া রাখুন কারণ আপনি জানেন এটি কী","ব্যবহারের পরে লেবেল লাগান","শুধু নাম লিখুন"],
+      id:["Beri label isi, tanggal, dan batas pakai sebelum dipakai atau disimpan","Biarkan tanpa label karena Anda tahu isinya","Beri label setelah dipakai","Cukup tulis namanya saja"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"المخاطر الغذائية", en:"Food hazards", hi:"खाद्य खतरे", bn:"খাদ্য ঝুঁকি", id:"Bahaya pangan" },
+    q: { ar:"أي مما يلي يُعد خطراً بيولوجياً في الغذاء؟", en:"Which of these is a biological food hazard?", hi:"इनमें से कौन सा जैविक खाद्य खतरा है?", bn:"এর মধ্যে কোনটি জৈবিক খাদ্য ঝুঁকি?", id:"Manakah yang merupakan bahaya biologis pada pangan?" },
+    o: {
+      ar:["السالمونيلا","الرصاص من الأنابيب","شظايا الزجاج","برادة المعادن"],
+      en:["Salmonella","Lead from pipes","Glass fragments","Metal shavings"],
+      hi:["साल्मोनेला","पाइपों से सीसा","कांच के टुकड़े","धातु का बुरादा"],
+      bn:["স্যালমোনেলা","পাইপ থেকে সীসা","কাঁচের টুকরো","ধাতব গুঁড়ো"],
+      id:["Salmonella","Timbal dari pipa","Pecahan kaca","Serpihan logam"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الانسكاب الكيميائي", en:"Chemical spill", hi:"रासायनिक रिसाव", bn:"রাসায়নিক ছড়িয়ে পড়া", id:"Tumpahan bahan kimia" },
+    q: { ar:"حدث تسرب كيميائي بالقرب من منطقة تحضير الطعام. ما أول خطوة؟", en:"A chemical spill occurs near a food prep area. What is the first step?", hi:"खाना तैयार करने की जगह के पास रासायनिक रिसाव हुआ है। पहला कदम क्या है?", bn:"খাবার প্রস্তুতির জায়গার কাছে রাসায়নিক ছড়িয়েছে। প্রথম ধাপ কী?", id:"Tumpahan bahan kimia terjadi di dekat area persiapan makanan. Langkah pertama?" },
+    o: {
+      ar:["إيقاف العمل في المنطقة ونقل الطعام بعيداً واتباع إجراء التسرب","مسحه بمنشفة ثم المتابعة","تغطيته بقماش الطعام","الاتصال بالزبون"],
+      en:["Stop work in the area, move food away, and follow the spill procedure","Wipe it up with a towel and continue","Cover it with a food cloth","Call the customer"],
+      hi:["क्षेत्र में काम रोकें, खाना दूर हटाएं और रिसाव की प्रक्रिया अपनाएं","तौलिये से पोंछकर काम जारी रखें","खाने वाले कपड़े से ढक दें","ग्राहक को फोन करें"],
+      bn:["এলাকায় কাজ বন্ধ করুন, খাবার সরান এবং ছড়ানোর প্রক্রিয়া অনুসরণ করুন","তোয়ালে দিয়ে মুছে কাজ চালিয়ে যান","খাবারের কাপড় দিয়ে ঢেকে দিন","গ্রাহককে ফোন করুন"],
+      id:["Hentikan pekerjaan di area itu, jauhkan makanan, dan ikuti prosedur tumpahan","Lap dengan handuk lalu lanjut","Tutup dengan kain makanan","Telepon pelanggan"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"إعادة التسخين", en:"Reheating", hi:"दोबारा गर्म करना", bn:"পুনরায় গরম করা", id:"Pemanasan ulang" },
+    q: { ar:"سيتم إعادة تسخين شوربة متبقية لتقديمها. ما الحد الأدنى للحرارة الداخلية؟", en:"Leftover soup will be reheated for service. What is the minimum internal temperature?", hi:"बचे हुए सूप को परोसने के लिए दोबारा गर्म किया जाएगा। न्यूनतम आंतरिक तापमान क्या है?", bn:"বাকি স্যুপ পরিবেশনের জন্য আবার গরম করা হবে। ন্যূনতম অভ্যন্তরীণ তাপমাত্রা কত?", id:"Sup sisa akan dipanaskan ulang untuk disajikan. Berapa suhu inti minimumnya?" },
+    o: {
+      ar:["75 درجة مئوية في كامل الطعام","50 درجة مئوية","40 درجة مئوية","دافئ يكفي"],
+      en:["75°C throughout","50°C","40°C","Warm is enough"],
+      hi:["पूरे खाने में 75°C","50°C","40°C","गुनगुना काफी है"],
+      bn:["পুরো খাবারে ৭৫°C","৫০°C","৪০°C","কুসুম গরম হলেই যথেষ্ট"],
+      id:["75°C di seluruh bagian","50°C","40°C","Hangat saja sudah cukup"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الفاكهة والخضار", en:"Produce", hi:"फल-सब्जियां", bn:"ফলমূল ও শাকসবজি", id:"Buah dan sayur" },
+    q: { ar:"ما الطريقة الصحيحة لغسل الخضار الورقية قبل تقطيعها؟", en:"What is the correct way to wash leafy vegetables before cutting?", hi:"कटाई से पहले पत्तेदार सब्जियों को धोने का सही तरीका क्या है?", bn:"কাটার আগে পাতাযুক্ত সবজি ধোয়ার সঠিক উপায় কী?", id:"Cara yang benar mencuci sayuran berdaun sebelum dipotong?" },
+    o: {
+      ar:["غسلها بماء جارٍ ثم نزع الأوراق المتضررة وتجفيفها","غمرها في ماء راكد لفترة طويلة","تنظيفها بالصابون فقط","غسلها بعد التقطيع مباشرة"],
+      en:["Rinse under running water, remove damaged leaves, and dry them","Soak them in still water for a long time","Clean them with soap only","Wash them after cutting"],
+      hi:["बहते पानी से धोएं, खराब पत्ते हटाएं और सुखाएं","लंबे समय तक रुके पानी में भिगोएं","केवल साबुन से साफ करें","काटने के बाद धोएं"],
+      bn:["চলমান পানিতে ধুয়ে, নষ্ট পাতা সরিয়ে শুকান","অনেকক্ষণ স্থির পানিতে ভিজিয়ে রাখুন","শুধু সাবান দিয়ে পরিষ্কার করুন","কাটার পরে ধুয়ে নিন"],
+      id:["Bilas di air mengalir, buang daun rusak, dan keringkan","Rendam lama di air diam","Bersihkan dengan sabun saja","Cuci setelah dipotong"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"المحفوظات المفتوحة", en:"Opened cans", hi:"खुले डिब्बे", bn:"খোলা টিন", id:"Kaleng terbuka" },
+    q: { ar:"فتحت علبة طماطم مقشرة ولم تُستخدم كلها. كيف تُحفظ الباقي؟", en:"A can of tomatoes is opened but not fully used. How should the rest be stored?", hi:"टमाटर का डिब्बा खोला गया पर पूरा इस्तेमाल नहीं हुआ। बचा हुआ कैसे रखें?", bn:"টমেটোর একটি টিন খোলা হয়েছে কিন্তু পুরোটা ব্যবহার হয়নি। বাকিটা কীভাবে রাখবেন?", id:"Sekaleng tomat dibuka tapi tidak habis. Bagaimana menyimpan sisanya?" },
+    o: {
+      ar:["نقله إلى وعاء مغطى غير معدني وتبريده","تركه في العلبة المفتوحة على حرارة الغرفة","ترك الغطاء مفتوحاً على حرارة الغرفة لمدة يومين","تجميده داخل العلبة"],
+      en:["Transfer to a covered non-metal container and refrigerate","Leave it in the opened can at room temperature","Leave the lid loose at room temperature for two days","Freeze it inside the can"],
+      hi:["ढके हुए गैर-धातु बर्तन में डालकर फ्रिज में रखें","खुले डिब्बे में कमरे के तापमान पर छोड़ दें","ढक्कन ढीला रखकर कमरे के तापमान पर दो दिन छोड़ें","डिब्बे के अंदर जमा दें"],
+      bn:["ঢাকনাযুক্ত অধাতব পাত্রে স্থানান্তর করে ফ্রিজে রাখুন","খোলা টিনে ঘরের তাপমাত্রায় রেখে দিন","ঢাকনা আলগা রেখে দুই দিন ঘরের তাপমাত্রায় রাখুন","টিনের ভেতরেই জমিয়ে দিন"],
+      id:["Pindahkan ke wadah tertutup non-logam lalu simpan di kulkas","Biarkan di kaleng terbuka pada suhu ruang","Biarkan tutup longgar pada suhu ruang selama dua hari","Bekukan di dalam kaleng"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الحساسية والتلوث", en:"Allergen control", hi:"एलर्जन नियंत्रण", bn:"অ্যালার্জেন নিয়ন্ত্রণ", id:"Pengendalian alergen" },
+    q: { ar:"ما الذي يُعد تلوثاً للمسبب للحساسية (Allergen) في المطبخ؟", en:"What counts as allergen cross-contact in a kitchen?", hi:"रसोई में एलर्जन क्रॉस-संपर्क किसे माना जाता है?", bn:"রান্নাঘরে অ্যালার্জেন ক্রস-সংস্পর্শ কী হিসেবে গণ্য হয়?", id:"Apa yang dianggap kontak silang alergen di dapur?" },
+    o: {
+      ar:["انتقال المسبب من طعام أو أداة أو سطح إلى طعام آخر لا يحتويه","استخدام الملح في الطبخ","تقديم الطعام بدرجة حرارة عالية","غسل الأطباق بالماء الساخن"],
+      en:["Transfer of an allergen from one food, tool, or surface to another food that does not contain it","Using salt in cooking","Serving food at a high temperature","Washing dishes in hot water"],
+      hi:["एक खाने, बर्तन या सतह से एलर्जन का दूसरे ऐसे खाने में जाना जिसमें वह नहीं है","खाना पकाने में नमक डालना","खाना ऊंचे तापमान पर परोसना","गर्म पानी से बर्तन धोना"],
+      bn:["একটি খাবার, সরঞ্জাম বা পৃষ্ঠ থেকে অ্যালার্জেন এমন অন্য খাবারে যাওয়া যাতে তা নেই","রান্নায় লবণ ব্যবহার","উচ্চ তাপমাত্রায় খাবার পরিবেশন","গরম পানিতে থালা ধোয়া"],
+      id:["Perpindahan alergen dari satu makanan, alat, atau permukaan ke makanan lain yang tidak mengandungnya","Menggunakan garam dalam memasak","Menyajikan makanan dengan suhu tinggi","Mencuci piring dengan air panas"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"جودة الأسماك", en:"Shellfish", hi:"शेलफिश", bn:"শেলফিশ", id:"Kerang-kerangan" },
+    q: { ar:"محار حي لا ينغلق عند النقر عليه. ماذا يُفعل به؟", en:"A live shellfish does not close when tapped. What should be done with it?", hi:"एक जीवित शेलफिश थपथपाने पर बंद नहीं होती। उसके साथ क्या करें?", bn:"একটি জীবন্ত শেলফিশ টোকা দিলে বন্ধ হয় না। এর সঙ্গে কী করা উচিত?", id:"Kerang hidup yang tidak menutup saat diketuk. Apa yang harus dilakukan?" },
+    o: {
+      ar:["يُتخلص منه","يُطهى لفترة أطول ويُقدم","يُحفظ في الثلاجة طوال الليل","يُقدم نيئاً"],
+      en:["Discard it","Cook it longer and serve it","Refrigerate it overnight","Serve it raw"],
+      hi:["फेंक दें","लंबे समय तक पकाकर परोसें","रात भर फ्रिज में रखें","कच्चा परोसें"],
+      bn:["ফেলে দিন","বেশি সময় রান্না করে পরিবেশন করুন","রাতভর ফ্রিজে রাখুন","কাঁচা পরিবেশন করুন"],
+      id:["Buang","Masak lebih lama lalu sajikan","Simpan di kulkas semalaman","Sajikan mentah"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تنظيف الأدوات", en:"Equipment cleaning", hi:"उपकरण सफाई", bn:"সরঞ্জাম পরিষ্কার", id:"Pembersihan peralatan" },
+    q: { ar:"بعد تقطيع الدجاج النيء، ما الذي يجب فعله بالسكين ولوح التقطيع قبل استخدامهما لخضار جاهزة للأكل؟", en:"After cutting raw chicken, what must be done to the knife and board before using them for ready-to-eat vegetables?", hi:"कच्चे चिकन को काटने के बाद, तैयार सब्ज़ियों के लिए चाकू और बोर्ड का उपयोग करने से पहले क्या करना चाहिए?", bn:"কাঁচা মুরগি কাটার পর রেডি-টু-ইট সবজির জন্য ছুরি ও কাটার বোর্ড ব্যবহারের আগে কী করতে হবে?", id:"Setelah memotong ayam mentah, apa yang harus dilakukan pada pisau dan talenan sebelum dipakai untuk sayur siap saji?" },
+    o: {
+      ar:["تنظيفهما وتعقيمهما قبل الاستخدام","مسحهما بمنشفة فقط","استخدامهما مباشرة","شطفهما بالماء البارد"],
+      en:["Wash and sanitize them before use","Wipe them with a towel only","Use them straight away","Rinse them with cold water"],
+      hi:["इस्तेमाल से पहले धोकर सैनिटाइज़ करें","केवल तौलिये से पोंछें","सीधे इस्तेमाल करें","ठंडे पानी से धो लें"],
+      bn:["ব্যবহারের আগে ধুয়ে জীবাণুমুক্ত করুন","শুধু তোয়ালে দিয়ে মুছুন","সরাসরি ব্যবহার করুন","ঠান্ডা পানিতে ধুয়ে নিন"],
+      id:["Cuci dan sanitasi sebelum dipakai","Lap dengan handuk saja","Langsung dipakai","Bilas dengan air dingin"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"وعي الاستعداد للطوارئ", en:"Incident response", hi:"घटना प्रतिक्रिया", bn:"ঘটনায় প্রতিক্রিয়া", id:"Respons insiden" },
+    q: { ar:"ينتبه موظف إلى قطعة بلاستيك صغيرة في وعاء من الصلصة المحضرة. ما الخطوة الأولى؟", en:"A worker notices a small piece of plastic in a batch of prepared sauce. What is the first step?", hi:"एक कर्मचारी को तैयार सॉस के एक बैच में प्लास्टिक का छोटा टुकड़ा दिखता है। पहला कदम क्या है?", bn:"একজন কর্মী তৈরি সসের একটি ব্যাচে ছোট একটি প্লাস্টিকের টুকরো দেখেন। প্রথম ধাপ কী?", id:"Seorang pekerja melihat potongan plastik kecil dalam satu batch saus. Langkah pertama?" },
+    o: {
+      ar:["إيقاف استخدام الدفعة وعزلها وإبلاغ المشرف","إخراج القطعة وتقديم الصلصة","تجاهلها لأنها صغيرة","إضافة المزيد من الصلصة لتخفيفها"],
+      en:["Stop using the batch, isolate it, and inform the supervisor","Remove the piece and serve the sauce","Ignore it because it is small","Add more sauce to dilute it"],
+      hi:["बैच का इस्तेमाल रोकें, उसे अलग करें और सुपरवाइजर को सूचित करें","टुकड़ा निकालकर सॉस परोसें","छोटा है इसलिए अनदेखा करें","उसे पतला करने के लिए और सॉस डालें"],
+      bn:["ব্যাচটি ব্যবহার বন্ধ করুন, আলাদা করুন এবং সুপারভাইজারকে জানান","টুকরোটি সরিয়ে সস পরিবেশন করুন","ছোট বলে উপেক্ষা করুন","পাতলা করতে আরও সস মেশান"],
+      id:["Hentikan penggunaan batch itu, pisahkan, dan beri tahu penyelia","Buang potongannya lalu sajikan sausnya","Abaikan karena kecil","Tambahkan saus lagi untuk mengencerkannya"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الحرارة الداخلية", en:"Core temperature", hi:"आंतरिक तापमान", bn:"অভ্যন্তরীণ তাপমাত্রা", id:"Suhu inti" },
+    q: { ar:"ما الحد الآمن للحرارة الداخلية لطهي الدجاج النيء؟", en:"What is the safe internal cooking temperature for raw chicken?", hi:"कच्चे चिकन को पकाने का सुरक्षित आंतरिक तापमान क्या है?", bn:"কাঁচা মুরগি রান্নার নিরাপদ অভ্যন্তরীণ তাপমাত্রা কত?", id:"Berapa suhu inti aman untuk memasak ayam mentah?" },
+    o: {
+      ar:["75 درجة مئوية","60 درجة مئوية","50 درجة مئوية","90 درجة مئوية"],
+      en:["75°C","60°C","50°C","90°C"],
+      hi:["75°C","60°C","50°C","90°C"],
+      bn:["৭৫°C","৬০°C","৫০°C","৯০°C"],
+      id:["75°C","60°C","50°C","90°C"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"خطة الصحة والسلامة", en:"HACCP", hi:"HACCP", bn:"HACCP", id:"HACCP" },
+    q: { ar:"ما المقصود بنقطة التحكم الحرجة (CCP) في نظام تحليل المخاطر ونقاط التحكم الحرجة (HACCP)؟", en:"In HACCP, what is a Critical Control Point (CCP)?", hi:"HACCP में महत्वपूर्ण नियंत्रण बिंदु (CCP) से क्या तात्पर्य है?", bn:"HACCP-এ একটি ক্রিটিক্যাল কন্ট্রোল পয়েন্ট (CCP) বলতে কী বোঝায়?", id:"Dalam HACCP, apa yang dimaksud Titik Kendali Kritis (CCP)?" },
+    o: {
+      ar:["خطوة يمكن فيها منع الخطر أو إزالته أو خفضه إلى مستوى آمن","أي خطوة يستريح فيها الموظف","النقطة التي يشتكي فيها الزبون","المكان الذي تُخزن فيه النفايات"],
+      en:["A step where a hazard can be prevented, eliminated, or reduced to a safe level","Any step where staff take a break","The point where a customer complains","The place where waste is stored"],
+      hi:["वह चरण जहां खतरे को रोका, हटाया या सुरक्षित स्तर तक कम किया जा सके","कोई भी चरण जहां कर्मचारी आराम करते हैं","वह बिंदु जहां ग्राहक शिकायत करता है","वह जगह जहां कचरा रखा जाता है"],
+      bn:["যে ধাপে ঝুঁকি প্রতিরোধ, দূর বা নিরাপদ মাত্রায় কমানো যায়","যেকোনো ধাপ যেখানে কর্মী বিরতি নেন","যে জায়গায় গ্রাহক অভিযোগ করেন","যেখানে বর্জ্য রাখা হয়"],
+      id:["Langkah di mana bahaya dapat dicegah, dihilangkan, atau dikurangi ke tingkat aman","Setiap langkah saat karyawan istirahat","Titik di mana pelanggan mengeluh","Tempat penyimpanan sampah"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الحشرات والتخزين", en:"Storage pests", hi:"भंडारण कीट", bn:"মজুত কীটপতঙ্গ", id:"Hama gudang" },
+    q: { ar:"وجد موظف فضلات فأرة فوق رف مواد جافة في المخزن. ما الإجراء الصحيح؟", en:"A worker finds mouse droppings above a dry storage shelf. What is the correct action?", hi:"एक कर्मचारी को सूखे भंडारण शेल्फ के ऊपर चूहे की बीट मिलती है। सही कदम क्या है?", bn:"একজন কর্মী শুকনো মজুত তাকের উপরে ইঁদুরের বিষ্ঠা দেখতে পান। সঠিক পদক্ষেপ কী?", id:"Seorang pekerja menemukan kotoran tikus di atas rak penyimpanan kering. Tindakan yang benar?" },
+    o: {
+      ar:["إبلاغ المشرف وفحص الطعام المعرض للتلوث ووضع علامة على المنطقة وتوثيق الواقعة","الاستمرار في العمل لأن الفضلات قليلة","تنظيف الفضلات فقط دون إبلاغ أحد","تغطية الرف بقماش والاستمرار"],
+      en:["Report to the supervisor, check exposed food, mark the area, and record the incident","Continue working because there are only a few droppings","Clean up the droppings without telling anyone","Cover the shelf with cloth and continue"],
+      hi:["सुपरवाइजर को बताएं, खुले खाने की जांच करें, क्षेत्र चिह्नित करें और घटना दर्ज करें","काम जारी रखें क्योंकि बीट कम हैं","किसी को बताए बिना बीट साफ करें","रैक को कपड़े से ढककर काम जारी रखें"],
+      bn:["সুপারভাইজারকে জানান, উন্মুক্ত খাবার পরীক্ষা করুন, এলাকা চিহ্নিত করুন ও ঘটনা লিপিবদ্ধ করুন","কয়েকটি বিষ্ঠা বলে কাজ চালিয়ে যান","কাউকে না জানিয়ে বিষ্ঠা পরিষ্কার করুন","তাকটি কাপড় দিয়ে ঢেকে কাজ চালিয়ে যান"],
+      id:["Lapor ke penyelia, periksa makanan yang terpapar, tandai area, dan catat kejadiannya","Lanjut bekerja karena hanya sedikit kotorannya","Bersihkan kotoran tanpa memberi tahu siapa pun","Tutup rak dengan kain lalu lanjut"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الشطف", en:"Rinsing", hi:"धोना", bn:"ধোয়া", id:"Membilas" },
+    q: { ar:"تُستخدم مادة مطهرة لتعقيم الأسطح. بعد انتهاء وقت التلامس، ماذا يجب أن يحدث للسطح الذي يلامس الطعام مباشرة؟", en:"A sanitizer is used on a food-contact surface. After the contact time, what must happen before food touches it?", hi:"खाने के संपर्क वाली सतह पर सैनिटाइज़र लगाया गया है। संपर्क समय के बाद खाने से पहले क्या होना चाहिए?", bn:"খাদ্য সংস্পর্শে আসা পৃষ্ঠে স্যানিটাইজার ব্যবহার করা হয়েছে। সংস্পর্শের সময় শেষে, খাবার স্পর্শ করার আগে কী হতে হবে?", id:"Sanitizer digunakan pada permukaan kontak makanan. Setelah waktu kontak, apa yang harus terjadi sebelum makanan menyentuhnya?" },
+    o: {
+      ar:["الشطف بماء صالح للشرب إذا كان المطهر يتطلب ذلك، ثم الترك ليجف","التجفيف بالمنشفة فوراً دون أي شطف","لا شيء، لأن المطهر آمن","الشطف بالصابون"],
+      en:["Rinse with potable water if the product label requires it, then let it air dry","Dry immediately with a towel without any rinsing","Nothing, because sanitizer is safe","Rinse with soap"],
+      hi:["अगर लेबल कहे तो पीने योग्य पानी से धोएं, फिर हवा में सूखने दें","बिना धोए तुरंत तौलिये से सुखाएं","कुछ नहीं, क्योंकि सैनिटाइज़र सुरक्षित है","साबुन से धोएं"],
+      bn:["লেবেল অনুযায়ী প্রয়োজন হলে পানীয় পানি দিয়ে ধুয়ে বাতাসে শুকাতে দিন","না ধুয়ে সঙ্গে সঙ্গে তোয়ালে দিয়ে শুকান","কিছু না, কারণ স্যানিটাইজার নিরাপদ","সাবান দিয়ে ধুয়ে নিন"],
+      id:["Bilas dengan air minum jika label produk mensyaratkan, lalu biarkan kering di udara","Keringkan langsung dengan handuk tanpa membilas","Tidak perlu apa-apa, karena sanitizer aman","Bilas dengan sabun"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تشخيص الأعراض", en:"Symptoms", hi:"लक्षण", bn:"উপসর্গ", id:"Gejala" },
+    q: { ar:"موظف لديه حمى والتهاب في الحلق، ويريد العمل على تحضير الطعام. ما الإجراء الصحيح؟", en:"An employee has a fever and a sore throat and wants to work on food preparation. What is the correct action?", hi:"एक कर्मचारी को बुखार और गले में खराश है और वह खाना तैयार करने का काम करना चाहता है। सही कदम क्या है?", bn:"একজন কর্মীর জ্বর ও গলা ব্যথা, এবং তিনি খাবার প্রস্তুতির কাজ করতে চান। সঠিক পদক্ষেপ কী?", id:"Karyawan demam dan sakit tenggorokan, dan ingin bekerja menyiapkan makanan. Tindakan yang benar?" },
+    o: {
+      ar:["استبعاده من مناولة الطعام وتوجيهه لاستشارة طبية","السماح له بالعمل مع ارتداء القناع","السماح له بتحضير الطعام المطبوخ فقط","إعطاؤه مسكناً والسماح له بالعمل"],
+      en:["Exclude him from food handling and advise medical consultation","Let him work while wearing a mask","Let him prepare only cooked food","Give him painkillers and let him work"],
+      hi:["उसे खाना संभालने से हटाएं और डॉक्टर से सलाह लेने को कहें","मास्क पहनकर काम करने दें","केवल पका खाना तैयार करने दें","दर्द की दवा देकर काम करने दें"],
+      bn:["তাকে খাবার পরিচালনা থেকে সরিয়ে চিকিৎসকের পরামর্শ নিতে বলুন","মাস্ক পরে কাজ করতে দিন","শুধু রান্না করা খাবার প্রস্তুত করতে দিন","ব্যথার ওষুধ দিয়ে কাজ করতে দিন"],
+      id:["Keluarkan dari kegiatan menangani makanan dan minta konsultasi medis","Biarkan bekerja sambil memakai masker","Biarkan hanya menyiapkan makanan matang","Berikan obat pereda nyeri lalu biarkan bekerja"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"النفايات", en:"Waste", hi:"कचरा", bn:"বর্জ্য", id:"Sampah" },
+    q: { ar:"ما الشرط الصحيح لحاويات النفايات الغذائية في منطقة التحضير؟", en:"What is the correct requirement for food waste bins in a prep area?", hi:"तैयारी क्षेत्र में खाद्य कचरे के डिब्बों के लिए सही शर्त क्या है?", bn:"প্রস্তুতি এলাকায় খাদ্য বর্জ্যের পাত্রের সঠিক শর্ত কী?", id:"Apa syarat yang benar untuk tempat sampah makanan di area persiapan?" },
+    o: {
+      ar:["مغطاة ومفرغة بانتظام وبعيدة عن منطقة التحضير","مفتوحة لتسهيل الرمي ومتروكة ممتلئة","موضوعة فوق طاولة التحضير","تُفرغ مرة واحدة في الأسبوع"],
+      en:["Covered, emptied regularly, and kept away from the prep area","Open for easy disposal and left full","Placed on top of the prep table","Emptied once a week"],
+      hi:["ढकी हुई, नियमित रूप से खाली और तैयारी क्षेत्र से दूर","आसानी से फेंकने के लिए खुली और भरी हुई छोड़ी गई","तैयारी की मेज़ के ऊपर रखी गई","सप्ताह में एक बार खाली"],
+      bn:["ঢাকনাযুক্ত, নিয়মিত খালি এবং প্রস্তুতি এলাকা থেকে দূরে","সহজে ফেলার জন্য খোলা ও ভরা অবস্থায় রাখা","প্রস্তুতির টেবিলের উপরে রাখা","সপ্তাহে একবার খালি করা"],
+      id:["Tertutup, dikosongkan secara teratur, dan jauh dari area persiapan","Terbuka agar mudah dibuang dan dibiarkan penuh","Diletakkan di atas meja persiapan","Dikosongkan seminggu sekali"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"المنتجات المفتوحة", en:"Opened products", hi:"खुले उत्पाद", bn:"খোলা পণ্য", id:"Produk terbuka" },
+    q: { ar:"تم فتح عبوة من الجبن الطري في الصباح. ما أقصى مدة يجب أن يبقى فيها بعد الفتح عادةً حسب الممارسات الصحية؟", en:"A pack of soft cheese was opened in the morning. Under standard food safety practice, how long can it generally be kept after opening?", hi:"सुबह नरम पनीर का पैक खोला गया। मानक खाद्य सुरक्षा प्रथा के अनुसार खोलने के बाद इसे आम तौर पर कितनी देर रखा जा सकता है?", bn:"সকালে একটি নরম পনিরের প্যাক খোলা হয়েছে। মানসম্মত খাদ্য নিরাপত্তা অনুযায়ী খোলার পর সাধারণত কতক্ষণ রাখা যায়?", id:"Sebungkus keju lunak dibuka pagi hari. Menurut praktik keamanan pangan standar, berapa lama umumnya boleh disimpan setelah dibuka?" },
+    o: {
+      ar:["حسب تاريخ الاستخدام المكتوب على العبوة ودرجة الحرارة المناسبة","لمدة شهر كامل دائماً","حتى تنتهي العبوة مهما طالت المدة","لا يوجد حد لأنه في الثلاجة"],
+      en:["According to the use-by date on the pack and the correct temperature","For a full month always","Until the pack is finished, however long it takes","There is no limit because it is in the fridge"],
+      hi:["पैक पर लिखी उपयोग-अवधि और सही तापमान के अनुसार","हमेशा पूरे एक महीने तक","पैक खत्म होने तक, चाहे जितना समय लगे","फ्रिज में है इसलिए कोई सीमा नहीं"],
+      bn:["প্যাকে লেখা ব্যবহারের তারিখ ও সঠিক তাপমাত্রা অনুযায়ী","সবসময় পূর্ণ এক মাস","প্যাক শেষ হওয়া পর্যন্ত, যত সময়ই লাগুক","ফ্রিজে আছে তাই কোনো সীমা নেই"],
+      id:["Mengikuti tanggal batas pakai pada kemasan dan suhu yang tepat","Selalu sebulan penuh","Sampai habis, berapa pun lamanya","Tidak ada batas karena ada di kulkas"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الحرارة المنخفضة", en:"Cold chain", hi:"ठंडी श्रृंखला", bn:"ঠান্ডা চেইন", id:"Rantai dingin" },
+    q: { ar:"وصلت شحنة لحوم مجمدة وكانت حرارتها عند الاستلام -12 درجة مئوية، لكن المخزن الآن مغلق لساعة لخلل. ماذا تفعل؟", en:"A frozen meat delivery arrives at -12°C, but the storeroom is out of service for an hour. What should you do?", hi:"जमे हुए मांस की डिलीवरी -12°C पर आई, लेकिन स्टोररूम एक घंटे के लिए बंद है। आप क्या करेंगे?", bn:"জমানো মাংসের চালান -১২°C তাপমাত্রায় এসেছে, কিন্তু স্টোররুম এক ঘণ্টার জন্য বন্ধ। আপনি কী করবেন?", id:"Pengiriman daging beku tiba pada -12°C, tetapi gudang tidak berfungsi selama satu jam. Apa yang Anda lakukan?" },
+    o: {
+      ar:["نقل المنتجات إلى مكان بارد آخر بسرعة وتسجيل الحرارة وإبلاغ المشرف","تركها على الرصيف حتى يُصلح المخزن","تخزينها في الشمس لتذوب ببطء","بيعها فوراً دون تسجيل"],
+      en:["Quickly move the products to another cold place, record temperatures, and inform the supervisor","Leave them on the dock until the storeroom is fixed","Store them in the sun so they thaw slowly","Sell them immediately without recording anything"],
+      hi:["उत्पादों को जल्दी से दूसरी ठंडी जगह रखें, तापमान दर्ज करें और सुपरवाइजर को बताएं","गोदी पर छोड़ दें जब तक स्टोररूम ठीक न हो","धूप में रखें ताकि धीरे-धीरे पिघलें","बिना कुछ दर्ज किए तुरंत बेच दें"],
+      bn:["পণ্যগুলো দ্রুত অন্য ঠান্ডা জায়গায় সরান, তাপমাত্রা লিখুন ও সুপারভাইজারকে জানান","স্টোররুম ঠিক না হওয়া পর্যন্ত ডকে ফেলে রাখুন","রোদে রাখুন যাতে ধীরে গলে","কিছু না লিখে সঙ্গে সঙ্গে বিক্রি করুন"],
+      id:["Pindahkan produk ke tempat dingin lain dengan cepat, catat suhu, dan beri tahu penyelia","Biarkan di area bongkar sampai gudang diperbaiki","Simpan di bawah matahari agar mencair perlahan","Jual segera tanpa mencatat apa pun"]
+    }, c: 0
+  },
+  // ───── Reasoning (ذكاء) ─────
+  {
+    cat: { ar:"منطق", en:"Logic", hi:"तर्क", bn:"যুক্তি", id:"Logika" },
+    q: { ar:"بعض المتدربين نجحوا في الاختبار. وكل من نجح حضر الدورة. أي عبارة صحيحة بالضرورة؟", en:"Some trainees passed the test. Everyone who passed attended the course. Which statement must be true?", hi:"कुछ प्रशिक्षु परीक्षा में पास हुए। जो भी पास हुआ वह कोर्स में आया था। कौन सा कथन अनिवार्य रूप से सही है?", bn:"কিছু প্রশিক্ষণার্থী পরীক্ষায় পাস করেছেন। যাঁরা পাস করেছেন তাঁরা সবাই কোর্সে এসেছিলেন। কোন বিবৃতিটি অবশ্যই সত্য?", id:"Beberapa peserta lulus ujian. Semua yang lulus mengikuti kursus. Pernyataan mana yang pasti benar?" },
+    o: {
+      ar:["بعض المتدربين حضروا الدورة","كل المتدربين حضروا الدورة","لم يرسب أي متدرب","كل من حضر الدورة نجح"],
+      en:["Some trainees attended the course","All trainees attended the course","No trainee failed","Everyone who attended the course passed"],
+      hi:["कुछ प्रशिक्षु कोर्स में आए","सभी प्रशिक्षु कोर्स में आए","कोई प्रशिक्षु फेल नहीं हुआ","कोर्स में आने वाला हर कोई पास हुआ"],
+      bn:["কিছু প্রশিক্ষণার্থী কোর্সে এসেছিলেন","সব প্রশিক্ষণার্থী কোর্সে এসেছিলেন","কোনো প্রশিক্ষণার্থী ফেল করেননি","কোর্সে আসা প্রত্যেকে পাস করেছে"],
+      id:["Beberapa peserta mengikuti kursus","Semua peserta mengikuti kursus","Tidak ada peserta yang gagal","Semua yang mengikuti kursus lulus"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"حساب", en:"Calculation", hi:"गणना", bn:"হিসাব", id:"Hitungan" },
+    q: { ar:"يُعد مطبخ 12 صينية، كل صينية فيها 8 حصص. تم التخلص من 15 حصة بسبب سوء التخزين. كم حصة قُدِّمت؟", en:"A kitchen prepares 12 trays with 8 portions each. 15 portions are thrown away due to poor storage. How many portions were served?", hi:"एक रसोई में 12 ट्रे बनती हैं, हर ट्रे में 8 हिस्से। खराब भंडारण की वजह से 15 हिस्से फेंके गए। कितने हिस्से परोसे गए?", bn:"একটি রান্নাঘরে ১২টি ট্রে তৈরি হয়, প্রতিটিতে ৮ পরিবেশন। খারাপ সংরক্ষণের কারণে ১৫টি পরিবেশন ফেলা হয়েছে। কতটি পরিবেশন করা হয়েছে?", id:"Sebuah dapur menyiapkan 12 nampan, masing-masing berisi 8 porsi. 15 porsi dibuang karena penyimpanan buruk. Berapa porsi yang disajikan?" },
+    o: {
+      ar:["81 حصة","84 حصة","91 حصة","87 حصة"],
+      en:["81 portions","84 portions","91 portions","87 portions"],
+      hi:["81 हिस्से","84 हिस्से","91 हिस्से","87 हिस्से"],
+      bn:["৮১ পরিবেশন","৮৪ পরিবেশন","৯১ পরিবেশন","৮৭ পরিবেশন"],
+      id:["81 porsi","84 porsi","91 porsi","87 porsi"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"حساب", en:"Calculation", hi:"गणना", bn:"হিসাব", id:"Hitungan" },
+    q: { ar:"تحتاج وصفة صلصة 250 غراماً من الطحين لتحضير 10 حصص. كم غراماً تحتاج لـ16 حصة بنفس النسب؟", en:"A sauce recipe needs 250 g of flour for 10 portions. How many grams are needed for 16 portions at the same ratio?", hi:"एक सॉस की रेसिपी में 10 हिस्सों के लिए 250 ग्राम आटा चाहिए। उसी अनुपात में 16 हिस्सों के लिए कितने ग्राम चाहिए?", bn:"একটি সসের রেসিপিতে ১০ পরিবেশনের জন্য ২৫০ গ্রাম ময়দা লাগে। একই অনুপাতে ১৬ পরিবেশনের জন্য কত গ্রাম লাগবে?", id:"Resep saus membutuhkan 250 g tepung untuk 10 porsi. Berapa gram untuk 16 porsi dengan perbandingan yang sama?" },
+    o: {
+      ar:["350 غراماً","400 غرام","425 غراماً","450 غراماً"],
+      en:["350 g","400 g","425 g","450 g"],
+      hi:["350 ग्राम","400 ग्राम","425 ग्राम","450 ग्राम"],
+      bn:["৩৫০ গ্রাম","৪০০ গ্রাম","৪২৫ গ্রাম","৪৫০ গ্রাম"],
+      id:["350 g","400 g","425 g","450 g"]
     }, c: 1
   },
   {
-    cat: { ar:"ترتيب الأولويات", en:"Prioritizing", hi:"प्राथमिकता तय करना", bn:"অগ্রাধিকার নির্ধারণ" },
-    q: {
-      ar:"ثلاثة منتجات: الأول ينتهي 5 أكتوبر، والثاني 12 أكتوبر، والثالث 8 أكتوبر. أيهم تستخدم أولاً؟",
-      en:"Three products expire on 5 October, 12 October and 8 October. Which one do you use first?",
-      hi:"तीन उत्पाद 5 अक्टूबर, 12 अक्टूबर और 8 अक्टूबर को समाप्त होते हैं। पहले कौन सा इस्तेमाल करेंगे?",
-      bn:"তিনটি পণ্যের মেয়াদ ৫ অক্টোবর, ১২ অক্টোবর ও ৮ অক্টোবর। কোনটি আগে ব্যবহার করবেন?"
-    },
+    cat: { ar:"أولويات", en:"Prioritizing", hi:"प्राथमिकता", bn:"অগ্রাধিকার", id:"Prioritas" },
+    q: { ar:"ثلاث مهام: ثلاجة معطلة فيها حليب، وجرد مخزون الغد، وتنظيف الأرضية. ما الترتيب الأصح؟", en:"Three tasks: a broken fridge holding milk, tomorrow's stock count, and mopping the floor. What is the best order?", hi:"तीन काम हैं: दूध वाला खराब फ्रिज, कल के स्टॉक की गिनती, और फर्श पोंछना। सबसे सही क्रम क्या है?", bn:"তিনটি কাজ: দুধসহ নষ্ট ফ্রিজ, আগামীকালের স্টক গণনা, এবং মেঝে মোছা। সবচেয়ে ভালো ক্রম কোনটি?", id:"Tiga tugas: kulkas rusak berisi susu, penghitungan stok besok, dan mengepel lantai. Urutan terbaik?" },
     o: {
-      ar:["المنتج الذي ينتهي في 5 أكتوبر","المنتج الذي ينتهي في 12 أكتوبر","المنتج الذي ينتهي في 8 أكتوبر","لا فرق بينهم في الاستخدام"],
-      en:["The product expiring on 5 October","The product expiring on 12 October","The product expiring on 8 October","There is no difference between them"],
-      hi:["जो 5 अक्टूबर को समाप्त होता है","जो 12 अक्टूबर को समाप्त होता है","जो 8 अक्टूबर को समाप्त होता है","उनमें कोई फर्क नहीं"],
-      bn:["যেটির মেয়াদ ৫ অক্টোবর শেষ","যেটির মেয়াদ ১২ অক্টোবর শেষ","যেটির মেয়াদ ৮ অক্টোবর শেষ","তাদের মধ্যে কোনো পার্থক্য নেই"]
+      ar:["نقل الحليب إلى ثلاجة تعمل ثم إصلاح المعطلة ثم الجرد ثم التنظيف","الجرد ثم التنظيف ثم إصلاح الثلاجة","التنظيف أولاً ثم الجرد","إصلاح الثلاجة ثم الجرد ثم التنظيف ثم نقل الحليب"],
+      en:["Move the milk to a working fridge, then fix the broken one, then count stock, then mop","Count stock, mop, then fix the fridge","Mop first, then count stock","Fix the fridge, count, mop, then move the milk"],
+      hi:["दूध को चालू फ्रिज में रखें, फिर खराब फ्रिज ठीक करें, फिर गिनती, फिर पोंछना","स्टॉक गिनें, पोंछें, फिर फ्रिज ठीक करें","पहले पोंछें, फिर स्टॉक गिनें","फ्रिज ठीक करें, गिनें, पोंछें, फिर दूध हटाएं"],
+      bn:["দুধ চালু ফ্রিজে সরান, তারপর নষ্টটি ঠিক করুন, তারপর গণনা, তারপর মোছা","স্টক গণনা, মোছা, তারপর ফ্রিজ ঠিক করুন","আগে মোছা, তারপর স্টক গণনা","ফ্রিজ ঠিক করুন, গণনা, মোছা, তারপর দুধ সরান"],
+      id:["Pindahkan susu ke kulkas yang berfungsi, lalu perbaiki yang rusak, lalu hitung stok, lalu pel","Hitung stok, pel, baru perbaiki kulkas","Pel dulu, baru hitung stok","Perbaiki kulkas, hitung, pel, baru pindahkan susu"]
     }, c: 0
   },
   {
-    cat: { ar:"حل المشكلات", en:"Problem solving", hi:"समस्या समाधान", bn:"সমস্যা সমাধান" },
-    q: {
-      ar:"زبون قال إنه لقى شعرة في الأكل. أيش الخطوة الصحيحة؟",
-      en:"A customer says they found a hair in their food. What is the correct step?",
-      hi:"एक ग्राहक कहता है कि खाने में बाल निकला। सही कदम क्या है?",
-      bn:"একজন গ্রাহক বলছেন খাবারে চুল পেয়েছেন। সঠিক পদক্ষেপ কী?"
-    },
+    cat: { ar:"منطق", en:"Logic", hi:"तर्क", bn:"যুক্তি", id:"Logika" },
+    q: { ar:"كل الطهاة في هذا المطبخ يرتدون غطاء الرأس. أحمد لا يرتدي غطاء رأس. أي عبارة صحيحة؟", en:"Every chef in this kitchen wears a hairnet. Ahmed does not wear a hairnet. Which statement is correct?", hi:"इस रसोई में हर शेफ हेयरनेट पहनता है। अहमद हेयरनेट नहीं पहनता। कौन सा कथन सही है?", bn:"এই রান্নাঘরের প্রতিটি শেফ হেয়ারনেট পরেন। আহমেদ হেয়ারনেট পরেন না। কোন বিবৃতিটি সঠিক?", id:"Setiap koki di dapur ini memakai penutup kepala. Ahmed tidak memakai penutup kepala. Pernyataan mana yang benar?" },
     o: {
-      ar:["أوقف التقديم وأبلّغ المشرف وأحتفظ بالطبق للفحص","أعتذر وأبدل الطبق وأنتهي","أقول إنها شعرة واحدة فلا تهم","أخبره إن الشعر ليس من عندنا"],
-      en:["Stop serving, inform the supervisor, and keep the dish for inspection","Apologize, replace the dish, and close the matter","Say it is only one hair so it does not matter","Tell him the hair is not from our kitchen"],
-      hi:["परोसना रोकें, सुपरवाइजर को बताएं और डिश जांच के लिए रखें","माफी मांगें, डिश बदलें और मामला बंद करें","कहें कि सिर्फ एक बाल है इसलिए कोई बात नहीं","कहें कि बाल हमारे किचन का नहीं है"],
-      bn:["পরিবেশন বন্ধ করুন, সুপারভাইজারকে জানান ও পরীক্ষার জন্য খাবার রাখুন","দুঃখ প্রকাশ করে খাবার বদলে দিন ও শেষ করুন","বলুন একটাই চুল, তাই সমস্যা নেই","বলুন চুলটি আমাদের রান্নাঘরের নয়"]
+      ar:["أحمد ليس طاهياً في هذا المطبخ","أحمد طاهٍ بالتأكيد","أحمد ربما يكون طاهياً","أحمد يرتدي الغطاء أحياناً"],
+      en:["Ahmed is not a chef in this kitchen","Ahmed is definitely a chef","Ahmed may be a chef","Ahmed sometimes wears a hairnet"],
+      hi:["अहमद इस रसोई में शेफ नहीं है","अहमद निश्चित रूप से शेफ है","अहमद शायद शेफ हो सकता है","अहमद कभी-कभी हेयरनेट पहनता है"],
+      bn:["আহমেদ এই রান্নাঘরে শেফ নন","আহমেদ নিশ্চিতভাবে শেফ","আহমেদ হয়তো শেফ হতে পারেন","আহমেদ মাঝে মাঝে হেয়ারনেট পরেন"],
+      id:["Ahmed bukan koki di dapur ini","Ahmed pasti seorang koki","Ahmed mungkin seorang koki","Ahmed kadang memakai penutup kepala"]
     }, c: 0
   },
   {
-    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
-    q: {
-      ar:"الشاحنة تأخرت ساعتين والجو حار، والمنتجات المبردة في السيارة. أيش تسوي؟",
-      en:"The delivery was two hours late in hot weather, and chilled products were in the vehicle. What do you do?",
-      hi:"डिलीवरी दो घंटे देर से आई, मौसम गर्म था, और ठंडे उत्पाद गाड़ी में थे। आप क्या करेंगे?",
-      bn:"ডেলিভারি দুই ঘণ্টা দেরিতে এসেছে, আবহাওয়া গরম ছিল, ঠান্ডা পণ্য গাড়িতে ছিল। কী করবেন?"
-    },
+    cat: { ar:"نمط", en:"Reasoning", hi:"तर्क", bn:"যুক্তি", id:"Penalaran" },
+    q: { ar:"أي رقم لا ينتمي للمجموعة: 4، 9، 16، 25، 36، 42؟", en:"Which number does not belong in this group: 4, 9, 16, 25, 36, 42?", hi:"इस समूह में कौन सी संख्या सही नहीं बैठती: 4, 9, 16, 25, 36, 42?", bn:"এই গ্রুপে কোন সংখ্যাটি মেলে না: ৪, ৯, ১৬, ২৫, ৩৬, ৪২?", id:"Angka mana yang tidak termasuk dalam kelompok ini: 4, 9, 16, 25, 36, 42?" },
     o: {
-      ar:["أقيس حرارة المنتجات وأتخلص من اللي تجاوز الحد الآمن","أحطها في الثلاجة وأستخدمها كلها","أتركها تبرد طبيعياً وأستخدمها","أبيعها بسعر أقل بسرعة"],
-      en:["Check the product temperatures and discard anything above the safe limit","Put them in the fridge and use everything","Let them cool naturally and use them","Sell them quickly at a lower price"],
-      hi:["उत्पादों का तापमान जांचें और सुरक्षित सीमा से ऊपर वाले फेंक दें","फ्रिज में रखें और सब इस्तेमाल करें","अपने आप ठंडा होने दें और इस्तेमाल करें","जल्दी से कम दाम पर बेच दें"],
-      bn:["পণ্যের তাপমাত্রা মেপে নিরাপদ সীমার উপরেরগুলো ফেলে দিন","ফ্রিজে রেখে সব ব্যবহার করুন","নিজে থেকে ঠান্ডা হতে দিয়ে ব্যবহার করুন","দ্রুত কম দামে বিক্রি করুন"]
-    }, c: 0
+      ar:["9","25","36","42"],
+      en:["9","25","36","42"],
+      hi:["9","25","36","42"],
+      bn:["৯","২৫","৩৬","৪২"],
+      id:["9","25","36","42"]
+    }, c: 3
   },
   {
-    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
-    q: {
-      ar:"زميلك يقول إن الثلاجة شغالة كويس، بس ما قاس حرارتها. أيش تسوي؟",
-      en:"A coworker says the fridge is working fine, but has not checked its temperature. What do you do?",
-      hi:"एक सहकर्मी कहता है कि फ्रिज ठीक चल रहा है, पर उसने तापमान नहीं मापा। आप क्या करेंगे?",
-      bn:"একজন সহকর্মী বলছেন ফ্রিজ ঠিক আছে, কিন্তু তাপমাত্রা মাপেননি। আপনি কী করবেন?"
-    },
+    cat: { ar:"حساب", en:"Calculation", hi:"गणना", bn:"হিসাব", id:"Hitungan" },
+    q: { ar:"عامل ينظف 4 محطات في 20 دقيقة بنفس السرعة. كم دقيقة يحتاج لتنظيف 7 محطات؟", en:"A worker cleans 4 stations in 20 minutes at a steady pace. How many minutes will 7 stations take?", hi:"एक कर्मचारी 20 मिनट में 4 स्टेशन साफ करता है, एक समान गति से। 7 स्टेशन में कितने मिनट लगेंगे?", bn:"একজন কর্মী সমান গতিতে ২০ মিনিটে ৪টি স্টেশন পরিষ্কার করেন। ৭টি স্টেশনে কত মিনিট লাগবে?", id:"Seorang pekerja membersihkan 4 stasiun dalam 20 menit dengan kecepatan tetap. Berapa menit untuk 7 stasiun?" },
     o: {
-      ar:["أقيس الحرارة بنفسي وأسجلها","أصدقه وما أحتاج أقيس","أنتظر لين يصير خطأ","أغير الثلاجة من غير ما أقيس"],
-      en:["Measure the temperature myself and record it","Trust him and do not measure","Wait until something goes wrong","Replace the fridge without measuring"],
-      hi:["खुद तापमान मापूं और दर्ज करूं","उस पर भरोसा करूं और मापने की ज़रूरत नहीं","कुछ गलत होने तक इंतजार करूं","बिना मापे फ्रिज बदल दूं"],
-      bn:["নিজে তাপমাত্রা মেপে লিখে রাখব","তাকে বিশ্বাস করব, মাপার দরকার নেই","কিছু খারাপ হওয়া পর্যন্ত অপেক্ষা করব","না মেপে ফ্রিজ বদলে দেব"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
-    q: {
-      ar:"اختلف معك زميل: هل الطبق آمن؟ أيش الخطوة الصحيحة؟",
-      en:"A coworker disagrees with you about whether a dish is safe. What is the right step?",
-      hi:"एक सहकर्मी इस बात पर असहमत है कि डिश सुरक्षित है या नहीं। सही कदम क्या है?",
-      bn:"একজন সহকর্মী খাবার নিরাপদ কিনা নিয়ে আপনার সাথে দ্বিমত করছেন। সঠিক পদক্ষেপ কী?"
-    },
-    o: {
-      ar:["أرجع للمعيار المكتوب أو للمشرف وأتبع قراره","أحسم الموضوع بنفسي وأكمل","أخلي زميلي يقرر وأنا أمشي","أخلط الطبق وأقدمه"],
-      en:["Check the written standard or the supervisor and follow their decision","Settle it myself and carry on","Let my coworker decide and walk away","Mix the dish and serve it"],
-      hi:["लिखित मानक या सुपरवाइजर से जांचें और उनका फैसला मानें","खुद फैसला करके काम जारी रखें","सहकर्मी को फैसला करने दें और चले जाएं","डिश मिलाकर परोस दें"],
-      bn:["লিখিত মান বা সুপারভাইজারের সাথে যাচাই করে তাদের সিদ্ধান্ত মানুন","নিজে সিদ্ধান্ত নিয়ে কাজ চালিয়ে যান","সহকর্মীকে সিদ্ধান্ত নিতে দিয়ে চলে যান","খাবার মিশিয়ে পরিবেশন করুন"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
-    q: {
-      ar:"المعلومة على علبة الدجاج تقول: يُستخدم خلال 3 أيام بعد الفتح. وأنت فتحته قبل 4 أيام. هل تستخدمه؟",
-      en:"The label says a chicken pack must be used within 3 days of opening. You opened it 4 days ago. Do you use it?",
-      hi:"पैक पर लिखा है कि खोलने के 3 दिन के अंदर इस्तेमाल करें। आपने इसे 4 दिन पहले खोला था। क्या इस्तेमाल करेंगे?",
-      bn:"প্যাকেটে লেখা আছে খোলার ৩ দিনের মধ্যে ব্যবহার করুন। আপনি ৪ দিন আগে খুলেছেন। ব্যবহার করবেন?"
-    },
-    o: {
-      ar:["لا، لازم أتخلص منه","نعم، طالما رائحته طبيعية","نعم، أطبخه أكثر","أنتظر يوم وأشوف"],
-      en:["No, I must dispose of it","Yes, as long as it smells normal","Yes, I will cook it longer","I will wait a day and see"],
-      hi:["नहीं, इसे फेंकना होगा","हाँ, अगर गंध सामान्य है","हाँ, इसे ज्यादा देर पकाऊंगा","एक दिन इंतजार करके देखूंगा"],
-      bn:["না, এটা ফেলে দিতে হবে","হ্যাঁ, গন্ধ স্বাভাবিক হলে","হ্যাঁ, বেশিক্ষণ রান্না করব","একদিন অপেক্ষা করে দেখব"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"التفكير الاستنتاجي", en:"Reasoning", hi:"तर्क", bn:"যুক্তি" },
-    q: {
-      ar:"الحشرات تتكرر في المخزن كل أسبوع. أفضل حل؟",
-      en:"Insects keep appearing in the storeroom every week. What is the best solution?",
-      hi:"गोदाम में हर हफ्ते कीड़े आते हैं। सबसे अच्छा समाधान क्या है?",
-      bn:"প্রতি সপ্তাহে গুদামে পোকা আসে। সবচেয়ে ভালো সমাধান কী?"
-    },
-    o: {
-      ar:["أبحث عن مصدر الدخول وأسد الثغرات وأتابع بانتظام","أرش مبيد كل يوم وأنتهي","أنقل الطعام لمكان آخر فقط","أتجاهلها لأنها تختفي أحياناً"],
-      en:["Find the entry point, seal the gaps, and monitor regularly","Spray pesticide every day and finish","Only move the food to another place","Ignore them since they sometimes disappear"],
-      hi:["प्रवेश का स्रोत खोजें, दरारें बंद करें और नियमित निगरानी करें","हर दिन कीटनाशक छिड़कें और बस","सिर्फ खाना दूसरी जगह रखें","उन्हें नजरअंदाज करें क्योंकि कभी-कभी गायब हो जाते हैं"],
-      bn:["প্রবেশপথ খুঁজে ফাঁক বন্ধ করুন ও নিয়মিত নজর রাখুন","প্রতিদিন কীটনাশক ছিটিয়ে শেষ করুন","শুধু খাবার অন্য জায়গায় সরান","কখনো কখনো চলে যায় তাই উপেক্ষা করুন"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"النظافة الشخصية", en:"Personal hygiene", hi:"व्यक्तिगत स्वच्छता", bn:"ব্যক্তিগত পরিচ্ছন্নতা" },
-    q: { ar:"هل يجوز الأكل أو الشرب في منطقة التحضير؟", en:"Is eating or drinking allowed in the food preparation area?", hi:"क्या तैयारी वाले क्षेत्र में खाना-पीना अनुमति है?", bn:"খাবার প্রস্তুতির জায়গায় খাওয়া বা পান করা কি অনুমোদিত?" },
-    o: {
-      ar:["لا، ممنوع في منطقة التحضير نهائياً","نعم، إذا كان الأكل خفيفاً وسريعاً","نعم، إذا غسلت يدك بعدها مباشرة","نعم، إذا كان المشروب ماءً فقط"],
-      en:["No, it is strictly forbidden in the preparation area","Yes, if the food is light and quick","Yes, if you wash your hands right after","Yes, if the drink is only water"],
-      hi:["नहीं, तैयारी क्षेत्र में यह पूरी तरह मना है","हाँ, अगर खाना हल्का और जल्दी हो","हाँ, अगर उसके तुरंत बाद हाथ धो लें","हाँ, अगर पीने की चीज़ सिर्फ पानी हो"],
-      bn:["না, প্রস্তুতির জায়গায় এটি সম্পূর্ণ নিষিদ্ধ","হ্যাঁ, খাবার হালকা ও দ্রুত হলে","হ্যাঁ, খাওয়ার পর সাথে সাথে হাত ধুলে","হ্যাঁ, পানীয় শুধু পানি হলে"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"النظافة الشخصية", en:"Personal hygiene", hi:"व्यक्तिगत स्वच्छता", bn:"ব্যক্তিগত পরিচ্ছন্নতা" },
-    q: { ar:"ما الذي يجب أن يغطي شعر العامل في المطبخ؟", en:"What must cover a worker's hair in the kitchen?", hi:"रसोई में कर्मचारी के बालों को क्या ढकना चाहिए?", bn:"রান্নাঘরে কর্মীর চুল কী দিয়ে ঢাকা উচিত?" },
-    o: {
-      ar:["غطاء رأس نظيف يغطي الشعر بالكامل","شعر مربوط بشكل عادي فقط","قبعة مفتوحة من الجانبين","لا يلزم غطاء إذا كان الشعر قصيراً"],
-      en:["A clean hair cover that fully covers the hair","Hair tied up normally is enough","A cap that leaves the sides open","No cover is needed if hair is short"],
-      hi:["साफ सिर-ढकने वाला कपड़ा जो बालों को पूरी तरह ढके","सामान्य रूप से बंधे बाल काफी हैं","ऐसी टोपी जिसके किनारे खुले हों","छोटे बाल हों तो कोई ढक्कन ज़रूरी नहीं"],
-      bn:["পরিষ্কার হেয়ার কভার যা চুল পুরোপুরি ঢাকে","সাধারণভাবে বাঁধা চুল যথেষ্ট","এমন টুপি যার পাশ খোলা","চুল ছোট হলে কোনো কভার লাগে না"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"تخزين الطعام", en:"Food storage", hi:"खाद्य भंडारण", bn:"খাবার সংরক্ষণ" },
-    q: { ar:"ما الحرارة المناسبة لحفظ المواد المجمدة في الفريزر؟", en:"What temperature is right for storing frozen goods in a freezer?", hi:"फ्रीज़र में जमे सामान के लिए सही तापमान क्या है?", bn:"ফ্রিজারে হিমায়িত পণ্যের জন্য কোন তাপমাত্রা সঠিক?" },
-    o: {
-      ar:["18 درجة مئوية تحت الصفر أو أقل","5 درجات مئوية تحت الصفر","صفر درجة مئوية بالضبط","5 درجات مئوية فوق الصفر"],
-      en:["-18°C or below","-5°C","Exactly 0°C","+5°C"],
-      hi:["-18°C या उससे कम","-5°C","ठीक 0°C","+5°C"],
-      bn:["-১৮°C বা তার নিচে","-৫°C","ঠিক ০°C","+৫°C"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"درجات الحرارة", en:"Temperature control", hi:"तापमान नियंत्रण", bn:"তাপমাত্রা নিয়ন্ত্রণ" },
-    q: { ar:"طعام جاهز بقي على الطاولة 4 ساعات في حرارة الغرفة. أيش تسوي؟", en:"Ready food sat on the counter at room temperature for 4 hours. What do you do?", hi:"तैयार खाना कमरे के तापमान पर 4 घंटे मेज़ पर रहा। आप क्या करेंगे?", bn:"তৈরি খাবার ঘরের তাপমাত্রায় ৪ ঘণ্টা টেবিলে ছিল। কী করবেন?" },
-    o: {
-      ar:["أتخلص منه لأنه تجاوز الوقت الآمن","أسخنه جيداً وأقدمه","أبرده وأرجعه للثلاجة","أغطيه وأحفظه للوجبة الجاية"],
-      en:["Discard it because it passed the safe time","Heat it well and serve it","Cool it and put it back in the fridge","Cover it and keep it for the next meal"],
-      hi:["इसे फेंक दूं क्योंकि सुरक्षित समय निकल गया","अच्छी तरह गर्म करके परोस दूं","ठंडा करके फ्रिज में रख दूं","ढककर अगले खाने के लिए रख दूं"],
-      bn:["ফেলে দেব কারণ নিরাপদ সময় পেরিয়ে গেছে","ভালোভাবে গরম করে পরিবেশন করব","ঠান্ডা করে ফ্রিজে রাখব","ঢেকে পরের খাবারের জন্য রাখব"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"التنظيف والتعقيم", en:"Cleaning and sanitizing", hi:"सफाई और कीटाणुशोधन", bn:"পরিষ্কার ও জীবাণুমুক্তকরণ" },
-    q: { ar:"ما الترتيب الصحيح لتنظيف سطح التحضير؟", en:"What is the correct order for cleaning a prep surface?", hi:"तैयारी की सतह साफ करने का सही क्रम क्या है?", bn:"প্রস্তুতির টেবিল পরিষ্কারের সঠিক ধাপ কী?" },
-    o: {
-      ar:["غسل بماء وصابون ثم شطف ثم تعقيم ثم ترك ليجف","تعقيم أولاً ثم غسل بالصابون","مسح بقطعة جافة فقط","رش مطهر ثم مسح مباشرة بدون غسل"],
-      en:["Wash with soap and water, rinse, sanitize, then air dry","Sanitize first, then wash with soap","Wipe with a dry cloth only","Spray disinfectant and wipe without washing"],
-      hi:["साबुन-पानी से धोएं, खंगालें, कीटाणुरहित करें, फिर हवा में सुखाएं","पहले कीटाणुरहित करें, फिर साबुन से धोएं","सिर्फ सूखे कपड़े से पोंछें","कीटनाशक छिड़ककर बिना धोए पोंछें"],
-      bn:["সাবান-পানিতে ধুয়ে, ধুয়ে নিন, জীবাণুমুক্ত করুন, তারপর বাতাসে শুকান","আগে জীবাণুমুক্ত করুন তারপর সাবান দিয়ে ধুন","শুধু শুকনো কাপড়ে মুছুন","জীবাণুনাশক ছিটিয়ে না ধুয়ে মুছুন"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"الحساسية الغذائية", en:"Food allergies", hi:"खाद्य एलर्जी", bn:"খাদ্য এলার্জি" },
-    q: { ar:"عميل يسأل: هل الكيك فيه مكسرات؟ أيش تجاوبه؟", en:"A customer asks whether the cake contains nuts. What do you answer?", hi:"ग्राहक पूछता है कि केक में नट्स हैं? आप क्या जवाब देंगे?", bn:"একজন গ্রাহক জিজ্ঞেস করলেন কেকে বাদাম আছে কিনা। কী উত্তর দেবেন?" },
-    o: {
-      ar:["أتأكد من المكونات وأجاوبه بدقة","أقول غالباً لا","أقول الكيك خالٍ من المكسرات دائماً","أتجاهل السؤال وأكمل"],
-      en:["Check the ingredients and answer accurately","Say probably not","Say the cake is always nut-free","Ignore the question and carry on"],
-      hi:["सामग्री जांचकर सही जवाब दूं","कह दूं शायद नहीं","कह दूं केक हमेशा नट्स-मुक्त होता है","सवाल नजरअंदाज करके काम जारी रखूं"],
-      bn:["উপাদান যাচাই করে সঠিক উত্তর দেব","বলব সম্ভবত নেই","বলব কেক সবসময় বাদামমুক্ত","প্রশ্ন উপেক্ষা করে কাজ চালিয়ে যাব"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
-    q: { ar:"ما الرقم التالي في النمط: 3، 6، 12، 24، ؟", en:"What is the next number in the pattern: 3, 6, 12, 24, ?", hi:"पैटर्न में अगली संख्या क्या है: 3, 6, 12, 24, ?", bn:"প্যাটার্নের পরের সংখ্যা কী: 3, 6, 12, 24, ?" },
-    o: { ar:["36","42","48","60"], en:["36","42","48","60"], hi:["36","42","48","60"], bn:["৩৬","৪২","৪৮","৬০"] }, c: 2
-  },
-  {
-    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
-    q: {
-      ar:"كل الشاحنات تصل قبل الساعة 8 صباحاً. الشاحنة 3 وصلت 9 صباحاً. أيش الاستنتاج الصحيح؟",
-      en:"All trucks arrive before 8 AM. Truck 3 arrived at 9 AM. What is the correct conclusion?",
-      hi:"सभी ट्रक सुबह 8 बजे से पहले पहुंचते हैं। ट्रक 3 सुबह 9 बजे पहुंचा। सही निष्कर्ष क्या है?",
-      bn:"সব ট্রক সকাল ৮টার আগে পৌঁছায়। ট্রক ৩ সকাল ৯টায় পৌঁছাল। সঠিক সিদ্ধান্ত কী?"
-    },
-    o: {
-      ar:["الشاحنة 3 ما التزمت بالموعد المحدد","كل الشاحنات تأخرت اليوم","الشاحنة 3 وصلت في الوقت المناسب","لا يمكن معرفة شيء عن الشاحنة 3"],
-      en:["Truck 3 did not meet the scheduled time","All trucks were late today","Truck 3 arrived on time","Nothing can be known about truck 3"],
-      hi:["ट्रक 3 समय पर नहीं पहुंचा","आज सभी ट्रक देर से आए","ट्रक 3 समय पर पहुंचा","ट्रक 3 के बारे में कुछ नहीं कहा जा सकता"],
-      bn:["ট্রক ৩ সময়মতো পৌঁছায়নি","আজ সব ট্রক দেরিতে এসেছে","ট্রক ৩ সময়মতো এসেছে","ট্রক ৩ সম্পর্কে কিছু বলা যায় না"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"حساب", en:"Calculation", hi:"गणना", bn:"হিসাব" },
-    q: {
-      ar:"5 عمال ينظفون المخزن في 6 ساعات. كم عامل يحتاجون لينتهوا في 3 ساعات بنفس السرعة؟",
-      en:"5 workers clean a storeroom in 6 hours. How many workers are needed to finish in 3 hours at the same pace?",
-      hi:"5 कर्मचारी गोदाम 6 घंटे में साफ करते हैं। उसी गति से 3 घंटे में खत्म करने के लिए कितने कर्मचारी चाहिए?",
-      bn:"৫ জন কর্মী ৬ ঘণ্টায় গুদাম পরিষ্কার করে। একই গতিতে ৩ ঘণ্টায় শেষ করতে কতজন লাগবে?"
-    },
-    o: { ar:["5","8","10","15"], en:["5","8","10","15"], hi:["5","8","10","15"], bn:["৫","৮","১০","১৫"] }, c: 2
-  },
-  {
-    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
-    q: {
-      ar:"إذا كان A أكبر من B، وB أكبر من C، أيهم الأصغر؟",
-      en:"If A is larger than B, and B is larger than C, which is the smallest?",
-      hi:"यदि A, B से बड़ा है और B, C से बड़ा है, तो सबसे छोटा कौन है?",
-      bn:"A, B-এর চেয়ে বড়, আর B, C-এর চেয়ে বড়। সবচেয়ে ছোট কে?"
-    },
-    o: { ar:["A","B","C","لا يمكن تحديده"], en:["A","B","C","Cannot be determined"], hi:["A","B","C","तय नहीं किया जा सकता"], bn:["A","B","C","নির্ধারণ করা যায় না"] }, c: 2
-  },
-  {
-    cat: { ar:"حساب", en:"Calculation", hi:"गणना", bn:"হিসাব" },
-    q: { ar:"عندك 15 تفاحة وأخذت ثلثها. كم تفاحة بقيت؟", en:"You have 15 apples and take one third of them. How many are left?", hi:"आपके पास 15 सेब हैं और आपने एक-तिहाई ले लिए। कितने बचे?", bn:"আপনার ১৫টি আপেল আছে, এক-তৃতীয়াংশ নিলেন। কতটি বাকি?" },
-    o: { ar:["5","10","12","15"], en:["5","10","12","15"], hi:["5","10","12","15"], bn:["৫","১০","১২","১৫"] }, c: 1
-  },
-  {
-    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
-    q: {
-      ar:"مورد سلّم بضاعة بدون فاتورة واضحة وبدون تاريخ انتهاء مكتوب. أيش تسوي؟",
-      en:"A supplier delivers goods with no clear invoice and no expiry date written. What do you do?",
-      hi:"एक सप्लायर बिना स्पष्ट इनवॉइस और बिना एक्सपायरी तारीख के सामान लाता है। आप क्या करेंगे?",
-      bn:"একজন সরবরাহকারী স্পষ্ট ইনভয়েস ও মেয়াদের তারিখ ছাড়া পণ্য দিলেন। কী করবেন?"
-    },
-    o: {
-      ar:["أرفض الاستلام أو أحجزها حتى أتأكد","أستلمها وأكمل","أكتب التاريخ من عندي وأستلم","أتركها عند الباب وأمشي"],
-      en:["Refuse delivery or hold it until verified","Accept it and carry on","Write an expiry date myself and accept","Leave it by the door and walk away"],
-      hi:["डिलीवरी लेने से मना करें या जांच होने तक रोकें","लेकर काम जारी रखें","खुद एक्सपायरी तारीख लिखकर ले लें","दरवाजे के पास छोड़कर चले जाएं"],
-      bn:["ডেলিভারি নেব না বা যাচাই না হওয়া পর্যন্ত আটকে রাখব","নিয়ে কাজ চালিয়ে যাব","নিজে মেয়াদের তারিখ লিখে নিয়ে নেব","দরজার পাশে রেখে চলে যাব"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"حل المشكلات", en:"Problem solving", hi:"समस्या समाधान", bn:"সমস্যা সমাধান" },
-    q: {
-      ar:"الفريزر يصدر صوتاً عالياً والمنتجات المجمدة بدأت تلين. أول خطوة؟",
-      en:"The freezer is making a loud noise and frozen products are starting to soften. What is the first step?",
-      hi:"फ्रीज़र तेज़ आवाज़ कर रहा है और जमे सामान नरम होने लगे हैं। पहला कदम क्या है?",
-      bn:"ফ্রিজার জোরে শব্দ করছে আর হিমায়িত পণ্য নরম হতে শুরু করেছে। প্রথম ধাপ কী?"
-    },
-    o: {
-      ar:["أتأكد من حرارة الفريزر وأبلغ الصيانة فوراً","أفتح الباب أكثر لأهوّيه","أنقل المنتجات لأقرب مكان بدون تبليغ","أطفيه وأنتظر للغد"],
-      en:["Check the freezer temperature and report to maintenance right away","Open the door wider to air it out","Move the products somewhere close without reporting","Switch it off and wait until tomorrow"],
-      hi:["फ्रीज़र का तापमान जांचें और तुरंत मेंटेनेंस को बताएं","दरवाज़ा ज़्यादा खोलकर हवा दें","सामान बिना बताए पास की जगह रख दें","उसे बंद करके कल तक इंतज़ार करें"],
-      bn:["ফ্রিজারের তাপমাত্রা দেখুন ও সঙ্গে সঙ্গে মেইনটেন্যান্সকে জানান","দরজা বেশি খুলে বাতাস দিন","না জানিয়ে কাছের জায়গায় পণ্য সরান","বন্ধ করে কাল পর্যন্ত অপেক্ষা করুন"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
-    q: {
-      ar:"عندك خيارين: تسريع الطلب بتجاهل خطوة تنظيف، أو تأخير التسليم دقيقتين لإكمال الخطوة. أيش الصح؟",
-      en:"You can speed up an order by skipping a cleaning step, or delay delivery by two minutes to finish the step. Which is right?",
-      hi:"आप सफाई का कदम छोड़कर ऑर्डर जल्दी दे सकते हैं, या दो मिनट देर करके कदम पूरा कर सकते हैं। कौन सा सही है?",
-      bn:"একটি পরিষ্কারের ধাপ বাদ দিয়ে অর্ডার দ্রুত দিতে পারেন, অথবা দুই মিনিট দেরি করে ধাপ শেষ করতে পারেন। কোনটি সঠিক?"
-    },
-    o: {
-      ar:["تسريع الطلب لأن الوقت مهم","تأخير التسليم وإكمال خطوة النظافة","لا فرق بينهما","تجاهل الخطوة إذا كان العميل مستعجلاً"],
-      en:["Speed up the order since time matters","Delay delivery and complete the cleaning step","There is no difference","Skip the step if the customer is in a hurry"],
-      hi:["जल्दी डिलीवरी करें क्योंकि समय ज़रूरी है","डिलीवरी दो मिनट रोककर सफाई का कदम पूरा करें","दोनों में कोई फर्क नहीं","ग्राहक जल्दी में हो तो कदम छोड़ दें"],
-      bn:["সময় গুরুত্বপূর্ণ তাই অর্ডার দ্রুত দিন","ডেলিভারি দুই মিনিট দেরি করে পরিষ্কারের ধাপ শেষ করুন","দুটোর মধ্যে কোনো পার্থক্য নেই","গ্রাহক তাড়ায় থাকলে ধাপ বাদ দিন"]
+      ar:["30 دقيقة","35 دقيقة","40 دقيقة","45 دقيقة"],
+      en:["30 minutes","35 minutes","40 minutes","45 minutes"],
+      hi:["30 मिनट","35 मिनट","40 मिनट","45 मिनट"],
+      bn:["৩০ মিনিট","৩৫ মিনিট","৪০ মিনিট","৪৫ মিনিট"],
+      id:["30 menit","35 menit","40 menit","45 menit"]
     }, c: 1
   },
   {
-    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
-    q: {
-      ar:"لاحظت زميلك ما يغسل يديه بعد الحمام. أيش تسوي؟",
-      en:"You notice a coworker is not washing his hands after the bathroom. What do you do?",
-      hi:"आप देखते हैं कि एक सहकर्मी शौचालय के बाद हाथ नहीं धोता। आप क्या करेंगे?",
-      bn:"আপনি লক্ষ্য করলেন একজন সহকর্মী টয়লেটের পর হাত ধোন না। কী করবেন?"
-    },
+    cat: { ar:"أولويات", en:"Prioritizing", hi:"प्राथमिकता", bn:"অগ্রাধিকার", id:"Prioritas" },
+    q: { ar:"وصل المفتش أثناء تفريغ شحنة لحم نيء عند الباب الخلفي، وشكا زبون عند الكاونتر. ما الأولوية؟", en:"An inspector arrives while raw meat is being unloaded at the back door, and a customer complains at the counter. What is the priority?", hi:"पिछले दरवाज़े पर कच्चे मांस की उतराई चल रही है, तभी इंस्पेक्टर आता है और काउंटर पर एक ग्राहक शिकायत करता है। प्राथमिकता क्या है?", bn:"পিছনের দরজায় কাঁচা মাংস নামানো হচ্ছে, এমন সময় একজন পরিদর্শক আসেন এবং কাউন্টারে একজন গ্রাহক অভিযোগ করেন। অগ্রাধিকার কী?", id:"Seorang inspektur datang saat daging mentah sedang dibongkar di pintu belakang, dan pelanggan mengeluh di kasir. Apa prioritasnya?" },
     o: {
-      ar:["أذكّره بلطف، وإذا تكرر أبلغ المشرف","أسكت لأنها ليست مشكلتي","أصوّره وأنشره","أغسل يدي وأتجاهل الموضوع"],
-      en:["Remind him politely, and if it continues, report to the supervisor","Stay silent because it is not my problem","Film him and post it","Wash my hands and ignore it"],
-      hi:["विनम्रता से याद दिलाऊं, और बार-बार हो तो सुपरवाइजर को बताऊं","चुप रहूं क्योंकि यह मेरी समस्या नहीं","उसकी वीडियो बनाकर पोस्ट करूं","अपने हाथ धोकर बात नज़रअंदाज़ करूं"],
-      bn:["ভদ্রভাবে মনে করিয়ে দেব, বারবার হলে সুপারভাইজারকে জানাব","চুপ থাকব কারণ এটা আমার সমস্যা নয়","তার ভিডিও করে পোস্ট করব","নিজের হাত ধুয়ে বিষয়টি উপেক্ষা করব"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
-    q: {
-      ar:"أيهم يختلف عن الباقي؟ تفاح، موز، جزر، برتقال",
-      en:"Which one is different? Apple, banana, carrot, orange",
-      hi:"कौन सा अलग है? सेब, केला, गाजर, संतरा",
-      bn:"কোনটি আলাদা? আপেল, কলা, গাজর, কমলা"
-    },
-    o: { ar:["تفاح","موز","جزر","برتقال"], en:["Apple","Banana","Carrot","Orange"], hi:["सेब","केला","गाजर","संतरा"], bn:["আপেল","কলা","গাজর","কমলা"] }, c: 2
-  },
-  {
-    cat: { ar:"ترتيب الأولويات", en:"Prioritizing", hi:"प्राथमिकता तय करना", bn:"অগ্রাধিকার নির্ধারণ" },
-    q: {
-      ar:"خسارة منتج صغيرة مقابل خطر على سلامة العملاء. أيش الأولوية؟",
-      en:"A small product loss versus a risk to customer safety. What takes priority?",
-      hi:"एक छोटे उत्पाद का नुकसान बनाम ग्राहकों की सुरक्षा का खतरा। प्राथमिकता क्या है?",
-      bn:"একটি ছোট পণ্যের ক্ষতি বনাম গ্রাহকের নিরাপত্তার ঝুঁকি। অগ্রাধিকার কী?"
-    },
-    o: {
-      ar:["سلامة العملاء","توفير المنتج","سرعة الإنتاج","مظهر المطبخ"],
-      en:["Customer safety","Saving the product","Production speed","Kitchen appearance"],
-      hi:["ग्राहकों की सुरक्षा","उत्पाद बचाना","उत्पादन की गति","रसोई की सजावट"],
-      bn:["গ্রাহকের নিরাপত্তা","পণ্য বাঁচানো","উৎপাদনের গতি","রান্নাঘরের চেহারা"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"تخزين الطعام", en:"Food storage", hi:"खाद्य भंडारण", bn:"খাবার সংরক্ষণ" },
-    q: {
-      ar:"صندوق مكتوب عليه: آخر استخدام 1 أكتوبر، واليوم 3 أكتوبر. أيش تسوي؟",
-      en:"A box is marked best used by 1 October, and today is 3 October. What do you do?",
-      hi:"एक डिब्बे पर लिखा है: 1 अक्टूबर तक इस्तेमाल करें, और आज 3 अक्टूबर है। आप क्या करेंगे?",
-      bn:"একটি বাক্সে লেখা ১ অক্টোবরের মধ্যে ব্যবহার করুন, আজ ৩ অক্টোবর। কী করবেন?"
-    },
-    o: {
-      ar:["أتخلص منه وأسجل الإجراء","أستخدمه لأنه صندوق واحد فقط","أخفي التاريخ وأكمل","أبيعه للعميل بسعر أقل"],
-      en:["Discard it and record the action","Use it since it is just one box","Hide the date and carry on","Sell it to a customer at a lower price"],
-      hi:["इसे फेंकें और कार्रवाई दर्ज करें","इस्तेमाल कर लें क्योंकि यह सिर्फ एक डिब्बा है","तारीख छिपाकर काम जारी रखें","ग्राहक को कम दाम पर बेच दें"],
-      bn:["ফেলে দিন এবং পদক্ষেপ লিখে রাখুন","ব্যবহার করুন কারণ এটি একটিমাত্র বাক্স","তারিখ লুকিয়ে কাজ চালিয়ে যান","গ্রাহককে কম দামে বিক্রি করুন"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"درجات الحرارة", en:"Temperature control", hi:"तापमान नियंत्रण", bn:"তাপমাত্রা নিয়ন্ত্রণ" },
-    q: { ar:"ما أقصى مدة يُسمح فيها بترك الطعام المطبوخ قبل تبريده وحفظه؟", en:"What is the maximum time cooked food may be left out before it must be chilled?", hi:"पका हुआ खाना ठंडा करके रखने से पहले अधिकतम कितनी देर बाहर रखा जा सकता है?", bn:"রান্না করা খাবার ঠান্ডা করে রাখার আগে সর্বোচ্চ কতক্ষণ বাইরে রাখা যাবে?" },
-    o: {
-      ar:["ساعتين كحد أقصى","يوم كامل","أسبوع","لا يهم الوقت"],
-      en:["Two hours at most","A full day","A week","Time does not matter"],
-      hi:["अधिकतम दो घंटे","पूरा एक दिन","एक हफ्ता","समय मायने नहीं रखता"],
-      bn:["সর্বোচ্চ দুই ঘণ্টা","পুরো একদিন","এক সপ্তাহ","সময় গুরুত্বপূর্ণ নয়"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"درجات الحرارة", en:"Temperature control", hi:"तापमान नियंत्रण", bn:"তাপমাত্রা নিয়ন্ত্রণ" },
-    q: { ar:"عند استلام بضاعة مبردة، ما الحرارة المطلوبة تقريباً؟", en:"When receiving chilled goods, what temperature should they be at?", hi:"ठंडा सामान प्राप्त करते समय उसका तापमान लगभग कितना होना चाहिए?", bn:"ঠান্ডা পণ্য গ্রহণের সময় তাপমাত্রা প্রায় কত হওয়া উচিত?" },
-    o: {
-      ar:["5 درجات مئوية أو أقل","15 درجة مئوية","25 درجة مئوية","لا يهم"],
-      en:["5°C or below","15°C","25°C","It does not matter"],
-      hi:["5°C या उससे कम","15°C","25°C","कोई फर्क नहीं पड़ता"],
-      bn:["৫°C বা তার নিচে","১৫°C","২৫°C","কোনো ব্যাপার নয়"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"النظافة الشخصية", en:"Personal hygiene", hi:"व्यक्तिगत स्वच्छता", bn:"ব্যক্তিগত পরিচ্ছন্নতা" },
-    q: { ar:"ما الذي يجب أن يتوفر عند كل حوض غسيل في المطبخ؟", en:"What should be available at every handwashing sink in the kitchen?", hi:"रसोई के हर वॉश बेसिन पर क्या उपलब्ध होना चाहिए?", bn:"রান্নাঘরের প্রতিটি হাত ধোয়ার সিংকে কী থাকা উচিত?" },
-    o: {
-      ar:["صابون وماء ومناشف ورقية","ماء فقط","إسفنجة مشتركة","معطر جو"],
-      en:["Soap, water, and paper towels","Water only","A shared sponge","An air freshener"],
-      hi:["साबुन, पानी और पेपर तौलिये","केवल पानी","एक साझा स्पंज","एयर फ्रेशनर"],
-      bn:["সাবান, পানি ও টিস্যু পেপার","শুধু পানি","একটি শেয়ার করা স্পঞ্জ","এয়ার ফ্রেশনার"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"التنظيف والتعقيم", en:"Cleaning and sanitizing", hi:"सफाई और कीटाणुशोधन", bn:"পরিষ্কার ও জীবাণুমুক্তকরণ" },
-    q: { ar:"ما الفرق بين التنظيف والتعقيم؟", en:"What is the difference between cleaning and sanitizing?", hi:"सफाई और कीटाणुशोधन में क्या फर्क है?", bn:"পরিষ্কার ও জীবাণুমুক্তকরণের মধ্যে পার্থক্য কী?" },
-    o: {
-      ar:["التنظيف يزيل الأوساخ، والتعقيم يقتل الجراثيم","لا فرق بينهما","التعقيم يزيل الأوساخ فقط","التنظيف يقتل الجراثيم أكثر من التعقيم"],
-      en:["Cleaning removes dirt, sanitizing kills germs","There is no difference","Sanitizing only removes dirt","Cleaning kills more germs than sanitizing"],
-      hi:["सफाई गंदगी हटाती है, कीटाणुशोधन कीटाणु मारता है","कोई फर्क नहीं","कीटाणुशोधन केवल गंदगी हटाता है","सफाई कीटाणुशोधन से ज्यादा कीटाणु मारती है"],
-      bn:["পরিষ্কার ময়লা দূর করে, জীবাণুমুক্তকরণ জীবাণু মারে","কোনো পার্থক্য নেই","জীবাণুমুক্তকরণ শুধু ময়লা দূর করে","পরিষ্কার জীবাণুমুক্তকরণের চেয়ে বেশি জীবাণু মারে"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"تخزين الطعام", en:"Food storage", hi:"खाद्य भंडारण", bn:"খাবার সংরক্ষণ" },
-    q: { ar:"أي مما يلي من علامات فساد الطعام؟", en:"Which of these is a sign that food has spoiled?", hi:"इनमें से कौन सा खाना खराब होने का संकेत है?", bn:"নিচের কোনটি খাবার নষ্ট হওয়ার লক্ষণ?" },
-    o: {
-      ar:["رائحة حامضة وتغير في اللون والقوام","لون طبيعي ورائحة طيبة","طعم حلو خفيف","غلاف سليم"],
-      en:["Sour smell and change in color or texture","Normal color and pleasant smell","Slightly sweet taste","Intact packaging"],
-      hi:["खट्टी गंध और रंग या बनावट में बदलाव","सामान्य रंग और अच्छी गंध","हल्का मीठा स्वाद","साबुत पैकेट"],
-      bn:["টক গন্ধ ও রং বা গঠনে পরিবর্তন","স্বাভাবিক রং ও ভালো গন্ধ","হালকা মিষ্টি স্বাদ","অক্ষত প্যাকেট"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"تخزين الطعام", en:"Food storage", hi:"खाद्य भंडारण", bn:"খাবার সংরক্ষণ" },
-    q: { ar:"إذا تسرب ماء من ثلاجة فوق رفوف الطعام، ماذا تفعل؟", en:"If water leaks from a fridge onto food shelves, what do you do?", hi:"अगर फ्रिज से पानी टपककर खाने के शेल्फ पर गिर रहा है, तो आप क्या करेंगे?", bn:"ফ্রিজ থেকে পানি চুইয়ে খাবারের শেলফে পড়লে কী করবেন?" },
-    o: {
-      ar:["أنقل الطعام بعيداً وأبلغ المشرف","أمسح الماء وأكمل","أتركه حتى ينشف","أغطي الرف بورق"],
-      en:["Move the food away and report to the supervisor","Wipe the water and carry on","Leave it to dry","Cover the shelf with paper"],
-      hi:["खाना दूर रखें और सुपरवाइजर को बताएं","पानी पोंछकर काम जारी रखें","सूखने के लिए छोड़ दें","शेल्फ को कागज़ से ढक दें"],
-      bn:["খাবার সরিয়ে সুপারভাইজারকে জানান","পানি মুছে কাজ চালিয়ে যান","শুকানোর জন্য ফেলে রাখুন","শেলফ কাগজ দিয়ে ঢেকে দিন"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"النظافة الشخصية", en:"Personal hygiene", hi:"व्यक्तिगत स्वच्छता", bn:"ব্যক্তিগত পরিচ্ছন্নতা" },
-    q: { ar:"متى تغسل الخضروات قبل تقطيعها؟", en:"When should vegetables be washed before cutting?", hi:"काटने से पहले सब्जियाँ कब धोनी चाहिए?", bn:"কাটার আগে সবজি কখন ধোয়া উচিত?" },
-    o: {
-      ar:["قبل التقطيع مباشرة وبماء جارٍ","بعد التقطيع بدقائق","لا حاجة لغسلها","تُغسل بالصابون فقط"],
-      en:["Right before cutting, under running water","A few minutes after cutting","No washing is needed","Washed with soap only"],
-      hi:["काटने से ठीक पहले, बहते पानी में","काटने के कुछ मिनट बाद","धोने की जरूरत नहीं","केवल साबुन से धोएं"],
-      bn:["কাটার ঠিক আগে, চলমান পানিতে","কাটার কয়েক মিনিট পরে","ধোয়ার দরকার নেই","শুধু সাবান দিয়ে ধুতে হবে"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"التلوث المتقاطع", en:"Cross-contamination", hi:"क्रॉस-कंटैमिनेशन", bn:"ক্রস-কনটামিনেশন" },
-    q: { ar:"ماذا تفعل بأدوات التقطيع بعد استخدامها للحم النيء؟", en:"What should you do with cutting tools after using them on raw meat?", hi:"कच्चे मांस के बाद कटिंग टूल्स के साथ क्या करें?", bn:"কাঁচা মাংসে ব্যবহারের পর কাটার যন্ত্র দিয়ে কী করবেন?" },
-    o: {
-      ar:["أغسلها وأعقمها قبل استخدامها لشيء آخر","أمسحها بمنشفة فقط","أكمل بها مباشرة","أغسلها بالماء البارد فقط"],
-      en:["Wash and sanitize them before using them for anything else","Wipe them with a towel only","Continue using them right away","Rinse them with cold water only"],
-      hi:["दूसरे काम से पहले धोकर कीटाणुरहित करें","सिर्फ तौलिये से पोंछ दें","तुरंत उसी से काम जारी रखें","सिर्फ ठंडे पानी से खंगालें"],
-      bn:["অন্য কিছুতে ব্যবহারের আগে ধুয়ে জীবাণুমুক্ত করুন","শুধু তোয়ালে দিয়ে মুছুন","সঙ্গে সঙ্গে আবার ব্যবহার করুন","শুধু ঠান্ডা পানিতে ধুয়ে নিন"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"النظافة الشخصية", en:"Personal hygiene", hi:"व्यक्तिगत स्वच्छता", bn:"ব্যক্তিগত পরিচ্ছন্নতা" },
-    q: { ar:"بعد لمس النقود، هل يجوز لمس الطعام مباشرة؟", en:"After handling money, may you touch food directly?", hi:"पैसे छूने के बाद क्या सीधे खाना छू सकते हैं?", bn:"টাকা ধরার পর কি সরাসরি খাবার ছোঁয়া যাবে?" },
-    o: {
-      ar:["لا، لازم تغسل يدك أو تغير القفاز","نعم، إذا كانت اليد نظيفة","نعم، النقود لا تنقل الجراثيم","نعم، إذا كنت مستعجلاً"],
-      en:["No, wash your hands or change your gloves first","Yes, if your hands look clean","Yes, money does not carry germs","Yes, if you are in a hurry"],
-      hi:["नहीं, पहले हाथ धोएं या दस्ताने बदलें","हाँ, अगर हाथ साफ दिखें","हाँ, पैसों से कीटाणु नहीं फैलते","हाँ, अगर जल्दी हो"],
-      bn:["না, আগে হাত ধুন বা গ্লাভস বদলান","হ্যাঁ, হাত পরিষ্কার দেখালে","হ্যাঁ, টাকায় জীবাণু থাকে না","হ্যাঁ, তাড়া থাকলে"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"تخزين الطعام", en:"Food storage", hi:"खाद्य भंडारण", bn:"খাবার সংরক্ষণ" },
-    q: { ar:"أي الأطعمة تحتاج تخزيناً في الثلاجة بشكل أساسي؟", en:"Which foods must primarily be kept refrigerated?", hi:"कौन से खाद्य पदार्थ मुख्य रूप से फ्रिज में रखने चाहिए?", bn:"কোন খাবার প্রধানত ফ্রিজে রাখা দরকার?" },
-    o: {
-      ar:["اللحوم والأسماك والألبان","الخبز والمعلبات الجافة","البهارات المطحونة","الملح والسكر"],
-      en:["Meat, fish, and dairy","Bread and dry canned goods","Ground spices","Salt and sugar"],
-      hi:["मांस, मछली और डेयरी","ब्रेड और सूखे डिब्बाबंद सामान","पिसे मसाले","नमक और चीनी"],
-      bn:["মাংস, মাছ ও দুগ্ধজাত","রুটি ও শুকনো টিনজাত","গুঁড়ো মসলা","লবণ ও চিনি"]
-    }, c: 0
-  },
-  {
-    cat: { ar:"الحشرات والآفات", en:"Pests", hi:"कीट", bn:"কীটপতঙ্গ" },
-    q: { ar:"ما الذي يجذب الحشرات والفئران إلى المخزن أكثر من غيره؟", en:"What attracts insects and rodents to a storeroom the most?", hi:"गोदाम में कीड़ों और चूहों को सबसे ज़्यादा क्या आकर्षित करता है?", bn:"গুদামে পোকা ও ইঁদুরকে সবচেয়ে বেশি কী আকর্ষণ করে?" },
-    o: {
-      ar:["فتات الطعام والنفايات المكشوفة","الأرفف النظيفة","الصناديق المغلقة","الإضاءة الجيدة"],
-      en:["Food crumbs and uncovered waste","Clean shelves","Closed boxes","Good lighting"],
-      hi:["खाने के टुकड़े और खुला कचरा","साफ शेल्फ","बंद डिब्बे","अच्छी रोशनी"],
-      bn:["খাবারের গুঁড়ো ও খোলা আবর্জনা","পরিষ্কার শেলফ","বন্ধ বাক্স","ভালো আলো"]
+      ar:["إدخال اللحم النيء إلى التبريد أولاً","استقبال المفتش أولاً","معالجة شكوى الزبون أولاً","إنهاء الأوراق أولاً"],
+      en:["Get the raw meat into cold storage first","Greet the inspector first","Address the customer complaint first","Finish the paperwork first"],
+      hi:["कच्चे मांस को पहले ठंडी जगह रखें","पहले इंस्पेक्टर का स्वागत करें","पहले ग्राहक की शिकायत देखें","पहले कागजी काम पूरा करें"],
+      bn:["প্রথমে কাঁচা মাংস ঠান্ডা স্টোরেজে তুলুন","প্রথমে পরিদর্শককে অভ্যর্থনা জানান","প্রথমে গ্রাহকের অভিযোগ দেখুন","প্রথমে কাগজপত্র শেষ করুন"],
+      id:["Masukkan daging mentah ke penyimpanan dingin dulu","Sapa inspektur dulu","Tangani keluhan pelanggan dulu","Selesaikan dokumen dulu"]
     }, c: 0
   }
 ];
 
-// ───── INDONESIAN TRANSLATIONS (same order as BANK) ─────
-const ID_TR = [
-  { c:"Kebersihan pribadi", q:"Kapan Anda harus mencuci tangan?", o:["Sebelum menangani makanan dan setelah ke toilet","Hanya sebelum makan saat mulai shift","Hanya saat tangan terlihat kotor","Sekali di awal hari sudah cukup"] },
-  { c:"Kontrol suhu", q:"Berapa suhu kulkas yang aman?", o:["Di bawah 5°C","Antara 10 dan 15°C","Antara 20 dan 25°C","Suhu tidak memengaruhi makanan"] },
-  { c:"Kontrol suhu", q:"Berapa rentang suhu zona bahaya makanan?", o:["Antara 5°C dan 60°C","Di bawah 0°C","Di atas 100°C","Antara 60°C dan 80°C"] },
-  { c:"Hama", q:"Anda melihat kecoa di dapur. Apa yang Anda lakukan?", o:["Lapor ke penyelia dan hentikan pekerjaan di area itu","Bunuh lalu lanjut tanpa memberi tahu siapa pun","Abaikan selama jauh dari makanan","Letakkan makanan untuk menangkap lebih banyak"] },
-  { c:"Penyimpanan makanan", q:"Apa arti FIFO di gudang?", o:["Stok tertua digunakan lebih dulu","Stok termahal digunakan lebih dulu","Stok terbaru digunakan lebih dulu","Stok terberat digunakan lebih dulu"] },
-  { c:"Karyawan sakit", q:"Anda mengalami diare dan muntah. Apa yang harus dilakukan?", o:["Beri tahu atasan dan tetap di rumah sampai sembuh","Pakai sarung tangan lalu tetap bekerja","Minum obat lalu selesaikan shift","Cukup hindari menyentuh makanan langsung"] },
-  { c:"Memasak", q:"Suhu internal apa yang harus dicapai ayam saat dimasak?", o:["75°C","50°C","60°C","90°C"] },
-  { c:"Kontaminasi silang", q:"Di mana Anda menyimpan daging mentah di kulkas?", o:["Di rak bawah, di bawah makanan siap saji","Di atas makanan siap saji","Di sebelah makanan siap saji","Urutannya tidak pernah penting"] },
-  { c:"Bahan kimia", q:"Di mana bahan pembersih harus disimpan dibanding makanan?", o:["Di tempat terpisah jauh dari makanan","Di rak yang sama dengan makanan tertutup","Di atas makanan agar jauh dari jangkauan","Di sebelah makanan agar mudah diambil"] },
-  { c:"Logika", q:"Apa angka berikutnya dalam pola: 2, 4, 8, 16, ?", o:["24","30","32","36"] },
-  { c:"Logika", q:"Semua barang yang sudah dibuka harus ditutup. Minyak sudah dibuka. Kesimpulan yang benar?", o:["Minyak harus ditutup","Minyak boleh dibiarkan terbuka","Minyak tidak perlu ditutup","Tidak ada yang bisa disimpulkan tentang minyak"] },
-  { c:"Prioritas", q:"Pengiriman beku tiba pukul 10.00, lantai basah, dan rak berantakan. Apa yang dikerjakan lebih dulu?", o:["Segera masukkan barang beku ke freezer","Keringkan lantai dulu","Rapikan rak dulu","Angkat telepon dulu"] },
-  { c:"Hitungan", q:"Anda punya 40 karung beras dan memakai 8 karung per hari. Berapa hari stok akan bertahan?", o:["4 hari","5 hari","6 hari","8 hari"] },
-  { c:"Hitungan", q:"Anda punya 3 kotak isi 12 kaleng dan memakai 10 kaleng. Berapa kaleng yang tersisa?", o:["24 kaleng","26 kaleng","30 kaleng","36 kaleng"] },
-  { c:"Prioritas", q:"Tiga produk kedaluwarsa pada 5 Oktober, 12 Oktober, dan 8 Oktober. Mana yang digunakan lebih dulu?", o:["Produk yang kedaluwarsa 5 Oktober","Produk yang kedaluwarsa 12 Oktober","Produk yang kedaluwarsa 8 Oktober","Tidak ada perbedaan di antaranya"] },
-  { c:"Pemecahan masalah", q:"Pelanggan bilang menemukan rambut di makanannya. Apa langkah yang benar?", o:["Hentikan penyajian, lapor ke penyelia, dan simpan piring untuk diperiksa","Minta maaf, ganti piringnya, lalu selesai","Katakan itu hanya satu helai jadi tidak masalah","Katakan rambut itu bukan dari dapur kami"] },
-  { c:"Penilaian", q:"Pengiriman terlambat dua jam dalam cuaca panas, dan produk dingin ada di kendaraan. Apa yang dilakukan?", o:["Cek suhu produk dan buang yang melewati batas aman","Masukkan ke kulkas dan gunakan semuanya","Biarkan dingin sendiri lalu gunakan","Jual cepat dengan harga lebih murah"] },
-  { c:"Penilaian", q:"Rekan kerja bilang kulkas bekerja baik, tapi belum mengecek suhunya. Apa yang Anda lakukan?", o:["Ukur suhunya sendiri dan catat","Percaya dia dan tidak perlu mengukur","Tunggu sampai ada yang salah","Ganti kulkas tanpa mengukur"] },
-  { c:"Penilaian", q:"Rekan kerja tidak setuju dengan Anda apakah sebuah hidangan aman. Langkah yang tepat?", o:["Cek standar tertulis atau penyelia dan ikuti keputusannya","Selesaikan sendiri lalu lanjut","Biarkan rekan memutuskan dan Anda pergi","Campur hidangan dan sajikan"] },
-  { c:"Penilaian", q:"Label tertulis paket ayam harus dipakai dalam 3 hari setelah dibuka. Anda membukanya 4 hari lalu. Apakah Anda memakainya?", o:["Tidak, harus dibuang","Ya, selama baunya normal","Ya, saya akan memasaknya lebih lama","Saya tunggu sehari dan lihat"] },
-  { c:"Penalaran", q:"Serangga terus muncul di gudang setiap minggu. Solusi terbaik?", o:["Cari sumber masuknya, tutup celah, dan pantau secara rutin","Semprot pestisida setiap hari dan selesai","Hanya pindahkan makanan ke tempat lain","Abaikan karena kadang hilang sendiri"] },
-  { c:"Kebersihan pribadi", q:"Apakah makan atau minum diperbolehkan di area persiapan makanan?", o:["Tidak, dilarang keras di area persiapan","Ya, jika makanannya ringan dan cepat","Ya, jika langsung cuci tangan setelahnya","Ya, jika minumannya hanya air"] },
-  { c:"Kebersihan pribadi", q:"Apa yang harus menutupi rambut karyawan di dapur?", o:["Penutup kepala bersih yang menutupi seluruh rambut","Rambut yang diikat biasa sudah cukup","Topi yang terbuka di sisinya","Tidak perlu penutup jika rambut pendek"] },
-  { c:"Penyimpanan makanan", q:"Berapa suhu yang tepat untuk menyimpan barang beku di freezer?", o:["-18°C atau lebih rendah","-5°C","Tepat 0°C","+5°C"] },
-  { c:"Kontrol suhu", q:"Makanan siap saji dibiarkan di meja suhu ruang selama 4 jam. Apa yang Anda lakukan?", o:["Buang karena sudah melewati waktu aman","Panaskan dengan baik lalu sajikan","Dinginkan lalu masukkan ke kulkas","Tutup dan simpan untuk makan berikutnya"] },
-  { c:"Pembersihan dan sanitasi", q:"Apa urutan yang benar untuk membersihkan meja persiapan?", o:["Cuci dengan sabun dan air, bilas, sanitasi, lalu biarkan kering","Sanitasi dulu lalu cuci dengan sabun","Lap dengan kain kering saja","Semprot disinfektan lalu lap tanpa mencuci"] },
-  { c:"Alergi makanan", q:"Pelanggan bertanya apakah kuenya mengandung kacang. Apa jawaban Anda?", o:["Cek bahan-bahannya dan jawab dengan tepat","Bilang kemungkinan besar tidak","Bilang kue itu selalu bebas kacang","Abaikan pertanyaannya dan lanjut"] },
-  { c:"Logika", q:"Apa angka berikutnya dalam pola: 3, 6, 12, 24, ?", o:["36","42","48","60"] },
-  { c:"Logika", q:"Semua truk tiba sebelum pukul 8 pagi. Truk 3 tiba pukul 9 pagi. Kesimpulan yang benar?", o:["Truk 3 tidak memenuhi jadwal","Semua truk terlambat hari ini","Truk 3 tiba tepat waktu","Tidak ada yang bisa diketahui tentang truk 3"] },
-  { c:"Hitungan", q:"5 pekerja membersihkan gudang dalam 6 jam. Berapa pekerja yang dibutuhkan agar selesai dalam 3 jam dengan kecepatan yang sama?", o:["5","8","10","15"] },
-  { c:"Logika", q:"Jika A lebih besar dari B, dan B lebih besar dari C, mana yang paling kecil?", o:["A","B","C","Tidak bisa ditentukan"] },
-  { c:"Hitungan", q:"Anda punya 15 apel dan mengambil sepertiganya. Berapa yang tersisa?", o:["5","10","12","15"] },
-  { c:"Penilaian", q:"Pemasok mengirim barang tanpa faktur yang jelas dan tanpa tanggal kedaluwarsa tertulis. Apa yang Anda lakukan?", o:["Tolak pengiriman atau tahan sampai diverifikasi","Terima dan lanjutkan","Tulis sendiri tanggal kedaluwarsa lalu terima","Biarkan di dekat pintu dan pergi"] },
-  { c:"Pemecahan masalah", q:"Freezer berbunyi keras dan produk beku mulai melunak. Langkah pertama?", o:["Cek suhu freezer dan segera lapor ke pemeliharaan","Buka pintu lebih lebar agar berangin","Pindahkan produk ke tempat dekat tanpa lapor","Matikan dan tunggu sampai besok"] },
-  { c:"Penilaian", q:"Anda bisa mempercepat pesanan dengan melewatkan satu langkah kebersihan, atau menunda pengiriman dua menit untuk menyelesaikan langkah itu. Mana yang benar?", o:["Percepat pesanan karena waktu penting","Tunda pengiriman dan selesaikan langkah kebersihan","Tidak ada perbedaan","Lewati langkah jika pelanggan sedang terburu-buru"] },
-  { c:"Penilaian", q:"Anda melihat rekan tidak mencuci tangan setelah dari toilet. Apa yang Anda lakukan?", o:["Ingatkan dengan sopan, dan jika berulang lapor ke penyelia","Diam karena bukan urusan saya","Rekam dan posting","Cuci tangan saya dan abaikan"] },
-  { c:"Logika", q:"Mana yang berbeda? Apel, pisang, wortel, jeruk", o:["Apel","Pisang","Wortel","Jeruk"] },
-  { c:"Prioritas", q:"Kerugian produk kecil dibanding risiko keselamatan pelanggan. Mana yang didahulukan?", o:["Keselamatan pelanggan","Menyelamatkan produk","Kecepatan produksi","Tampilan dapur"] },
-  { c:"Penyimpanan makanan", q:"Sebuah kotak bertuliskan \"gunakan sebelum 1 Oktober\", dan hari ini 3 Oktober. Apa yang Anda lakukan?", o:["Buang dan catat tindakannya","Gunakan karena cuma satu kotak","Sembunyikan tanggalnya dan lanjut","Jual ke pelanggan dengan harga lebih murah"] },
-  { c:"Kontrol suhu", q:"Berapa lama maksimal makanan matang boleh dibiarkan sebelum harus didinginkan?", o:["Maksimal dua jam","Satu hari penuh","Seminggu","Waktu tidak masalah"] },
-  { c:"Kontrol suhu", q:"Saat menerima barang dingin, berapa suhu yang seharusnya?", o:["5°C atau lebih rendah","15°C","25°C","Tidak masalah"] },
-  { c:"Kebersihan pribadi", q:"Apa yang harus tersedia di setiap wastafel cuci tangan di dapur?", o:["Sabun, air, dan tisu kertas","Air saja","Spons yang dipakai bersama","Pengharum ruangan"] },
-  { c:"Pembersihan dan sanitasi", q:"Apa perbedaan antara membersihkan dan mensanitasi?", o:["Membersihkan menghilangkan kotoran, sanitasi membunuh kuman","Tidak ada perbedaan","Sanitasi hanya menghilangkan kotoran","Membersihkan membunuh lebih banyak kuman dari sanitasi"] },
-  { c:"Penyimpanan makanan", q:"Mana dari berikut ini yang merupakan tanda makanan sudah rusak?", o:["Bau asam dan perubahan warna atau tekstur","Warna normal dan bau enak","Rasa sedikit manis","Kemasan utuh"] },
-  { c:"Penyimpanan makanan", q:"Jika air bocor dari kulkas ke rak makanan, apa yang Anda lakukan?", o:["Pindahkan makanan menjauh dan lapor ke penyelia","Lap airnya lalu lanjut","Biarkan sampai kering","Tutup rak dengan kertas"] },
-  { c:"Kebersihan pribadi", q:"Kapan sayuran harus dicuci sebelum dipotong?", o:["Tepat sebelum dipotong, di bawah air mengalir","Beberapa menit setelah dipotong","Tidak perlu dicuci","Dicuci dengan sabun saja"] },
-  { c:"Kontaminasi silang", q:"Apa yang harus dilakukan dengan alat potong setelah dipakai untuk daging mentah?", o:["Cuci dan sanitasi sebelum dipakai untuk hal lain","Lap dengan handuk saja","Langsung dipakai lagi","Bilas dengan air dingin saja"] },
-  { c:"Kebersihan pribadi", q:"Setelah memegang uang, bolehkah langsung menyentuh makanan?", o:["Tidak, cuci tangan atau ganti sarung tangan dulu","Ya, jika tangan terlihat bersih","Ya, uang tidak membawa kuman","Ya, jika sedang terburu-buru"] },
-  { c:"Penyimpanan makanan", q:"Makanan apa yang terutama harus disimpan di kulkas?", o:["Daging, ikan, dan produk susu","Roti dan makanan kaleng kering","Rempah bubuk","Garam dan gula"] },
-  { c:"Hama", q:"Apa yang paling menarik serangga dan tikus ke gudang?", o:["Remah makanan dan sampah terbuka","Rak yang bersih","Kotak yang tertutup","Pencahayaan yang bagus"] }
-];
-ID_TR.forEach((t, i) => { BANK[i].cat.id = t.c; BANK[i].q.id = t.q; BANK[i].o.id = t.o; });
 
 // ───── UI TEXT ─────
 const T = {
@@ -1016,7 +916,7 @@ function startQuiz() {
     return;
   }
   err.style.display = 'none';
-  // Random 20 questions, each with its options shuffled so the answer position changes.
+  // Random 40 questions, each with its options shuffled so the answer position changes.
   // 35 food-safety questions + 5 reasoning questions, shuffled together.
   const REASONING_CATS = ['Logic', 'Calculation', 'Prioritizing', 'Reasoning'];
   const isReasoning = i => REASONING_CATS.includes(BANK[i].cat.en);
