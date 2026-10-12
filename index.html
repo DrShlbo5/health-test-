@@ -151,6 +151,7 @@
     <button class="lang-btn" data-lang="en">English</button>
     <button class="lang-btn" data-lang="hi">हिंदी</button>
     <button class="lang-btn" data-lang="bn">বাংলা</button>
+    <button class="lang-btn" data-lang="id">Indonesia</button>
   </div>
 
   <!-- START -->
@@ -832,6 +833,61 @@ const BANK = [
   }
 ];
 
+// ───── INDONESIAN TRANSLATIONS (same order as BANK) ─────
+const ID_TR = [
+  { c:"Kebersihan pribadi", q:"Kapan Anda harus mencuci tangan?", o:["Sebelum menangani makanan dan setelah ke toilet","Hanya sebelum makan saat mulai shift","Hanya saat tangan terlihat kotor","Sekali di awal hari sudah cukup"] },
+  { c:"Kontrol suhu", q:"Berapa suhu kulkas yang aman?", o:["Di bawah 5°C","Antara 10 dan 15°C","Antara 20 dan 25°C","Suhu tidak memengaruhi makanan"] },
+  { c:"Kontrol suhu", q:"Berapa rentang suhu zona bahaya makanan?", o:["Antara 5°C dan 60°C","Di bawah 0°C","Di atas 100°C","Antara 60°C dan 80°C"] },
+  { c:"Hama", q:"Anda melihat kecoa di dapur. Apa yang Anda lakukan?", o:["Lapor ke penyelia dan hentikan pekerjaan di area itu","Bunuh lalu lanjut tanpa memberi tahu siapa pun","Abaikan selama jauh dari makanan","Letakkan makanan untuk menangkap lebih banyak"] },
+  { c:"Penyimpanan makanan", q:"Apa arti FIFO di gudang?", o:["Stok tertua digunakan lebih dulu","Stok termahal digunakan lebih dulu","Stok terbaru digunakan lebih dulu","Stok terberat digunakan lebih dulu"] },
+  { c:"Karyawan sakit", q:"Anda mengalami diare dan muntah. Apa yang harus dilakukan?", o:["Beri tahu atasan dan tetap di rumah sampai sembuh","Pakai sarung tangan lalu tetap bekerja","Minum obat lalu selesaikan shift","Cukup hindari menyentuh makanan langsung"] },
+  { c:"Memasak", q:"Suhu internal apa yang harus dicapai ayam saat dimasak?", o:["75°C","50°C","60°C","90°C"] },
+  { c:"Kontaminasi silang", q:"Di mana Anda menyimpan daging mentah di kulkas?", o:["Di rak bawah, di bawah makanan siap saji","Di atas makanan siap saji","Di sebelah makanan siap saji","Urutannya tidak pernah penting"] },
+  { c:"Bahan kimia", q:"Di mana bahan pembersih harus disimpan dibanding makanan?", o:["Di tempat terpisah jauh dari makanan","Di rak yang sama dengan makanan tertutup","Di atas makanan agar jauh dari jangkauan","Di sebelah makanan agar mudah diambil"] },
+  { c:"Logika", q:"Apa angka berikutnya dalam pola: 2, 4, 8, 16, ?", o:["24","30","32","36"] },
+  { c:"Logika", q:"Semua barang yang sudah dibuka harus ditutup. Minyak sudah dibuka. Kesimpulan yang benar?", o:["Minyak harus ditutup","Minyak boleh dibiarkan terbuka","Minyak tidak perlu ditutup","Tidak ada yang bisa disimpulkan tentang minyak"] },
+  { c:"Prioritas", q:"Pengiriman beku tiba pukul 10.00, lantai basah, dan rak berantakan. Apa yang dikerjakan lebih dulu?", o:["Segera masukkan barang beku ke freezer","Keringkan lantai dulu","Rapikan rak dulu","Angkat telepon dulu"] },
+  { c:"Hitungan", q:"Anda punya 40 karung beras dan memakai 8 karung per hari. Berapa hari stok akan bertahan?", o:["4 hari","5 hari","6 hari","8 hari"] },
+  { c:"Hitungan", q:"Anda punya 3 kotak isi 12 kaleng dan memakai 10 kaleng. Berapa kaleng yang tersisa?", o:["24 kaleng","26 kaleng","30 kaleng","36 kaleng"] },
+  { c:"Prioritas", q:"Tiga produk kedaluwarsa pada 5 Oktober, 12 Oktober, dan 8 Oktober. Mana yang digunakan lebih dulu?", o:["Produk yang kedaluwarsa 5 Oktober","Produk yang kedaluwarsa 12 Oktober","Produk yang kedaluwarsa 8 Oktober","Tidak ada perbedaan di antaranya"] },
+  { c:"Pemecahan masalah", q:"Pelanggan bilang menemukan rambut di makanannya. Apa langkah yang benar?", o:["Hentikan penyajian, lapor ke penyelia, dan simpan piring untuk diperiksa","Minta maaf, ganti piringnya, lalu selesai","Katakan itu hanya satu helai jadi tidak masalah","Katakan rambut itu bukan dari dapur kami"] },
+  { c:"Penilaian", q:"Pengiriman terlambat dua jam dalam cuaca panas, dan produk dingin ada di kendaraan. Apa yang dilakukan?", o:["Cek suhu produk dan buang yang melewati batas aman","Masukkan ke kulkas dan gunakan semuanya","Biarkan dingin sendiri lalu gunakan","Jual cepat dengan harga lebih murah"] },
+  { c:"Penilaian", q:"Rekan kerja bilang kulkas bekerja baik, tapi belum mengecek suhunya. Apa yang Anda lakukan?", o:["Ukur suhunya sendiri dan catat","Percaya dia dan tidak perlu mengukur","Tunggu sampai ada yang salah","Ganti kulkas tanpa mengukur"] },
+  { c:"Penilaian", q:"Rekan kerja tidak setuju dengan Anda apakah sebuah hidangan aman. Langkah yang tepat?", o:["Cek standar tertulis atau penyelia dan ikuti keputusannya","Selesaikan sendiri lalu lanjut","Biarkan rekan memutuskan dan Anda pergi","Campur hidangan dan sajikan"] },
+  { c:"Penilaian", q:"Label tertulis paket ayam harus dipakai dalam 3 hari setelah dibuka. Anda membukanya 4 hari lalu. Apakah Anda memakainya?", o:["Tidak, harus dibuang","Ya, selama baunya normal","Ya, saya akan memasaknya lebih lama","Saya tunggu sehari dan lihat"] },
+  { c:"Penalaran", q:"Serangga terus muncul di gudang setiap minggu. Solusi terbaik?", o:["Cari sumber masuknya, tutup celah, dan pantau secara rutin","Semprot pestisida setiap hari dan selesai","Hanya pindahkan makanan ke tempat lain","Abaikan karena kadang hilang sendiri"] },
+  { c:"Kebersihan pribadi", q:"Apakah makan atau minum diperbolehkan di area persiapan makanan?", o:["Tidak, dilarang keras di area persiapan","Ya, jika makanannya ringan dan cepat","Ya, jika langsung cuci tangan setelahnya","Ya, jika minumannya hanya air"] },
+  { c:"Kebersihan pribadi", q:"Apa yang harus menutupi rambut karyawan di dapur?", o:["Penutup kepala bersih yang menutupi seluruh rambut","Rambut yang diikat biasa sudah cukup","Topi yang terbuka di sisinya","Tidak perlu penutup jika rambut pendek"] },
+  { c:"Penyimpanan makanan", q:"Berapa suhu yang tepat untuk menyimpan barang beku di freezer?", o:["-18°C atau lebih rendah","-5°C","Tepat 0°C","+5°C"] },
+  { c:"Kontrol suhu", q:"Makanan siap saji dibiarkan di meja suhu ruang selama 4 jam. Apa yang Anda lakukan?", o:["Buang karena sudah melewati waktu aman","Panaskan dengan baik lalu sajikan","Dinginkan lalu masukkan ke kulkas","Tutup dan simpan untuk makan berikutnya"] },
+  { c:"Pembersihan dan sanitasi", q:"Apa urutan yang benar untuk membersihkan meja persiapan?", o:["Cuci dengan sabun dan air, bilas, sanitasi, lalu biarkan kering","Sanitasi dulu lalu cuci dengan sabun","Lap dengan kain kering saja","Semprot disinfektan lalu lap tanpa mencuci"] },
+  { c:"Alergi makanan", q:"Pelanggan bertanya apakah kuenya mengandung kacang. Apa jawaban Anda?", o:["Cek bahan-bahannya dan jawab dengan tepat","Bilang kemungkinan besar tidak","Bilang kue itu selalu bebas kacang","Abaikan pertanyaannya dan lanjut"] },
+  { c:"Logika", q:"Apa angka berikutnya dalam pola: 3, 6, 12, 24, ?", o:["36","42","48","60"] },
+  { c:"Logika", q:"Semua truk tiba sebelum pukul 8 pagi. Truk 3 tiba pukul 9 pagi. Kesimpulan yang benar?", o:["Truk 3 tidak memenuhi jadwal","Semua truk terlambat hari ini","Truk 3 tiba tepat waktu","Tidak ada yang bisa diketahui tentang truk 3"] },
+  { c:"Hitungan", q:"5 pekerja membersihkan gudang dalam 6 jam. Berapa pekerja yang dibutuhkan agar selesai dalam 3 jam dengan kecepatan yang sama?", o:["5","8","10","15"] },
+  { c:"Logika", q:"Jika A lebih besar dari B, dan B lebih besar dari C, mana yang paling kecil?", o:["A","B","C","Tidak bisa ditentukan"] },
+  { c:"Hitungan", q:"Anda punya 15 apel dan mengambil sepertiganya. Berapa yang tersisa?", o:["5","10","12","15"] },
+  { c:"Penilaian", q:"Pemasok mengirim barang tanpa faktur yang jelas dan tanpa tanggal kedaluwarsa tertulis. Apa yang Anda lakukan?", o:["Tolak pengiriman atau tahan sampai diverifikasi","Terima dan lanjutkan","Tulis sendiri tanggal kedaluwarsa lalu terima","Biarkan di dekat pintu dan pergi"] },
+  { c:"Pemecahan masalah", q:"Freezer berbunyi keras dan produk beku mulai melunak. Langkah pertama?", o:["Cek suhu freezer dan segera lapor ke pemeliharaan","Buka pintu lebih lebar agar berangin","Pindahkan produk ke tempat dekat tanpa lapor","Matikan dan tunggu sampai besok"] },
+  { c:"Penilaian", q:"Anda bisa mempercepat pesanan dengan melewatkan satu langkah kebersihan, atau menunda pengiriman dua menit untuk menyelesaikan langkah itu. Mana yang benar?", o:["Percepat pesanan karena waktu penting","Tunda pengiriman dan selesaikan langkah kebersihan","Tidak ada perbedaan","Lewati langkah jika pelanggan sedang terburu-buru"] },
+  { c:"Penilaian", q:"Anda melihat rekan tidak mencuci tangan setelah dari toilet. Apa yang Anda lakukan?", o:["Ingatkan dengan sopan, dan jika berulang lapor ke penyelia","Diam karena bukan urusan saya","Rekam dan posting","Cuci tangan saya dan abaikan"] },
+  { c:"Logika", q:"Mana yang berbeda? Apel, pisang, wortel, jeruk", o:["Apel","Pisang","Wortel","Jeruk"] },
+  { c:"Prioritas", q:"Kerugian produk kecil dibanding risiko keselamatan pelanggan. Mana yang didahulukan?", o:["Keselamatan pelanggan","Menyelamatkan produk","Kecepatan produksi","Tampilan dapur"] },
+  { c:"Penyimpanan makanan", q:"Sebuah kotak bertuliskan \"gunakan sebelum 1 Oktober\", dan hari ini 3 Oktober. Apa yang Anda lakukan?", o:["Buang dan catat tindakannya","Gunakan karena cuma satu kotak","Sembunyikan tanggalnya dan lanjut","Jual ke pelanggan dengan harga lebih murah"] },
+  { c:"Kontrol suhu", q:"Berapa lama maksimal makanan matang boleh dibiarkan sebelum harus didinginkan?", o:["Maksimal dua jam","Satu hari penuh","Seminggu","Waktu tidak masalah"] },
+  { c:"Kontrol suhu", q:"Saat menerima barang dingin, berapa suhu yang seharusnya?", o:["5°C atau lebih rendah","15°C","25°C","Tidak masalah"] },
+  { c:"Kebersihan pribadi", q:"Apa yang harus tersedia di setiap wastafel cuci tangan di dapur?", o:["Sabun, air, dan tisu kertas","Air saja","Spons yang dipakai bersama","Pengharum ruangan"] },
+  { c:"Pembersihan dan sanitasi", q:"Apa perbedaan antara membersihkan dan mensanitasi?", o:["Membersihkan menghilangkan kotoran, sanitasi membunuh kuman","Tidak ada perbedaan","Sanitasi hanya menghilangkan kotoran","Membersihkan membunuh lebih banyak kuman dari sanitasi"] },
+  { c:"Penyimpanan makanan", q:"Mana dari berikut ini yang merupakan tanda makanan sudah rusak?", o:["Bau asam dan perubahan warna atau tekstur","Warna normal dan bau enak","Rasa sedikit manis","Kemasan utuh"] },
+  { c:"Penyimpanan makanan", q:"Jika air bocor dari kulkas ke rak makanan, apa yang Anda lakukan?", o:["Pindahkan makanan menjauh dan lapor ke penyelia","Lap airnya lalu lanjut","Biarkan sampai kering","Tutup rak dengan kertas"] },
+  { c:"Kebersihan pribadi", q:"Kapan sayuran harus dicuci sebelum dipotong?", o:["Tepat sebelum dipotong, di bawah air mengalir","Beberapa menit setelah dipotong","Tidak perlu dicuci","Dicuci dengan sabun saja"] },
+  { c:"Kontaminasi silang", q:"Apa yang harus dilakukan dengan alat potong setelah dipakai untuk daging mentah?", o:["Cuci dan sanitasi sebelum dipakai untuk hal lain","Lap dengan handuk saja","Langsung dipakai lagi","Bilas dengan air dingin saja"] },
+  { c:"Kebersihan pribadi", q:"Setelah memegang uang, bolehkah langsung menyentuh makanan?", o:["Tidak, cuci tangan atau ganti sarung tangan dulu","Ya, jika tangan terlihat bersih","Ya, uang tidak membawa kuman","Ya, jika sedang terburu-buru"] },
+  { c:"Penyimpanan makanan", q:"Makanan apa yang terutama harus disimpan di kulkas?", o:["Daging, ikan, dan produk susu","Roti dan makanan kaleng kering","Rempah bubuk","Garam dan gula"] },
+  { c:"Hama", q:"Apa yang paling menarik serangga dan tikus ke gudang?", o:["Remah makanan dan sampah terbuka","Rak yang bersih","Kotak yang tertutup","Pencahayaan yang bagus"] }
+];
+ID_TR.forEach((t, i) => { BANK[i].cat.id = t.c; BANK[i].q.id = t.q; BANK[i].o.id = t.o; });
+
 // ───── UI TEXT ─────
 const T = {
   ar: { lbl:"اللغة:", hdrTitle:"اختبار الوعي الصحي للموظفين", hdrSub:"٤٠ سؤال من بنك أسئلة متنوع",
@@ -869,7 +925,16 @@ const T = {
     btnNew:"নতুন কর্মচারী ►", btnHome:"হোম", recTitle:"📋 ফলাফল তালিকা", btnClear:"সব মুছুন 🗑", confirmClear:"নিশ্চিত করতে আবার চাপুন",
     btnRecBack:"ফিরে যান", thName:"নাম", thScore:"স্কোর", thPct:"শতাংশ", thVerdict:"ফলাফল", thDate:"তারিখ",
     pwTitle:"ফলাফল তালিকা — শুধু ম্যানেজার", pwSub:"দেখতে পাসওয়ার্ড দিন", btnUnlock:"খুলুন 🔓", btnPwBack:"ফিরে যান",
-    pwWrong:"ভুল পাসওয়ার্ড ❌", noRecords:"এখনো কোনো ফলাফল সংরক্ষিত নেই", enterName:"অনুগ্রহ করে কর্মচারীর নাম দিন" }
+    pwWrong:"ভুল পাসওয়ার্ড ❌", noRecords:"এখনো কোনো ফলাফল সংরক্ষিত নেই", enterName:"অনুগ্রহ করে কর্মচারীর নাম দিন" },
+  id: { lbl:"Bahasa:", hdrTitle:"Tes Kesadaran Kesehatan Karyawan", hdrSub:"40 pertanyaan dari bank soal beragam",
+    startTitle:"Masukkan nama karyawan untuk mulai", startSub:"Hasil disimpan otomatis setelah selesai", lblName:"Nama karyawan",
+    btnStart:"Mulai tes ►", navRec:"📋 Daftar hasil", empOf:"Karyawan:", next:"Berikutnya ►", finish:"Selesai ✓",
+    pass:"LULUS ✅", fail:"GAGAL ❌", passMsg:"Mencapai batas 60% dan dapat lanjut ke ujian sertifikat kesehatan resmi.",
+    failMsg:"Belum mencapai batas 60%. Disarankan pelatihan sebelum ujian resmi.",
+    btnNew:"Karyawan baru ►", btnHome:"Beranda", recTitle:"📋 Daftar hasil", btnClear:"Hapus semua 🗑", confirmClear:"Tekan lagi untuk konfirmasi",
+    btnRecBack:"Kembali", thName:"Nama", thScore:"Skor", thPct:"Persen", thVerdict:"Hasil", thDate:"Tanggal",
+    pwTitle:"Daftar hasil — khusus manajer", pwSub:"Masukkan kata sandi untuk melihat", btnUnlock:"Buka 🔓", btnPwBack:"Kembali",
+    pwWrong:"Kata sandi salah ❌", noRecords:"Belum ada hasil tersimpan", enterName:"Silakan masukkan nama karyawan" }
 };
 
 // ───── STATE ─────
