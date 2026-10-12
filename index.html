@@ -137,6 +137,13 @@
   .error-msg { color: var(--danger); font-size: 0.85rem; font-weight: 600; }
   .empty-state { color: var(--fg-soft); font-size: 0.92rem; padding: 32px; text-align: center; }
   .bottom-nav { display: flex; justify-content: center; }
+  .rev-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; }
+  .rev-head { font-weight: 800; color: var(--accent); font-size: 0.92rem; }
+  .rev-lang { border-top: 1px dashed var(--border); padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .rev-lbl { font-size: 0.75rem; font-weight: 800; color: var(--fg-soft); }
+  .rev-q { font-weight: 700; line-height: 1.6; }
+  .rev-opt { font-size: 0.92rem; padding: 6px 10px; border-radius: 8px; background: var(--bg); }
+  .rev-opt.ok { background: var(--success-bg); color: var(--success); font-weight: 700; }
 </style>
 
 <div class="app">
@@ -223,6 +230,7 @@
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn btn-primary btn-small" id="btn-upload"></button>
         <button class="btn btn-danger btn-small" id="btn-clear"></button>
+        <button class="btn btn-secondary btn-small" id="btn-review"></button>
         <button class="btn btn-secondary btn-small" id="btn-rec-back"></button>
       </div>
     </div>
@@ -237,6 +245,15 @@
         <tbody id="records-body"></tbody>
       </table>
     </div>
+  </div>
+
+  <!-- REVIEW (all questions in all languages; reachable only after the password) -->
+  <div id="screen-review" class="screen">
+    <div class="card records-header">
+      <h2 id="rev-title"></h2>
+      <button class="btn btn-secondary btn-small" id="btn-rev-back"></button>
+    </div>
+    <div id="review-body" style="display:flex;flex-direction:column;gap:14px"></div>
   </div>
 </div>
 
@@ -436,6 +453,10 @@ function applyTranslations() {
   document.getElementById('th-pct').textContent = t.thPct;
   document.getElementById('th-verdict').textContent = t.thVerdict;
   document.getElementById('th-date').textContent = t.thDate;
+  const rt = RT[lang];
+  document.getElementById('btn-review').textContent = rt.btnReview;
+  document.getElementById('rev-title').textContent = rt.revTitle;
+  document.getElementById('btn-rev-back').textContent = rt.btnRevBack;
 }
 
 function showScreen(id) {
@@ -665,7 +686,38 @@ function clearRecords() {
   btn.textContent = T[lang].btnClear;
 }
 
+// ───── REVIEW (manager only: all questions, all languages, correct answer marked) ─────
+const RT = {
+  ar: { btnReview:"📚 مراجعة كل الأسئلة", revTitle:"مراجعة الأسئلة — كل اللغات", btnRevBack:"رجوع للسجل" },
+  en: { btnReview:"📚 Review all questions", revTitle:"Question review — all languages", btnRevBack:"Back to log" },
+  hi: { btnReview:"📚 सभी प्रश्न देखें", revTitle:"प्रश्न समीक्षा — सभी भाषाएँ", btnRevBack:"सूची पर वापस" },
+  bn: { btnReview:"📚 সব প্রশ্ন দেখুন", revTitle:"প্রশ্ন পর্যালোচনা — সব ভাষা", btnRevBack:"তালিকায় ফিরে যান" },
+  id: { btnReview:"📚 Tinjau semua soal", revTitle:"Tinjauan soal — semua bahasa", btnRevBack:"Kembali ke daftar" }
+};
+const REV_LANGS = [['ar','عربي'],['en','English'],['hi','हिंदी'],['bn','বাংলা'],['id','Indonesia']];
+function escHtml(s) { return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+function showReview() {
+  renderReview();
+  showScreen('review');
+}
+function renderReview() {
+  const letters = ['A','B','C','D'];
+  const html = BANK.map((bq, i) => {
+    const langs = REV_LANGS.map(([L, name]) => {
+      const opts = bq.o[L].map((o, p) => {
+        const ok = p === bq.c;
+        return `<div class="rev-opt${ok ? ' ok' : ''}">${ok ? '✓ ' : ''}${escHtml(letters[p])}. ${escHtml(o)}</div>`;
+      }).join('');
+      return `<div class="rev-lang"><div class="rev-lbl">${name}</div><div class="rev-q">${escHtml(bq.q[L])}</div>${opts}</div>`;
+    }).join('');
+    return `<div class="rev-item"><div class="rev-head">${i + 1}. ${escHtml(bq.cat.en)} — ${escHtml(bq.cat.ar)}</div>${langs}</div>`;
+  }).join('');
+  document.getElementById('review-body').innerHTML = html;
+}
+
 // ───── WIRING ─────
+document.getElementById('btn-review').addEventListener('click', showReview);
+document.getElementById('btn-rev-back').addEventListener('click', () => { renderRecords(); showScreen('records'); });
 document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
 document.getElementById('btn-start').addEventListener('click', startQuiz);
 document.getElementById('emp-name').addEventListener('keydown', e => { if (e.key === 'Enter') startQuiz(); });
