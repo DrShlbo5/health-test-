@@ -143,6 +143,13 @@
   .rev-lbl { font-size: 0.75rem; font-weight: 800; color: var(--fg-soft); }
   .rev-q { font-weight: 700; line-height: 1.6; }
   .rev-opt { font-size: 0.92rem; padding: 6px 10px; border-radius: 8px; background: var(--bg); }
+  .study-sec { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .study-sec h3 { color: var(--accent); font-size: 1.1rem; font-weight: 900; border-bottom: 2px solid var(--accent-light); padding-bottom: 8px; }
+  .study-it { display: flex; flex-direction: column; gap: 4px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .study-it:last-child { border-bottom: none; padding-bottom: 0; }
+  .study-q { font-weight: 700; line-height: 1.6; }
+  .study-a { color: var(--success); font-weight: 600; line-height: 1.6; }
+  .lang-chips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
   .rev-opt.ok { background: var(--success-bg); color: var(--success); font-weight: 700; }
 </style>
 
@@ -173,7 +180,7 @@
       <p id="name-error" class="error-msg" style="display:none"></p>
     </div>
     <button class="btn btn-primary" id="btn-start">ابدأ الاختبار ◄</button>
-    <div class="bottom-nav"><button class="nav-link" id="nav-records">📋 سجل النتائج</button></div>
+    <div class="bottom-nav" style="gap:14px;flex-wrap:wrap"><button class="nav-link" id="nav-study">📖 المذكرة</button><button class="nav-link" id="nav-records">📋 سجل النتائج</button></div>
   </div>
 
   <!-- QUIZ -->
@@ -245,6 +252,16 @@
         <tbody id="records-body"></tbody>
       </table>
     </div>
+  </div>
+
+  <!-- STUDY (public study notes from the book, all languages) -->
+  <div id="screen-study" class="screen">
+    <div class="card records-header">
+      <h2 id="study-title"></h2>
+      <button class="btn btn-secondary btn-small" id="btn-study-back"></button>
+    </div>
+    <div class="card"><div class="lang-chips" id="study-chips"></div></div>
+    <div id="study-body" style="display:flex;flex-direction:column;gap:14px"></div>
   </div>
 
   <!-- REVIEW (all questions in all languages; reachable only after the password) -->
@@ -457,6 +474,10 @@ function applyTranslations() {
   document.getElementById('btn-review').textContent = rt.btnReview;
   document.getElementById('rev-title').textContent = rt.revTitle;
   document.getElementById('btn-rev-back').textContent = rt.btnRevBack;
+  document.getElementById('nav-study').textContent = STUDY_T[lang].btn;
+  document.getElementById('study-title').textContent = STUDY_T[lang].title;
+  document.getElementById('btn-study-back').textContent = STUDY_T[lang].back;
+  if (document.getElementById('screen-study').classList.contains('active')) renderStudy();
 }
 
 function showScreen(id) {
@@ -694,6 +715,14 @@ const RT = {
   bn: { btnReview:"📚 সব প্রশ্ন দেখুন", revTitle:"প্রশ্ন পর্যালোচনা — সব ভাষা", btnRevBack:"তালিকায় ফিরে যান" },
   id: { btnReview:"📚 Tinjau semua soal", revTitle:"Tinjauan soal — semua bahasa", btnRevBack:"Kembali ke daftar" }
 };
+const STUDY_T = {
+  ar: { btn:"📖 المذكرة", title:"📖 المذكرة — مراجعة قبل الاختبار", back:"رجوع", all:"الكل" },
+  en: { btn:"📖 Study notes", title:"📖 Study notes — review before the test", back:"Back", all:"All" },
+  hi: { btn:"📖 अध्ययन सामग्री", title:"📖 अध्ययन सामग्री — परीक्षा से पहले समीक्षा", back:"वापस", all:"सभी" },
+  bn: { btn:"📖 পড়ার নোট", title:"📖 পড়ার নোট — পরীক্ষার আগে পর্যালোচনা", back:"ফিরে যান", all:"সব" },
+  id: { btn:"📖 Catatan belajar", title:"📖 Catatan belajar — tinjau sebelum tes", back:"Kembali", all:"Semua" }
+};
+let studyLang = null;
 const REV_LANGS = [['ar','عربي'],['en','English'],['hi','हिंदी'],['bn','বাংলা'],['id','Indonesia']];
 function escHtml(s) { return String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
 function showReview() {
@@ -715,7 +744,43 @@ function renderReview() {
   document.getElementById('review-body').innerHTML = html;
 }
 
+// ───── STUDY NOTES (from the book; all languages; employees can open them freely) ─────
+function showStudy() {
+  if (!studyLang) studyLang = lang;
+  renderStudy();
+  showScreen('study');
+}
+function renderStudy() {
+  const REAS = ['Logic', 'Calculation', 'Prioritizing', 'Reasoning'];
+  const chipDefs = [['all', STUDY_T[lang].all], ...REV_LANGS];
+  document.getElementById('study-chips').innerHTML = chipDefs.map(([L, name]) =>
+    `<button class="lang-btn${(studyLang === L) ? ' active' : ''}" data-sl="${L}">${escHtml(name)}</button>`).join('');
+  document.querySelectorAll('#study-chips [data-sl]').forEach(b =>
+    b.addEventListener('click', () => { studyLang = b.dataset.sl; renderStudy(); }));
+
+  const groups = new Map();
+  BANK.filter(x => !REAS.includes(x.cat.en)).forEach(x => {
+    if (!groups.has(x.cat.en)) groups.set(x.cat.en, []);
+    groups.get(x.cat.en).push(x);
+  });
+  const show = L => studyLang === 'all' || studyLang === L;
+  const html = [...groups.entries()].map(([, items]) => {
+    const head = (studyLang === 'all' ? `${escHtml(items[0].cat.en)} / ${escHtml(items[0].cat.ar)}` : escHtml(items[0].cat[studyLang]));
+    const body = items.map(it => {
+      const langs = REV_LANGS.filter(([L]) => show(L)).map(([L, name]) =>
+        `<div class="study-it"><div class="rev-lbl">${studyLang === 'all' ? name : ''}</div>` +
+        `<div class="study-q">${escHtml(it.q[L])}</div>` +
+        `<div class="study-a">✓ ${escHtml(it.o[L][it.c])}</div></div>`).join('');
+      return langs;
+    }).join('');
+    return `<div class="study-sec"><h3>${head}</h3>${body}</div>`;
+  }).join('');
+  document.getElementById('study-body').innerHTML = html;
+}
+
 // ───── WIRING ─────
+document.getElementById('nav-study').addEventListener('click', showStudy);
+document.getElementById('btn-study-back').addEventListener('click', showStart);
 document.getElementById('btn-review').addEventListener('click', showReview);
 document.getElementById('btn-rev-back').addEventListener('click', () => { renderRecords(); showScreen('records'); });
 document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
