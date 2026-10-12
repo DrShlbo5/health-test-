@@ -192,6 +192,11 @@
       <input type="text" id="emp-name" class="text-input" autocomplete="off">
       <p id="name-error" class="error-msg" style="display:none"></p>
     </div>
+    <div class="card input-group">
+      <label id="lbl-code" for="test-code"></label>
+      <input type="password" inputmode="numeric" id="test-code" class="text-input" autocomplete="off">
+      <p id="code-error" class="error-msg" style="display:none"></p>
+    </div>
     <button class="btn btn-primary" id="btn-start">ابدأ الاختبار ◄</button>
     <div class="bottom-nav" style="gap:14px;flex-wrap:wrap"><button class="nav-link" id="nav-study">📖 المذكرة</button><button class="nav-link" id="nav-records">📋 سجل النتائج</button></div>
   </div>
@@ -300,6 +305,14 @@ function sendToSheet(data) {
 }
 const QUIZ_LENGTH = 40;
 const PASSWORD = "1122";
+const TEST_CODE = "6767"; // code the manager gives employees when they are allowed to take the test
+const CODE_T = {
+  ar: { lbl: "رمز الاختبار (من المدير)", err: "رمز الاختبار غير صحيح" },
+  en: { lbl: "Test code (from the manager)", err: "Incorrect test code" },
+  hi: { lbl: "परीक्षा कोड (प्रबंधक से)", err: "परीक्षा कोड गलत है" },
+  bn: { lbl: "পরীক্ষার কোড (ম্যানেজারের কাছ থেকে)", err: "পরীক্ষার কোড ভুল" },
+  id: { lbl: "Kode tes (dari manajer)", err: "Kode tes salah" }
+};
 
 // Each question: q = question text, o = options (same order in all languages), c = index of correct option.
 // Options are shuffled per employee, so the position of the answer is never fixed.
@@ -465,6 +478,7 @@ function applyTranslations() {
   document.getElementById('s-title').textContent = t.startTitle;
   document.getElementById('s-sub').textContent = t.startSub;
   document.getElementById('lbl-name').textContent = t.lblName;
+  document.getElementById('lbl-code').textContent = CODE_T[lang].lbl;
   document.getElementById('btn-start').textContent = t.btnStart;
   document.getElementById('nav-records').textContent = t.navRec;
   document.getElementById('btn-new-emp').textContent = t.btnNew;
@@ -509,6 +523,13 @@ function startQuiz() {
     return;
   }
   err.style.display = 'none';
+  const codeErr = document.getElementById('code-error');
+  if (document.getElementById('test-code').value.trim() !== TEST_CODE) {
+    codeErr.textContent = CODE_T[lang].err;
+    codeErr.style.display = 'block';
+    return;
+  }
+  codeErr.style.display = 'none';
   // Random 40 questions, each with its options shuffled so the answer position changes.
   // 35 food-safety questions + 5 reasoning questions, shuffled together.
   const REASONING_CATS = ['Logic', 'Calculation', 'Prioritizing', 'Reasoning'];
