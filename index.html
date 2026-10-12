@@ -514,6 +514,8 @@ function applyTranslations() {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-' + id).classList.add('active');
+  // The study screen has its own language chips, so hide the global language bar there.
+  document.querySelector('.lang-bar').style.display = id === 'study' ? 'none' : '';
 }
 function showStart() { showScreen('start'); }
 
