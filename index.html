@@ -945,6 +945,7 @@ let score = 0;
 let picked = null;
 let empName = '';
 let records = [];
+let answers = [];     // per-question record for the current employee: which option they chose
 
 try {
   const saved = localStorage.getItem('health_quiz_records');
@@ -1030,6 +1031,7 @@ function startQuiz() {
   currentQ = 0;
   score = 0;
   picked = null;
+  answers = [];
   showScreen('quiz');
   renderQuestion();
 }
@@ -1071,6 +1073,7 @@ function selectOption(pos) {
   if (picked !== null) return;
   picked = pos;
   if (pos === quiz[currentQ].correctPos) score++;
+  answers.push({ qi: quiz[currentQ].qi, order: quiz[currentQ].order, chosen: pos, correctPos: quiz[currentQ].correctPos });
   renderQuestion();
 }
 
@@ -1104,7 +1107,16 @@ function showResult() {
   const date = now.toLocaleDateString('ar-SA') + ' ' + now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
   records.push({ name: empName, score, total, pct, pass, date });
   saveRecords();
-  sendToSheet({ name: empName, score, total, pct, pass });
+  // List of wrong answers (Arabic text): question, what the employee chose, and the correct answer.
+  const wrongLines = answers
+    .filter(a => a.chosen !== a.correctPos)
+    .map((a, i) => {
+      const bq = BANK[a.qi];
+      return (i + 1) + ') ' + bq.q.ar +
+        ' | إجابته: ' + bq.o.ar[a.order[a.chosen]] +
+        ' | الصح: ' + bq.o.ar[a.order[a.correctPos]];
+    });
+  sendToSheet({ name: empName, score, total, pct, pass, wrong: wrongLines.join('\n') || 'لا يوجد' });
 }
 
 function newEmployee() {
