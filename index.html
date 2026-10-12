@@ -1,0 +1,1024 @@
+<title>اختبار الوعي الصحي</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap">
+<style>
+  /* Layout: single column, RTL, cards. Colors are tokens. */
+  :root {
+    --bg: #f7f8fa; --surface: #ffffff; --fg: #1a1d23; --fg-soft: #5a6072;
+    --accent: #1b6ca8; --accent-light: #e8f2fb;
+    --success: #1a8a4a; --success-bg: #e8f7ef;
+    --danger: #c0392b; --danger-bg: #fdecea;
+    --border: #e2e6ed; --radius: 14px; --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12151c; --surface: #1c2030; --fg: #e8ecf4; --fg-soft: #8892a8;
+      --accent: #4a9edd; --accent-light: #1a2d42;
+      --success: #34c974; --success-bg: #0f2a1c;
+      --danger: #f07070; --danger-bg: #2a0f0f;
+      --border: #2a3045; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12151c; --surface: #1c2030; --fg: #e8ecf4; --fg-soft: #8892a8;
+    --accent: #4a9edd; --accent-light: #1a2d42;
+    --success: #34c974; --success-bg: #0f2a1c;
+    --danger: #f07070; --danger-bg: #2a0f0f;
+    --border: #2a3045; color-scheme: dark;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--fg);
+    min-height: 100%; display: flex; flex-direction: column; align-items: center;
+    padding-block: 24px; padding-inline: 16px; direction: rtl;
+  }
+  .app { width: 100%; max-width: 680px; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+  .header { background: var(--accent); border-radius: var(--radius); padding: 22px 26px; color: #fff; }
+  .header h1 { font-size: 1.4rem; font-weight: 900; line-height: 1.3; }
+  .header p { font-size: 0.88rem; opacity: 0.88; margin-top: 4px; }
+  .lang-bar {
+    background: var(--surface); border-radius: var(--radius); padding: 14px 20px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+  }
+  .lang-bar span { font-size: 0.82rem; color: var(--fg-soft); font-weight: 600; }
+  .lang-btn {
+    background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 6px 14px; font-family: 'Cairo', sans-serif; font-size: 0.85rem;
+    font-weight: 700; color: var(--fg-soft); cursor: pointer;
+  }
+  .lang-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .screen { display: none; flex-direction: column; gap: 16px; }
+  .screen.active { display: flex; }
+  .card {
+    background: var(--surface); border-radius: var(--radius); padding: 24px;
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+  }
+  .card h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: 6px; }
+  .card p { color: var(--fg-soft); font-size: 0.92rem; line-height: 1.7; }
+  .input-group { display: flex; flex-direction: column; gap: 6px; }
+  .input-group label { font-size: 0.88rem; font-weight: 700; color: var(--fg-soft); }
+  .text-input {
+    background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px;
+    padding: 12px 16px; font-family: 'Cairo', sans-serif; font-size: 1rem;
+    color: var(--fg); width: 100%;
+  }
+  .text-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .btn {
+    padding: 14px 28px; border-radius: 10px; font-family: 'Cairo', sans-serif;
+    font-size: 1rem; font-weight: 800; cursor: pointer; border: none; text-align: center;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-secondary { background: var(--bg); color: var(--fg); border: 1.5px solid var(--border); }
+  .btn-danger { background: var(--danger); color: #fff; }
+  .btn-small { padding: 8px 14px; font-size: 0.85rem; }
+  .btn:focus-visible, .lang-btn:focus-visible, .option-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .nav-link {
+    font-family: 'Cairo', sans-serif; font-size: 0.85rem; font-weight: 700;
+    color: var(--fg-soft); background: none; border: none; cursor: pointer; padding: 6px 12px; border-radius: 8px;
+  }
+  .nav-link:hover { color: var(--accent); background: var(--accent-light); }
+  .quiz-header {
+    background: var(--surface); border-radius: var(--radius); padding: 14px 20px;
+    border: 1px solid var(--border); display: flex; align-items: center;
+    justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .quiz-meta { font-size: 0.85rem; color: var(--fg-soft); font-weight: 700; }
+  .progress-bar { height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; flex: 1; min-width: 80px; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.3s ease; }
+  .q-counter { font-size: 0.82rem; color: var(--fg-soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .q-category {
+    display: inline-flex; background: var(--accent-light); color: var(--accent);
+    font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 99px; margin-bottom: 14px;
+  }
+  .q-text { font-size: 1.08rem; font-weight: 700; line-height: 1.7; margin-bottom: 20px; text-wrap: balance; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn {
+    background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 600;
+    color: var(--fg); cursor: pointer; text-align: right; display: flex; align-items: center; gap: 10px;
+  }
+  .option-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-light); }
+  .option-btn.picked { border-color: var(--accent); background: var(--accent-light); color: var(--accent); }
+  .option-btn:disabled { cursor: default; }
+  .opt-label {
+    width: 26px; height: 26px; border-radius: 50%; background: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem; font-weight: 800; flex-shrink: 0;
+  }
+  .option-btn.picked .opt-label { background: var(--accent); color: #fff; }
+  .next-row { display: flex; justify-content: flex-start; }
+  .score-circle {
+    width: 120px; height: 120px; border-radius: 50%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; border: 6px solid; margin: 0 auto;
+  }
+  .score-circle.pass { border-color: var(--success); color: var(--success); background: var(--success-bg); }
+  .score-circle.fail { border-color: var(--danger); color: var(--danger); background: var(--danger-bg); }
+  .score-circle span { font-size: 0.72rem; font-weight: 700; opacity: 0.8; }
+  .result-card { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 32px 24px; }
+  .result-name { font-size: 1.3rem; font-weight: 900; }
+  .verdict { padding: 8px 22px; border-radius: 99px; font-size: 1rem; font-weight: 800; }
+  .verdict-pass { background: var(--success-bg); color: var(--success); }
+  .verdict-fail { background: var(--danger-bg); color: var(--danger); }
+  .result-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .records-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .records-table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
+  .records-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: var(--surface); }
+  .records-table th { background: var(--accent); color: #fff; padding: 12px 16px; font-weight: 700; text-align: right; white-space: nowrap; }
+  .records-table td { padding: 12px 16px; border-top: 1px solid var(--border); vertical-align: middle; }
+  .badge { display: inline-flex; padding: 3px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: 800; }
+  .badge-pass { background: var(--success-bg); color: var(--success); }
+  .badge-fail { background: var(--danger-bg); color: var(--danger); }
+  .password-prompt { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 36px 24px; }
+  .password-prompt p { color: var(--fg-soft); font-size: 0.9rem; }
+  .pw-input { max-width: 280px; text-align: center; direction: ltr; }
+  .error-msg { color: var(--danger); font-size: 0.85rem; font-weight: 600; }
+  .empty-state { color: var(--fg-soft); font-size: 0.92rem; padding: 32px; text-align: center; }
+  .bottom-nav { display: flex; justify-content: center; }
+</style>
+
+<div class="app">
+  <div class="header">
+    <h1 id="hdr-title">اختبار الوعي الصحي للموظفين</h1>
+    <p id="hdr-sub">٤٠ سؤال من بنك أسئلة متنوع</p>
+  </div>
+
+  <div class="lang-bar">
+    <span id="lbl-lang">اللغة:</span>
+    <button class="lang-btn active" data-lang="ar">عربي</button>
+    <button class="lang-btn" data-lang="en">English</button>
+    <button class="lang-btn" data-lang="hi">हिंदी</button>
+    <button class="lang-btn" data-lang="bn">বাংলা</button>
+  </div>
+
+  <!-- START -->
+  <div id="screen-start" class="screen active">
+    <div class="card">
+      <h2 id="s-title"></h2>
+      <p id="s-sub"></p>
+    </div>
+    <div class="card input-group">
+      <label id="lbl-name" for="emp-name"></label>
+      <input type="text" id="emp-name" class="text-input" autocomplete="off">
+      <p id="name-error" class="error-msg" style="display:none"></p>
+    </div>
+    <button class="btn btn-primary" id="btn-start">ابدأ الاختبار ◄</button>
+    <div class="bottom-nav"><button class="nav-link" id="nav-records">📋 سجل النتائج</button></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="screen-quiz" class="screen">
+    <div class="quiz-header">
+      <div class="quiz-meta" id="emp-display"></div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="q-counter" id="q-counter"></div>
+    </div>
+    <div class="card">
+      <div class="q-category" id="q-cat"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+    </div>
+    <div class="next-row">
+      <button class="btn btn-primary" id="btn-next" style="display:none"></button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="screen-result" class="screen">
+    <div class="card result-card">
+      <div class="score-circle" id="score-circle">
+        <div id="score-pct">0%</div>
+        <span id="score-frac">0/40</span>
+      </div>
+      <div class="result-name" id="res-name"></div>
+      <div class="verdict" id="res-verdict"></div>
+      <div class="result-actions">
+        <button class="btn btn-primary btn-small" id="btn-new-emp"></button>
+        <button class="btn btn-secondary btn-small" id="btn-back-start"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASSWORD -->
+  <div id="screen-password" class="screen">
+    <div class="card password-prompt">
+      <div style="font-size:2.5rem">🔒</div>
+      <h2 id="pw-title"></h2>
+      <p id="pw-sub"></p>
+      <input type="password" id="pw-input" class="text-input pw-input" placeholder="••••">
+      <p id="pw-error" class="error-msg" style="display:none"></p>
+      <button class="btn btn-primary" id="btn-unlock"></button>
+      <button class="nav-link" id="btn-pw-back"></button>
+    </div>
+  </div>
+
+  <!-- RECORDS -->
+  <div id="screen-records" class="screen">
+    <div class="card records-header">
+      <h2 id="rec-title"></h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-danger btn-small" id="btn-clear"></button>
+        <button class="btn btn-secondary btn-small" id="btn-rec-back"></button>
+      </div>
+    </div>
+    <div class="records-table-wrap">
+      <table class="records-table">
+        <thead>
+          <tr>
+            <th id="th-num">#</th><th id="th-name"></th><th id="th-score"></th>
+            <th id="th-pct"></th><th id="th-verdict"></th><th id="th-date"></th>
+          </tr>
+        </thead>
+        <tbody id="records-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const PASS_SCORE = 24;       // out of 40 (60%)
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbySsmPVlDoptD3QBuaDOWKxjSJwKfvS2-byuCUL8tJraDPaqR8wSLgx4uXJsFI0Y9jp/exec";
+
+// Sends the result to the Google Sheet. Fire-and-forget: no-cors means we cannot read the reply,
+// but the Apps Script still receives and writes the row.
+function sendToSheet(data) {
+  try {
+    fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
+  } catch (e) {}
+}
+const QUIZ_LENGTH = 40;
+const PASSWORD = "1122";
+
+// Each question: q = question text, o = options (same order in all languages), c = index of correct option.
+// Options are shuffled per employee, so the position of the answer is never fixed.
+const BANK = [
+  // ───── Food safety knowledge ─────
+  {
+    cat: { ar:"النظافة الشخصية", en:"Personal hygiene", hi:"व्यक्तिगत स्वच्छता", bn:"ব্যক্তিগত পরিচ্ছন্নতা" },
+    q: { ar:"متى يجب أن تغسل يديك؟", en:"When should you wash your hands?", hi:"आपको कब हाथ धोने चाहिए?", bn:"কখন হাত ধোয়া উচিত?" },
+    o: {
+      ar:["قبل التعامل مع الطعام وبعد الحمام","قبل الطعام فقط عند بدء الدوام","عند الشعور بأن يديك متسختان فقط","مرة واحدة في بداية اليوم كافية"],
+      en:["Before handling food and after the bathroom","Only before eating at the start of shift","Only when your hands look dirty","Once at the start of the day is enough"],
+      hi:["खाना छूने से पहले और शौचालय के बाद","केवल शिफ्ट शुरू होने पर खाने से पहले","केवल जब हाथ गंदे दिखें","दिन की शुरुआत में एक बार काफी है"],
+      bn:["খাবার ধরার আগে ও টয়লেটের পরে","শুধু শিফট শুরুতে খাওয়ার আগে","শুধু হাত নোংরা দেখালে","দিনের শুরুতে একবার যথেষ্ট"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"درجات الحرارة", en:"Temperature control", hi:"तापमान नियंत्रण", bn:"তাপমাত্রা নিয়ন্ত্রণ" },
+    q: { ar:"ما الحد الآمن لحرارة الثلاجة؟", en:"What is the safe temperature for a fridge?", hi:"फ्रिज का सुरक्षित तापमान क्या है?", bn:"ফ্রিজের নিরাপদ তাপমাত্রা কত?" },
+    o: {
+      ar:["أقل من 5 درجات مئوية","بين 10 و15 درجة مئوية","بين 20 و25 درجة مئوية","الحرارة لا تؤثر على الطعام"],
+      en:["Below 5°C","Between 10 and 15°C","Between 20 and 25°C","Temperature does not affect food"],
+      hi:["5°C से नीचे","10 से 15°C के बीच","20 से 25°C के बीच","तापमान खाने को प्रभावित नहीं करता"],
+      bn:["৫°C এর নিচে","১০ থেকে ১৫°C এর মধ্যে","২০ থেকে ২৫°C এর মধ্যে","তাপমাত্রা খাবারকে প্রভাবিত করে না"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"درجات الحرارة", en:"Temperature control", hi:"तापमान नियंत्रण", bn:"তাপমাত্রা নিয়ন্ত্রণ" },
+    q: { ar:"ما منطقة الخطر لحرارة الطعام؟", en:"What is the food danger zone temperature range?", hi:"खाने का खतरनाक तापमान क्षेत्र कौन सा है?", bn:"খাবারের বিপদ অঞ্চলের তাপমাত্রা কত?" },
+    o: {
+      ar:["بين 5 و60 درجة مئوية","أقل من صفر درجة مئوية","أكثر من 100 درجة مئوية","بين 60 و80 درجة مئوية"],
+      en:["Between 5°C and 60°C","Below 0°C","Above 100°C","Between 60°C and 80°C"],
+      hi:["5°C से 60°C के बीच","0°C से नीचे","100°C से ऊपर","60°C से 80°C के बीच"],
+      bn:["৫°C থেকে ৬০°C এর মধ্যে","০°C এর নিচে","১০০°C এর উপরে","৬০°C থেকে ৮০°C এর মধ্যে"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الحشرات والآفات", en:"Pests", hi:"कीट", bn:"কীটপতঙ্গ" },
+    q: { ar:"شفت صرصاراً في المطبخ، ماذا تفعل؟", en:"You see a cockroach in the kitchen. What do you do?", hi:"रसोई में एक तिलचट्टा दिखा, आप क्या करेंगे?", bn:"রান্নাঘরে একটি তেলাপোকা দেখলেন, কী করবেন?" },
+    o: {
+      ar:["أبلّغ المسؤول فوراً وأوقف العمل في المنطقة","أقتله وأكمل شغلي بدون إبلاغ أحد","أتجاهله ما دام بعيداً عن الطعام","أضع طعاماً لأصطاد المزيد منها"],
+      en:["Report to the supervisor and stop work in that area","Kill it and continue without telling anyone","Ignore it as long as it is far from food","Put food out to catch more of them"],
+      hi:["तुरंत सुपरवाइजर को बताएं और उस जगह काम रोकें","उसे मार कर बिना बताए काम जारी रखें","जब तक खाने से दूर हो, नजरअंदाज करें","और पकड़ने के लिए खाना रखें"],
+      bn:["সুপারভাইজারকে জানান ও ওই জায়গায় কাজ বন্ধ করুন","মেরে কাউকে না জানিয়ে কাজ চালিয়ে যান","খাবার থেকে দূরে থাকলে উপেক্ষা করুন","আরো ধরতে খাবার রাখুন"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تخزين الطعام", en:"Food storage", hi:"खाद्य भंडारण", bn:"খাবার সংরক্ষণ" },
+    q: { ar:"ماذا يعني FIFO في المخزن؟", en:"What does FIFO mean in a storeroom?", hi:"गोदाम में FIFO का क्या मतलब है?", bn:"গুদামে FIFO মানে কী?" },
+    o: {
+      ar:["الأقدم يُستخدم أولاً","الأغلى يُستخدم أولاً","الأجدد يُستخدم أولاً","الأثقل يُستخدم أولاً"],
+      en:["The oldest stock is used first","The most expensive stock is used first","The newest stock is used first","The heaviest stock is used first"],
+      hi:["सबसे पुराना स्टॉक पहले इस्तेमाल होता है","सबसे महंगा स्टॉक पहले इस्तेमाल होता है","सबसे नया स्टॉक पहले इस्तेमाल होता है","सबसे भारी स्टॉक पहले इस्तेमाल होता है"],
+      bn:["সবচেয়ে পুরনো স্টক আগে ব্যবহৃত হয়","সবচেয়ে দামি স্টক আগে ব্যবহৃত হয়","সবচেয়ে নতুন স্টক আগে ব্যবহৃত হয়","সবচেয়ে ভারী স্টক আগে ব্যবহৃত হয়"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الموظف المريض", en:"Sick employee", hi:"बीमार कर्मचारी", bn:"অসুস্থ কর্মচারী" },
+    q: { ar:"عندك إسهال وقيء، ماذا تسوي؟", en:"You have diarrhea and vomiting. What should you do?", hi:"आपको दस्त और उल्टी हो रही है, आप क्या करेंगे?", bn:"আপনার ডায়রিয়া ও বমি হচ্ছে, কী করবেন?" },
+    o: {
+      ar:["أبلّغ المشرف وأبقى بعيداً عن العمل حتى أتعافى","ألبس قفازات وأكمل الشغل بحذر","آخذ دواء مسكّن وأكمل الدوام","أتجنب لمس الطعام مباشرة فقط"],
+      en:["Inform my supervisor and stay away from work until I recover","Wear gloves and carefully keep working","Take a painkiller and finish my shift","Just avoid touching food directly"],
+      hi:["सुपरवाइजर को बताऊं और ठीक होने तक काम से दूर रहूं","दस्ताने पहनकर सावधानी से काम जारी रखूं","दर्द की दवा लेकर शिफ्ट पूरी करूं","बस खाने को सीधे न छूऊं"],
+      bn:["সুপারভাইজারকে জানাব ও সুস্থ না হওয়া পর্যন্ত কাজ থেকে দূরে থাকব","গ্লাভস পরে সাবধানে কাজ চালিয়ে যাব","ব্যথার ওষুধ খেয়ে শিফট শেষ করব","শুধু খাবার সরাসরি না ছুঁলেই হবে"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الطهي", en:"Cooking", hi:"पकाना", bn:"রান্না" },
+    q: { ar:"ما الحرارة الداخلية الآمنة للدجاج عند الطهي؟", en:"What internal temperature must chicken reach when cooked?", hi:"पकाते समय चिकन का अंदरूनी तापमान कितना होना चाहिए?", bn:"রান্নার সময় মুরগির ভেতরের তাপমাত্রা কত হওয়া উচিত?" },
+    o: {
+      ar:["75 درجة مئوية","50 درجة مئوية","60 درجة مئوية","90 درجة مئوية"],
+      en:["75°C","50°C","60°C","90°C"],
+      hi:["75°C","50°C","60°C","90°C"],
+      bn:["৭৫°C","৫০°C","৬০°C","৯০°C"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"التلوث المتقاطع", en:"Cross-contamination", hi:"क्रॉस-कंटैमिनेशन", bn:"ক্রস-কনটামিনেশন" },
+    q: { ar:"أين تحفظ اللحم النيء في الثلاجة؟", en:"Where do you store raw meat in the fridge?", hi:"फ्रिज में कच्चा मांस कहाँ रखेंगे?", bn:"ফ্রিজে কাঁচা মাংস কোথায় রাখবেন?" },
+    o: {
+      ar:["في الرف السفلي تحت الأطعمة الجاهزة","فوق الأطعمة الجاهزة مباشرة","بجانب الأطعمة الجاهزة","ترتيبه لا يهم أبداً"],
+      en:["On the bottom shelf, below ready-to-eat food","Directly above ready-to-eat food","Next to ready-to-eat food","The order never matters"],
+      hi:["निचली शेल्फ पर, तैयार खाने के नीचे","तैयार खाने के ठीक ऊपर","तैयार खाने के बगल में","क्रम कभी मायने नहीं रखता"],
+      bn:["নিচের শেলফে, তৈরি খাবারের নিচে","তৈরি খাবারের ঠিক উপরে","তৈরি খাবারের পাশে","ক্রম কখনো গুরুত্বপূর্ণ নয়"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"المواد الكيميائية", en:"Chemicals", hi:"रसायन", bn:"রাসায়নিক" },
+    q: { ar:"أين تحفظ مواد التنظيف بالنسبة للطعام؟", en:"Where should cleaning chemicals be stored relative to food?", hi:"सफाई के रसायन खाने के संबंध में कहाँ रखें?", bn:"খাবারের সাপেক্ষে পরিষ্কারের রাসায়নিক কোথায় রাখবেন?" },
+    o: {
+      ar:["في مكان منفصل تماماً وبعيد عن الطعام","في نفس الرف مع الطعام المغلق","فوق الطعام لأنه أبعد عن الأيدي","بجانب الطعام لسهولة الوصول"],
+      en:["In a separate place, far away from food","On the same shelf as sealed food","Above food to keep them out of reach","Next to food for easy access"],
+      hi:["खाने से पूरी तरह अलग और दूर जगह पर","बंद खाने के साथ एक ही शेल्फ पर","खाने के ऊपर, ताकि पहुंच से दूर रहें","खाने के बगल में, आसान पहुंच के लिए"],
+      bn:["খাবার থেকে সম্পূর্ণ আলাদা ও দূরের জায়গায়","বন্ধ খাবারের সাথে একই শেলফে","খাবারের উপরে, যেন নাগালের বাইরে থাকে","খাবারের পাশে, সহজে পাওয়ার জন্য"]
+    }, c: 0
+  },
+
+  // ───── Reasoning and judgment ─────
+  {
+    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
+    q: { ar:"ما الرقم التالي في النمط: 2، 4، 8، 16، ؟", en:"What is the next number in the pattern: 2, 4, 8, 16, ?", hi:"पैटर्न में अगला संख्या क्या है: 2, 4, 8, 16, ?", bn:"প্যাটার্নের পরের সংখ্যা কী: 2, 4, 8, 16, ?" },
+    o: {
+      ar:["24","30","32","36"], en:["24","30","32","36"], hi:["24","30","32","36"], bn:["২৪","৩০","৩২","৩৬"]
+    }, c: 2
+  },
+  {
+    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
+    q: {
+      ar:"كل الأغراض المفتوحة لازم تكون مغطاة. الزيت مفتوح. أيش الاستنتاج الصحيح؟",
+      en:"All opened items must be covered. The oil is open. What is the correct conclusion?",
+      hi:"सभी खुली चीज़ों को ढकना ज़रूरी है। तेल खुला है। सही निष्कर्ष क्या है?",
+      bn:"সব খোলা জিনিস ঢাকা রাখতে হবে। তেল খোলা আছে। সঠিক সিদ্ধান্ত কী?"
+    },
+    o: {
+      ar:["الزيت لازم يكون مغطى","الزيت ممكن يبقى مكشوفاً","الزيت ما يحتاج تغطية","لا يمكن معرفة شيء عن الزيت"],
+      en:["The oil must be covered","The oil may stay uncovered","The oil does not need covering","Nothing can be known about the oil"],
+      hi:["तेल को ढकना ज़रूरी है","तेल खुला रह सकता है","तेल को ढकने की ज़रूरत नहीं","तेल के बारे में कुछ भी नहीं कहा जा सकता"],
+      bn:["তেল ঢাকা রাখতে হবে","তেল খোলা থাকতে পারে","তেল ঢাকার দরকার নেই","তেল সম্পর্কে কিছুই বলা যায় না"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"ترتيب الأولويات", en:"Prioritizing", hi:"प्राथमिकता तय करना", bn:"অগ্রাধিকার নির্ধারণ" },
+    q: {
+      ar:"وصلت شاحنة مواد مجمدة الساعة 10، والأرضية مبلولة، والرفوف غير مرتبة. أيش تبدأ فيه أولاً؟",
+      en:"A freezer delivery arrived at 10:00, the floor is wet, and shelves are untidy. What do you handle first?",
+      hi:"10 बजे फ्रीज़ेन सामान आया, फर्श गीला है, और शेल्फ अव्यवस्थित हैं। पहले क्या संभालेंगे?",
+      bn:"১০টায় হিমায়িত মালের ডেলিভারি এসেছে, মেঝে ভেজা, শেলফ অগোছালো। প্রথমে কী সামলাবেন?"
+    },
+    o: {
+      ar:["أدخل المواد المجمدة للفريزر فوراً","أنشف الأرضية أولاً","أرتب الرفوف أولاً","أرد على الهاتف أولاً"],
+      en:["Put the frozen goods into the freezer immediately","Dry the floor first","Tidy the shelves first","Answer the phone first"],
+      hi:["जमा हुआ सामान तुरंत फ्रीज़र में रखें","पहले फर्श सुखाएं","पहले शेल्फ ठीक करें","पहले फोन उठाएं"],
+      bn:["হিমায়িত মাল তাৎক্ষণিক ফ্রিজারে রাখুন","আগে মেঝে শুকান","আগে শেলফ গোছান","আগে ফোন ধরুন"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"حساب", en:"Calculation", hi:"गणना", bn:"হিসাব" },
+    q: {
+      ar:"عندك 40 كيس رز، وتستخدم 8 أكياس يومياً. كم يوم يكفي المخزون؟",
+      en:"You have 40 bags of rice and use 8 bags per day. How many days will the stock last?",
+      hi:"आपके पास चावल के 40 बैग हैं और रोज़ 8 बैग इस्तेमाल होते हैं। स्टॉक कितने दिन चलेगा?",
+      bn:"আপনার কাছে ৪০ ব্যাগ চাল আছে, প্রতিদিন ৮ ব্যাগ ব্যবহার হয়। স্টক কত দিন চলবে?"
+    },
+    o: {
+      ar:["4 أيام","5 أيام","6 أيام","8 أيام"], en:["4 days","5 days","6 days","8 days"],
+      hi:["4 दिन","5 दिन","6 दिन","8 दिन"], bn:["৪ দিন","৫ দিন","৬ দিন","৮ দিন"]
+    }, c: 1
+  },
+  {
+    cat: { ar:"حساب", en:"Calculation", hi:"गणना", bn:"হিসাব" },
+    q: {
+      ar:"عندك 3 صناديق، كل صندوق فيه 12 علبة، واستخدمت 10 علب. كم علبة باقية؟",
+      en:"You have 3 boxes with 12 cans each, and you used 10 cans. How many cans are left?",
+      hi:"आपके पास 3 डिब्बे हैं, हर डिब्बे में 12 कैन हैं, और आपने 10 कैन इस्तेमाल किए। कितने कैन बचे?",
+      bn:"আপনার কাছে ৩টি বাক্স আছে, প্রতিটিতে ১২টি ক্যান, আপনি ১০টি ব্যবহার করেছেন। কতটি ক্যান বাকি?"
+    },
+    o: {
+      ar:["24 علبة","26 علبة","30 علبة","36 علبة"], en:["24 cans","26 cans","30 cans","36 cans"],
+      hi:["24 कैन","26 कैन","30 कैन","36 कैन"], bn:["২৪টি","২৬টি","৩০টি","৩৬টি"]
+    }, c: 1
+  },
+  {
+    cat: { ar:"ترتيب الأولويات", en:"Prioritizing", hi:"प्राथमिकता तय करना", bn:"অগ্রাধিকার নির্ধারণ" },
+    q: {
+      ar:"ثلاثة منتجات: الأول ينتهي 5 أكتوبر، والثاني 12 أكتوبر، والثالث 8 أكتوبر. أيهم تستخدم أولاً؟",
+      en:"Three products expire on 5 October, 12 October and 8 October. Which one do you use first?",
+      hi:"तीन उत्पाद 5 अक्टूबर, 12 अक्टूबर और 8 अक्टूबर को समाप्त होते हैं। पहले कौन सा इस्तेमाल करेंगे?",
+      bn:"তিনটি পণ্যের মেয়াদ ৫ অক্টোবর, ১২ অক্টোবর ও ৮ অক্টোবর। কোনটি আগে ব্যবহার করবেন?"
+    },
+    o: {
+      ar:["المنتج الذي ينتهي في 5 أكتوبر","المنتج الذي ينتهي في 12 أكتوبر","المنتج الذي ينتهي في 8 أكتوبر","لا فرق بينهم في الاستخدام"],
+      en:["The product expiring on 5 October","The product expiring on 12 October","The product expiring on 8 October","There is no difference between them"],
+      hi:["जो 5 अक्टूबर को समाप्त होता है","जो 12 अक्टूबर को समाप्त होता है","जो 8 अक्टूबर को समाप्त होता है","उनमें कोई फर्क नहीं"],
+      bn:["যেটির মেয়াদ ৫ অক্টোবর শেষ","যেটির মেয়াদ ১২ অক্টোবর শেষ","যেটির মেয়াদ ৮ অক্টোবর শেষ","তাদের মধ্যে কোনো পার্থক্য নেই"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"حل المشكلات", en:"Problem solving", hi:"समस्या समाधान", bn:"সমস্যা সমাধান" },
+    q: {
+      ar:"زبون قال إنه لقى شعرة في الأكل. أيش الخطوة الصحيحة؟",
+      en:"A customer says they found a hair in their food. What is the correct step?",
+      hi:"एक ग्राहक कहता है कि खाने में बाल निकला। सही कदम क्या है?",
+      bn:"একজন গ্রাহক বলছেন খাবারে চুল পেয়েছেন। সঠিক পদক্ষেপ কী?"
+    },
+    o: {
+      ar:["أوقف التقديم وأبلّغ المشرف وأحتفظ بالطبق للفحص","أعتذر وأبدل الطبق وأنتهي","أقول إنها شعرة واحدة فلا تهم","أخبره إن الشعر ليس من عندنا"],
+      en:["Stop serving, inform the supervisor, and keep the dish for inspection","Apologize, replace the dish, and close the matter","Say it is only one hair so it does not matter","Tell him the hair is not from our kitchen"],
+      hi:["परोसना रोकें, सुपरवाइजर को बताएं और डिश जांच के लिए रखें","माफी मांगें, डिश बदलें और मामला बंद करें","कहें कि सिर्फ एक बाल है इसलिए कोई बात नहीं","कहें कि बाल हमारे किचन का नहीं है"],
+      bn:["পরিবেশন বন্ধ করুন, সুপারভাইজারকে জানান ও পরীক্ষার জন্য খাবার রাখুন","দুঃখ প্রকাশ করে খাবার বদলে দিন ও শেষ করুন","বলুন একটাই চুল, তাই সমস্যা নেই","বলুন চুলটি আমাদের রান্নাঘরের নয়"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
+    q: {
+      ar:"الشاحنة تأخرت ساعتين والجو حار، والمنتجات المبردة في السيارة. أيش تسوي؟",
+      en:"The delivery was two hours late in hot weather, and chilled products were in the vehicle. What do you do?",
+      hi:"डिलीवरी दो घंटे देर से आई, मौसम गर्म था, और ठंडे उत्पाद गाड़ी में थे। आप क्या करेंगे?",
+      bn:"ডেলিভারি দুই ঘণ্টা দেরিতে এসেছে, আবহাওয়া গরম ছিল, ঠান্ডা পণ্য গাড়িতে ছিল। কী করবেন?"
+    },
+    o: {
+      ar:["أقيس حرارة المنتجات وأتخلص من اللي تجاوز الحد الآمن","أحطها في الثلاجة وأستخدمها كلها","أتركها تبرد طبيعياً وأستخدمها","أبيعها بسعر أقل بسرعة"],
+      en:["Check the product temperatures and discard anything above the safe limit","Put them in the fridge and use everything","Let them cool naturally and use them","Sell them quickly at a lower price"],
+      hi:["उत्पादों का तापमान जांचें और सुरक्षित सीमा से ऊपर वाले फेंक दें","फ्रिज में रखें और सब इस्तेमाल करें","अपने आप ठंडा होने दें और इस्तेमाल करें","जल्दी से कम दाम पर बेच दें"],
+      bn:["পণ্যের তাপমাত্রা মেপে নিরাপদ সীমার উপরেরগুলো ফেলে দিন","ফ্রিজে রেখে সব ব্যবহার করুন","নিজে থেকে ঠান্ডা হতে দিয়ে ব্যবহার করুন","দ্রুত কম দামে বিক্রি করুন"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
+    q: {
+      ar:"زميلك يقول إن الثلاجة شغالة كويس، بس ما قاس حرارتها. أيش تسوي؟",
+      en:"A coworker says the fridge is working fine, but has not checked its temperature. What do you do?",
+      hi:"एक सहकर्मी कहता है कि फ्रिज ठीक चल रहा है, पर उसने तापमान नहीं मापा। आप क्या करेंगे?",
+      bn:"একজন সহকর্মী বলছেন ফ্রিজ ঠিক আছে, কিন্তু তাপমাত্রা মাপেননি। আপনি কী করবেন?"
+    },
+    o: {
+      ar:["أقيس الحرارة بنفسي وأسجلها","أصدقه وما أحتاج أقيس","أنتظر لين يصير خطأ","أغير الثلاجة من غير ما أقيس"],
+      en:["Measure the temperature myself and record it","Trust him and do not measure","Wait until something goes wrong","Replace the fridge without measuring"],
+      hi:["खुद तापमान मापूं और दर्ज करूं","उस पर भरोसा करूं और मापने की ज़रूरत नहीं","कुछ गलत होने तक इंतजार करूं","बिना मापे फ्रिज बदल दूं"],
+      bn:["নিজে তাপমাত্রা মেপে লিখে রাখব","তাকে বিশ্বাস করব, মাপার দরকার নেই","কিছু খারাপ হওয়া পর্যন্ত অপেক্ষা করব","না মেপে ফ্রিজ বদলে দেব"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
+    q: {
+      ar:"اختلف معك زميل: هل الطبق آمن؟ أيش الخطوة الصحيحة؟",
+      en:"A coworker disagrees with you about whether a dish is safe. What is the right step?",
+      hi:"एक सहकर्मी इस बात पर असहमत है कि डिश सुरक्षित है या नहीं। सही कदम क्या है?",
+      bn:"একজন সহকর্মী খাবার নিরাপদ কিনা নিয়ে আপনার সাথে দ্বিমত করছেন। সঠিক পদক্ষেপ কী?"
+    },
+    o: {
+      ar:["أرجع للمعيار المكتوب أو للمشرف وأتبع قراره","أحسم الموضوع بنفسي وأكمل","أخلي زميلي يقرر وأنا أمشي","أخلط الطبق وأقدمه"],
+      en:["Check the written standard or the supervisor and follow their decision","Settle it myself and carry on","Let my coworker decide and walk away","Mix the dish and serve it"],
+      hi:["लिखित मानक या सुपरवाइजर से जांचें और उनका फैसला मानें","खुद फैसला करके काम जारी रखें","सहकर्मी को फैसला करने दें और चले जाएं","डिश मिलाकर परोस दें"],
+      bn:["লিখিত মান বা সুপারভাইজারের সাথে যাচাই করে তাদের সিদ্ধান্ত মানুন","নিজে সিদ্ধান্ত নিয়ে কাজ চালিয়ে যান","সহকর্মীকে সিদ্ধান্ত নিতে দিয়ে চলে যান","খাবার মিশিয়ে পরিবেশন করুন"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
+    q: {
+      ar:"المعلومة على علبة الدجاج تقول: يُستخدم خلال 3 أيام بعد الفتح. وأنت فتحته قبل 4 أيام. هل تستخدمه؟",
+      en:"The label says a chicken pack must be used within 3 days of opening. You opened it 4 days ago. Do you use it?",
+      hi:"पैक पर लिखा है कि खोलने के 3 दिन के अंदर इस्तेमाल करें। आपने इसे 4 दिन पहले खोला था। क्या इस्तेमाल करेंगे?",
+      bn:"প্যাকেটে লেখা আছে খোলার ৩ দিনের মধ্যে ব্যবহার করুন। আপনি ৪ দিন আগে খুলেছেন। ব্যবহার করবেন?"
+    },
+    o: {
+      ar:["لا، لازم أتخلص منه","نعم، طالما رائحته طبيعية","نعم، أطبخه أكثر","أنتظر يوم وأشوف"],
+      en:["No, I must dispose of it","Yes, as long as it smells normal","Yes, I will cook it longer","I will wait a day and see"],
+      hi:["नहीं, इसे फेंकना होगा","हाँ, अगर गंध सामान्य है","हाँ, इसे ज्यादा देर पकाऊंगा","एक दिन इंतजार करके देखूंगा"],
+      bn:["না, এটা ফেলে দিতে হবে","হ্যাঁ, গন্ধ স্বাভাবিক হলে","হ্যাঁ, বেশিক্ষণ রান্না করব","একদিন অপেক্ষা করে দেখব"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"التفكير الاستنتاجي", en:"Reasoning", hi:"तर्क", bn:"যুক্তি" },
+    q: {
+      ar:"الحشرات تتكرر في المخزن كل أسبوع. أفضل حل؟",
+      en:"Insects keep appearing in the storeroom every week. What is the best solution?",
+      hi:"गोदाम में हर हफ्ते कीड़े आते हैं। सबसे अच्छा समाधान क्या है?",
+      bn:"প্রতি সপ্তাহে গুদামে পোকা আসে। সবচেয়ে ভালো সমাধান কী?"
+    },
+    o: {
+      ar:["أبحث عن مصدر الدخول وأسد الثغرات وأتابع بانتظام","أرش مبيد كل يوم وأنتهي","أنقل الطعام لمكان آخر فقط","أتجاهلها لأنها تختفي أحياناً"],
+      en:["Find the entry point, seal the gaps, and monitor regularly","Spray pesticide every day and finish","Only move the food to another place","Ignore them since they sometimes disappear"],
+      hi:["प्रवेश का स्रोत खोजें, दरारें बंद करें और नियमित निगरानी करें","हर दिन कीटनाशक छिड़कें और बस","सिर्फ खाना दूसरी जगह रखें","उन्हें नजरअंदाज करें क्योंकि कभी-कभी गायब हो जाते हैं"],
+      bn:["প্রবেশপথ খুঁজে ফাঁক বন্ধ করুন ও নিয়মিত নজর রাখুন","প্রতিদিন কীটনাশক ছিটিয়ে শেষ করুন","শুধু খাবার অন্য জায়গায় সরান","কখনো কখনো চলে যায় তাই উপেক্ষা করুন"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"النظافة الشخصية", en:"Personal hygiene", hi:"व्यक्तिगत स्वच्छता", bn:"ব্যক্তিগত পরিচ্ছন্নতা" },
+    q: { ar:"هل يجوز الأكل أو الشرب في منطقة التحضير؟", en:"Is eating or drinking allowed in the food preparation area?", hi:"क्या तैयारी वाले क्षेत्र में खाना-पीना अनुमति है?", bn:"খাবার প্রস্তুতির জায়গায় খাওয়া বা পান করা কি অনুমোদিত?" },
+    o: {
+      ar:["لا، ممنوع في منطقة التحضير نهائياً","نعم، إذا كان الأكل خفيفاً وسريعاً","نعم، إذا غسلت يدك بعدها مباشرة","نعم، إذا كان المشروب ماءً فقط"],
+      en:["No, it is strictly forbidden in the preparation area","Yes, if the food is light and quick","Yes, if you wash your hands right after","Yes, if the drink is only water"],
+      hi:["नहीं, तैयारी क्षेत्र में यह पूरी तरह मना है","हाँ, अगर खाना हल्का और जल्दी हो","हाँ, अगर उसके तुरंत बाद हाथ धो लें","हाँ, अगर पीने की चीज़ सिर्फ पानी हो"],
+      bn:["না, প্রস্তুতির জায়গায় এটি সম্পূর্ণ নিষিদ্ধ","হ্যাঁ, খাবার হালকা ও দ্রুত হলে","হ্যাঁ, খাওয়ার পর সাথে সাথে হাত ধুলে","হ্যাঁ, পানীয় শুধু পানি হলে"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"النظافة الشخصية", en:"Personal hygiene", hi:"व्यक्तिगत स्वच्छता", bn:"ব্যক্তিগত পরিচ্ছন্নতা" },
+    q: { ar:"ما الذي يجب أن يغطي شعر العامل في المطبخ؟", en:"What must cover a worker's hair in the kitchen?", hi:"रसोई में कर्मचारी के बालों को क्या ढकना चाहिए?", bn:"রান্নাঘরে কর্মীর চুল কী দিয়ে ঢাকা উচিত?" },
+    o: {
+      ar:["غطاء رأس نظيف يغطي الشعر بالكامل","شعر مربوط بشكل عادي فقط","قبعة مفتوحة من الجانبين","لا يلزم غطاء إذا كان الشعر قصيراً"],
+      en:["A clean hair cover that fully covers the hair","Hair tied up normally is enough","A cap that leaves the sides open","No cover is needed if hair is short"],
+      hi:["साफ सिर-ढकने वाला कपड़ा जो बालों को पूरी तरह ढके","सामान्य रूप से बंधे बाल काफी हैं","ऐसी टोपी जिसके किनारे खुले हों","छोटे बाल हों तो कोई ढक्कन ज़रूरी नहीं"],
+      bn:["পরিষ্কার হেয়ার কভার যা চুল পুরোপুরি ঢাকে","সাধারণভাবে বাঁধা চুল যথেষ্ট","এমন টুপি যার পাশ খোলা","চুল ছোট হলে কোনো কভার লাগে না"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تخزين الطعام", en:"Food storage", hi:"खाद्य भंडारण", bn:"খাবার সংরক্ষণ" },
+    q: { ar:"ما الحرارة المناسبة لحفظ المواد المجمدة في الفريزر؟", en:"What temperature is right for storing frozen goods in a freezer?", hi:"फ्रीज़र में जमे सामान के लिए सही तापमान क्या है?", bn:"ফ্রিজারে হিমায়িত পণ্যের জন্য কোন তাপমাত্রা সঠিক?" },
+    o: {
+      ar:["18 درجة مئوية تحت الصفر أو أقل","5 درجات مئوية تحت الصفر","صفر درجة مئوية بالضبط","5 درجات مئوية فوق الصفر"],
+      en:["-18°C or below","-5°C","Exactly 0°C","+5°C"],
+      hi:["-18°C या उससे कम","-5°C","ठीक 0°C","+5°C"],
+      bn:["-১৮°C বা তার নিচে","-৫°C","ঠিক ০°C","+৫°C"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"درجات الحرارة", en:"Temperature control", hi:"तापमान नियंत्रण", bn:"তাপমাত্রা নিয়ন্ত্রণ" },
+    q: { ar:"طعام جاهز بقي على الطاولة 4 ساعات في حرارة الغرفة. أيش تسوي؟", en:"Ready food sat on the counter at room temperature for 4 hours. What do you do?", hi:"तैयार खाना कमरे के तापमान पर 4 घंटे मेज़ पर रहा। आप क्या करेंगे?", bn:"তৈরি খাবার ঘরের তাপমাত্রায় ৪ ঘণ্টা টেবিলে ছিল। কী করবেন?" },
+    o: {
+      ar:["أتخلص منه لأنه تجاوز الوقت الآمن","أسخنه جيداً وأقدمه","أبرده وأرجعه للثلاجة","أغطيه وأحفظه للوجبة الجاية"],
+      en:["Discard it because it passed the safe time","Heat it well and serve it","Cool it and put it back in the fridge","Cover it and keep it for the next meal"],
+      hi:["इसे फेंक दूं क्योंकि सुरक्षित समय निकल गया","अच्छी तरह गर्म करके परोस दूं","ठंडा करके फ्रिज में रख दूं","ढककर अगले खाने के लिए रख दूं"],
+      bn:["ফেলে দেব কারণ নিরাপদ সময় পেরিয়ে গেছে","ভালোভাবে গরম করে পরিবেশন করব","ঠান্ডা করে ফ্রিজে রাখব","ঢেকে পরের খাবারের জন্য রাখব"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"التنظيف والتعقيم", en:"Cleaning and sanitizing", hi:"सफाई और कीटाणुशोधन", bn:"পরিষ্কার ও জীবাণুমুক্তকরণ" },
+    q: { ar:"ما الترتيب الصحيح لتنظيف سطح التحضير؟", en:"What is the correct order for cleaning a prep surface?", hi:"तैयारी की सतह साफ करने का सही क्रम क्या है?", bn:"প্রস্তুতির টেবিল পরিষ্কারের সঠিক ধাপ কী?" },
+    o: {
+      ar:["غسل بماء وصابون ثم شطف ثم تعقيم ثم ترك ليجف","تعقيم أولاً ثم غسل بالصابون","مسح بقطعة جافة فقط","رش مطهر ثم مسح مباشرة بدون غسل"],
+      en:["Wash with soap and water, rinse, sanitize, then air dry","Sanitize first, then wash with soap","Wipe with a dry cloth only","Spray disinfectant and wipe without washing"],
+      hi:["साबुन-पानी से धोएं, खंगालें, कीटाणुरहित करें, फिर हवा में सुखाएं","पहले कीटाणुरहित करें, फिर साबुन से धोएं","सिर्फ सूखे कपड़े से पोंछें","कीटनाशक छिड़ककर बिना धोए पोंछें"],
+      bn:["সাবান-পানিতে ধুয়ে, ধুয়ে নিন, জীবাণুমুক্ত করুন, তারপর বাতাসে শুকান","আগে জীবাণুমুক্ত করুন তারপর সাবান দিয়ে ধুন","শুধু শুকনো কাপড়ে মুছুন","জীবাণুনাশক ছিটিয়ে না ধুয়ে মুছুন"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"الحساسية الغذائية", en:"Food allergies", hi:"खाद्य एलर्जी", bn:"খাদ্য এলার্জি" },
+    q: { ar:"عميل يسأل: هل الكيك فيه مكسرات؟ أيش تجاوبه؟", en:"A customer asks whether the cake contains nuts. What do you answer?", hi:"ग्राहक पूछता है कि केक में नट्स हैं? आप क्या जवाब देंगे?", bn:"একজন গ্রাহক জিজ্ঞেস করলেন কেকে বাদাম আছে কিনা। কী উত্তর দেবেন?" },
+    o: {
+      ar:["أتأكد من المكونات وأجاوبه بدقة","أقول غالباً لا","أقول الكيك خالٍ من المكسرات دائماً","أتجاهل السؤال وأكمل"],
+      en:["Check the ingredients and answer accurately","Say probably not","Say the cake is always nut-free","Ignore the question and carry on"],
+      hi:["सामग्री जांचकर सही जवाब दूं","कह दूं शायद नहीं","कह दूं केक हमेशा नट्स-मुक्त होता है","सवाल नजरअंदाज करके काम जारी रखूं"],
+      bn:["উপাদান যাচাই করে সঠিক উত্তর দেব","বলব সম্ভবত নেই","বলব কেক সবসময় বাদামমুক্ত","প্রশ্ন উপেক্ষা করে কাজ চালিয়ে যাব"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
+    q: { ar:"ما الرقم التالي في النمط: 3، 6، 12، 24، ؟", en:"What is the next number in the pattern: 3, 6, 12, 24, ?", hi:"पैटर्न में अगली संख्या क्या है: 3, 6, 12, 24, ?", bn:"প্যাটার্নের পরের সংখ্যা কী: 3, 6, 12, 24, ?" },
+    o: { ar:["36","42","48","60"], en:["36","42","48","60"], hi:["36","42","48","60"], bn:["৩৬","৪২","৪৮","৬০"] }, c: 2
+  },
+  {
+    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
+    q: {
+      ar:"كل الشاحنات تصل قبل الساعة 8 صباحاً. الشاحنة 3 وصلت 9 صباحاً. أيش الاستنتاج الصحيح؟",
+      en:"All trucks arrive before 8 AM. Truck 3 arrived at 9 AM. What is the correct conclusion?",
+      hi:"सभी ट्रक सुबह 8 बजे से पहले पहुंचते हैं। ट्रक 3 सुबह 9 बजे पहुंचा। सही निष्कर्ष क्या है?",
+      bn:"সব ট্রক সকাল ৮টার আগে পৌঁছায়। ট্রক ৩ সকাল ৯টায় পৌঁছাল। সঠিক সিদ্ধান্ত কী?"
+    },
+    o: {
+      ar:["الشاحنة 3 ما التزمت بالموعد المحدد","كل الشاحنات تأخرت اليوم","الشاحنة 3 وصلت في الوقت المناسب","لا يمكن معرفة شيء عن الشاحنة 3"],
+      en:["Truck 3 did not meet the scheduled time","All trucks were late today","Truck 3 arrived on time","Nothing can be known about truck 3"],
+      hi:["ट्रक 3 समय पर नहीं पहुंचा","आज सभी ट्रक देर से आए","ट्रक 3 समय पर पहुंचा","ट्रक 3 के बारे में कुछ नहीं कहा जा सकता"],
+      bn:["ট্রক ৩ সময়মতো পৌঁছায়নি","আজ সব ট্রক দেরিতে এসেছে","ট্রক ৩ সময়মতো এসেছে","ট্রক ৩ সম্পর্কে কিছু বলা যায় না"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"حساب", en:"Calculation", hi:"गणना", bn:"হিসাব" },
+    q: {
+      ar:"5 عمال ينظفون المخزن في 6 ساعات. كم عامل يحتاجون لينتهوا في 3 ساعات بنفس السرعة؟",
+      en:"5 workers clean a storeroom in 6 hours. How many workers are needed to finish in 3 hours at the same pace?",
+      hi:"5 कर्मचारी गोदाम 6 घंटे में साफ करते हैं। उसी गति से 3 घंटे में खत्म करने के लिए कितने कर्मचारी चाहिए?",
+      bn:"৫ জন কর্মী ৬ ঘণ্টায় গুদাম পরিষ্কার করে। একই গতিতে ৩ ঘণ্টায় শেষ করতে কতজন লাগবে?"
+    },
+    o: { ar:["5","8","10","15"], en:["5","8","10","15"], hi:["5","8","10","15"], bn:["৫","৮","১০","১৫"] }, c: 2
+  },
+  {
+    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
+    q: {
+      ar:"إذا كان A أكبر من B، وB أكبر من C، أيهم الأصغر؟",
+      en:"If A is larger than B, and B is larger than C, which is the smallest?",
+      hi:"यदि A, B से बड़ा है और B, C से बड़ा है, तो सबसे छोटा कौन है?",
+      bn:"A, B-এর চেয়ে বড়, আর B, C-এর চেয়ে বড়। সবচেয়ে ছোট কে?"
+    },
+    o: { ar:["A","B","C","لا يمكن تحديده"], en:["A","B","C","Cannot be determined"], hi:["A","B","C","तय नहीं किया जा सकता"], bn:["A","B","C","নির্ধারণ করা যায় না"] }, c: 2
+  },
+  {
+    cat: { ar:"حساب", en:"Calculation", hi:"गणना", bn:"হিসাব" },
+    q: { ar:"عندك 15 تفاحة وأخذت ثلثها. كم تفاحة بقيت؟", en:"You have 15 apples and take one third of them. How many are left?", hi:"आपके पास 15 सेब हैं और आपने एक-तिहाई ले लिए। कितने बचे?", bn:"আপনার ১৫টি আপেল আছে, এক-তৃতীয়াংশ নিলেন। কতটি বাকি?" },
+    o: { ar:["5","10","12","15"], en:["5","10","12","15"], hi:["5","10","12","15"], bn:["৫","১০","১২","১৫"] }, c: 1
+  },
+  {
+    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
+    q: {
+      ar:"مورد سلّم بضاعة بدون فاتورة واضحة وبدون تاريخ انتهاء مكتوب. أيش تسوي؟",
+      en:"A supplier delivers goods with no clear invoice and no expiry date written. What do you do?",
+      hi:"एक सप्लायर बिना स्पष्ट इनवॉइस और बिना एक्सपायरी तारीख के सामान लाता है। आप क्या करेंगे?",
+      bn:"একজন সরবরাহকারী স্পষ্ট ইনভয়েস ও মেয়াদের তারিখ ছাড়া পণ্য দিলেন। কী করবেন?"
+    },
+    o: {
+      ar:["أرفض الاستلام أو أحجزها حتى أتأكد","أستلمها وأكمل","أكتب التاريخ من عندي وأستلم","أتركها عند الباب وأمشي"],
+      en:["Refuse delivery or hold it until verified","Accept it and carry on","Write an expiry date myself and accept","Leave it by the door and walk away"],
+      hi:["डिलीवरी लेने से मना करें या जांच होने तक रोकें","लेकर काम जारी रखें","खुद एक्सपायरी तारीख लिखकर ले लें","दरवाजे के पास छोड़कर चले जाएं"],
+      bn:["ডেলিভারি নেব না বা যাচাই না হওয়া পর্যন্ত আটকে রাখব","নিয়ে কাজ চালিয়ে যাব","নিজে মেয়াদের তারিখ লিখে নিয়ে নেব","দরজার পাশে রেখে চলে যাব"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"حل المشكلات", en:"Problem solving", hi:"समस्या समाधान", bn:"সমস্যা সমাধান" },
+    q: {
+      ar:"الفريزر يصدر صوتاً عالياً والمنتجات المجمدة بدأت تلين. أول خطوة؟",
+      en:"The freezer is making a loud noise and frozen products are starting to soften. What is the first step?",
+      hi:"फ्रीज़र तेज़ आवाज़ कर रहा है और जमे सामान नरम होने लगे हैं। पहला कदम क्या है?",
+      bn:"ফ্রিজার জোরে শব্দ করছে আর হিমায়িত পণ্য নরম হতে শুরু করেছে। প্রথম ধাপ কী?"
+    },
+    o: {
+      ar:["أتأكد من حرارة الفريزر وأبلغ الصيانة فوراً","أفتح الباب أكثر لأهوّيه","أنقل المنتجات لأقرب مكان بدون تبليغ","أطفيه وأنتظر للغد"],
+      en:["Check the freezer temperature and report to maintenance right away","Open the door wider to air it out","Move the products somewhere close without reporting","Switch it off and wait until tomorrow"],
+      hi:["फ्रीज़र का तापमान जांचें और तुरंत मेंटेनेंस को बताएं","दरवाज़ा ज़्यादा खोलकर हवा दें","सामान बिना बताए पास की जगह रख दें","उसे बंद करके कल तक इंतज़ार करें"],
+      bn:["ফ্রিজারের তাপমাত্রা দেখুন ও সঙ্গে সঙ্গে মেইনটেন্যান্সকে জানান","দরজা বেশি খুলে বাতাস দিন","না জানিয়ে কাছের জায়গায় পণ্য সরান","বন্ধ করে কাল পর্যন্ত অপেক্ষা করুন"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
+    q: {
+      ar:"عندك خيارين: تسريع الطلب بتجاهل خطوة تنظيف، أو تأخير التسليم دقيقتين لإكمال الخطوة. أيش الصح؟",
+      en:"You can speed up an order by skipping a cleaning step, or delay delivery by two minutes to finish the step. Which is right?",
+      hi:"आप सफाई का कदम छोड़कर ऑर्डर जल्दी दे सकते हैं, या दो मिनट देर करके कदम पूरा कर सकते हैं। कौन सा सही है?",
+      bn:"একটি পরিষ্কারের ধাপ বাদ দিয়ে অর্ডার দ্রুত দিতে পারেন, অথবা দুই মিনিট দেরি করে ধাপ শেষ করতে পারেন। কোনটি সঠিক?"
+    },
+    o: {
+      ar:["تسريع الطلب لأن الوقت مهم","تأخير التسليم وإكمال خطوة النظافة","لا فرق بينهما","تجاهل الخطوة إذا كان العميل مستعجلاً"],
+      en:["Speed up the order since time matters","Delay delivery and complete the cleaning step","There is no difference","Skip the step if the customer is in a hurry"],
+      hi:["जल्दी डिलीवरी करें क्योंकि समय ज़रूरी है","डिलीवरी दो मिनट रोककर सफाई का कदम पूरा करें","दोनों में कोई फर्क नहीं","ग्राहक जल्दी में हो तो कदम छोड़ दें"],
+      bn:["সময় গুরুত্বপূর্ণ তাই অর্ডার দ্রুত দিন","ডেলিভারি দুই মিনিট দেরি করে পরিষ্কারের ধাপ শেষ করুন","দুটোর মধ্যে কোনো পার্থক্য নেই","গ্রাহক তাড়ায় থাকলে ধাপ বাদ দিন"]
+    }, c: 1
+  },
+  {
+    cat: { ar:"تقييم الموقف", en:"Judgment", hi:"निर्णय", bn:"বিচার" },
+    q: {
+      ar:"لاحظت زميلك ما يغسل يديه بعد الحمام. أيش تسوي؟",
+      en:"You notice a coworker is not washing his hands after the bathroom. What do you do?",
+      hi:"आप देखते हैं कि एक सहकर्मी शौचालय के बाद हाथ नहीं धोता। आप क्या करेंगे?",
+      bn:"আপনি লক্ষ্য করলেন একজন সহকর্মী টয়লেটের পর হাত ধোন না। কী করবেন?"
+    },
+    o: {
+      ar:["أذكّره بلطف، وإذا تكرر أبلغ المشرف","أسكت لأنها ليست مشكلتي","أصوّره وأنشره","أغسل يدي وأتجاهل الموضوع"],
+      en:["Remind him politely, and if it continues, report to the supervisor","Stay silent because it is not my problem","Film him and post it","Wash my hands and ignore it"],
+      hi:["विनम्रता से याद दिलाऊं, और बार-बार हो तो सुपरवाइजर को बताऊं","चुप रहूं क्योंकि यह मेरी समस्या नहीं","उसकी वीडियो बनाकर पोस्ट करूं","अपने हाथ धोकर बात नज़रअंदाज़ करूं"],
+      bn:["ভদ্রভাবে মনে করিয়ে দেব, বারবার হলে সুপারভাইজারকে জানাব","চুপ থাকব কারণ এটা আমার সমস্যা নয়","তার ভিডিও করে পোস্ট করব","নিজের হাত ধুয়ে বিষয়টি উপেক্ষা করব"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تفكير منطقي", en:"Logic", hi:"तार्किक सोच", bn:"যুক্তি" },
+    q: {
+      ar:"أيهم يختلف عن الباقي؟ تفاح، موز، جزر، برتقال",
+      en:"Which one is different? Apple, banana, carrot, orange",
+      hi:"कौन सा अलग है? सेब, केला, गाजर, संतरा",
+      bn:"কোনটি আলাদা? আপেল, কলা, গাজর, কমলা"
+    },
+    o: { ar:["تفاح","موز","جزر","برتقال"], en:["Apple","Banana","Carrot","Orange"], hi:["सेब","केला","गाजर","संतरा"], bn:["আপেল","কলা","গাজর","কমলা"] }, c: 2
+  },
+  {
+    cat: { ar:"ترتيب الأولويات", en:"Prioritizing", hi:"प्राथमिकता तय करना", bn:"অগ্রাধিকার নির্ধারণ" },
+    q: {
+      ar:"خسارة منتج صغيرة مقابل خطر على سلامة العملاء. أيش الأولوية؟",
+      en:"A small product loss versus a risk to customer safety. What takes priority?",
+      hi:"एक छोटे उत्पाद का नुकसान बनाम ग्राहकों की सुरक्षा का खतरा। प्राथमिकता क्या है?",
+      bn:"একটি ছোট পণ্যের ক্ষতি বনাম গ্রাহকের নিরাপত্তার ঝুঁকি। অগ্রাধিকার কী?"
+    },
+    o: {
+      ar:["سلامة العملاء","توفير المنتج","سرعة الإنتاج","مظهر المطبخ"],
+      en:["Customer safety","Saving the product","Production speed","Kitchen appearance"],
+      hi:["ग्राहकों की सुरक्षा","उत्पाद बचाना","उत्पादन की गति","रसोई की सजावट"],
+      bn:["গ্রাহকের নিরাপত্তা","পণ্য বাঁচানো","উৎপাদনের গতি","রান্নাঘরের চেহারা"]
+    }, c: 0
+  },
+  {
+    cat: { ar:"تخزين الطعام", en:"Food storage", hi:"खाद्य भंडारण", bn:"খাবার সংরক্ষণ" },
+    q: {
+      ar:"صندوق مكتوب عليه: آخر استخدام 1 أكتوبر، واليوم 3 أكتوبر. أيش تسوي؟",
+      en:"A box is marked best used by 1 October, and today is 3 October. What do you do?",
+      hi:"एक डिब्बे पर लिखा है: 1 अक्टूबर तक इस्तेमाल करें, और आज 3 अक्टूबर है। आप क्या करेंगे?",
+      bn:"একটি বাক্সে লেখা ১ অক্টোবরের মধ্যে ব্যবহার করুন, আজ ৩ অক্টোবর। কী করবেন?"
+    },
+    o: {
+      ar:["أتخلص منه وأسجل الإجراء","أستخدمه لأنه صندوق واحد فقط","أخفي التاريخ وأكمل","أبيعه للعميل بسعر أقل"],
+      en:["Discard it and record the action","Use it since it is just one box","Hide the date and carry on","Sell it to a customer at a lower price"],
+      hi:["इसे फेंकें और कार्रवाई दर्ज करें","इस्तेमाल कर लें क्योंकि यह सिर्फ एक डिब्बा है","तारीख छिपाकर काम जारी रखें","ग्राहक को कम दाम पर बेच दें"],
+      bn:["ফেলে দিন এবং পদক্ষেপ লিখে রাখুন","ব্যবহার করুন কারণ এটি একটিমাত্র বাক্স","তারিখ লুকিয়ে কাজ চালিয়ে যান","গ্রাহককে কম দামে বিক্রি করুন"]
+    }, c: 0
+  }
+];
+
+// ───── UI TEXT ─────
+const T = {
+  ar: { lbl:"اللغة:", hdrTitle:"اختبار الوعي الصحي للموظفين", hdrSub:"٤٠ سؤال من بنك أسئلة متنوع",
+    startTitle:"أدخل اسم الموظف للبدء", startSub:"تُحفظ النتيجة تلقائياً بعد الانتهاء", lblName:"اسم الموظف",
+    btnStart:"ابدأ الاختبار ◄", navRec:"📋 سجل النتائج", empOf:"الموظف:", next:"التالي ◄", finish:"إنهاء ✓",
+    pass:"ناجح ✅", fail:"راسب ❌", passMsg:"وصل للحد المطلوب (60%) ويمكن إرساله لاختبار الشهادة الصحية.",
+    failMsg:"ما وصل للحد المطلوب (60%). ينصح بالتدريب قبل الاختبار الرسمي.",
+    btnNew:"موظف جديد ◄", btnHome:"الرئيسية", recTitle:"📋 سجل النتائج", btnClear:"حذف الكل 🗑", confirmClear:"اضغط مرة ثانية للتأكيد",
+    btnRecBack:"رجوع", thName:"الاسم", thScore:"النتيجة", thPct:"النسبة", thVerdict:"الحكم", thDate:"التاريخ",
+    pwTitle:"سجل النتائج — مدير فقط", pwSub:"أدخل كلمة السر للمشاهدة", btnUnlock:"دخول 🔓", btnPwBack:"رجوع",
+    pwWrong:"كلمة السر غلط ❌", noRecords:"لا توجد نتائج محفوظة بعد", enterName:"الرجاء إدخال اسم الموظف" },
+  en: { lbl:"Language:", hdrTitle:"Employee Health Awareness Test", hdrSub:"40 mixed questions",
+    startTitle:"Enter the employee name to begin", startSub:"The result is saved automatically when finished", lblName:"Employee name",
+    btnStart:"Start test ►", navRec:"📋 Results log", empOf:"Employee:", next:"Next ►", finish:"Finish ✓",
+    pass:"PASS ✅", fail:"FAIL ❌", passMsg:"Reached the required 60% and can proceed to the official health certificate exam.",
+    failMsg:"Did not reach the required 60%. Training is recommended before the official exam.",
+    btnNew:"New employee ►", btnHome:"Home", recTitle:"📋 Results log", btnClear:"Clear all 🗑", confirmClear:"Press again to confirm",
+    btnRecBack:"Back", thName:"Name", thScore:"Score", thPct:"Percent", thVerdict:"Result", thDate:"Date",
+    pwTitle:"Results log — manager only", pwSub:"Enter the password to view", btnUnlock:"Unlock 🔓", btnPwBack:"Back",
+    pwWrong:"Wrong password ❌", noRecords:"No saved results yet", enterName:"Please enter the employee name" },
+  hi: { lbl:"भाषा:", hdrTitle:"कर्मचारी स्वास्थ्य जागरूकता परीक्षा", hdrSub:"40 मिश्रित प्रश्न",
+    startTitle:"शुरू करने के लिए कर्मचारी का नाम लिखें", startSub:"पूरा होने पर परिणाम अपने आप सहेजा जाएगा", lblName:"कर्मचारी का नाम",
+    btnStart:"परीक्षा शुरू करें ►", navRec:"📋 परिणाम सूची", empOf:"कर्मचारी:", next:"अगला ►", finish:"समाप्त ✓",
+    pass:"पास ✅", fail:"फेल ❌", passMsg:"60% का आवश्यक स्तर पार किया। आधिकारिक प्रमाण परीक्षा दे सकते हैं।",
+    failMsg:"60% का आवश्यक स्तर नहीं पहुंचा। आधिकारिक परीक्षा से पहले प्रशिक्षण की सलाह है।",
+    btnNew:"नया कर्मचारी ►", btnHome:"होम", recTitle:"📋 परिणाम सूची", btnClear:"सब हटाएं 🗑", confirmClear:"पुष्टि के लिए फिर दबाएं",
+    btnRecBack:"वापस", thName:"नाम", thScore:"स्कोर", thPct:"प्रतिशत", thVerdict:"परिणाम", thDate:"तारीख",
+    pwTitle:"परिणाम सूची — केवल प्रबंधक", pwSub:"देखने के लिए पासवर्ड लिखें", btnUnlock:"खोलें 🔓", btnPwBack:"वापस",
+    pwWrong:"गलत पासवर्ड ❌", noRecords:"अभी तक कोई परिणाम सहेजा नहीं गया", enterName:"कृपया कर्मचारी का नाम लिखें" },
+  bn: { lbl:"ভাষা:", hdrTitle:"কর্মচারী স্বাস্থ্য সচেতনতা পরীক্ষা", hdrSub:"৪০টি মিশ্র প্রশ্ন",
+    startTitle:"শুরু করতে কর্মচারীর নাম দিন", startSub:"শেষ হলে ফলাফল স্বয়ংক্রিয়ভাবে সংরক্ষিত হবে", lblName:"কর্মচারীর নাম",
+    btnStart:"পরীক্ষা শুরু করুন ►", navRec:"📋 ফলাফল তালিকা", empOf:"কর্মচারী:", next:"পরবর্তী ►", finish:"শেষ ✓",
+    pass:"পাস ✅", fail:"ফেল ❌", passMsg:"৬০% এর প্রয়োজনীয় মান পেয়েছেন। সরকারি স্বাস্থ্য সনদ পরীক্ষায় বসতে পারেন।",
+    failMsg:"৬০% এর প্রয়োজনীয় মান পৌঁছায়নি। সরকারি পরীক্ষার আগে প্রশিক্ষণ নেওয়ার পরামর্শ।",
+    btnNew:"নতুন কর্মচারী ►", btnHome:"হোম", recTitle:"📋 ফলাফল তালিকা", btnClear:"সব মুছুন 🗑", confirmClear:"নিশ্চিত করতে আবার চাপুন",
+    btnRecBack:"ফিরে যান", thName:"নাম", thScore:"স্কোর", thPct:"শতাংশ", thVerdict:"ফলাফল", thDate:"তারিখ",
+    pwTitle:"ফলাফল তালিকা — শুধু ম্যানেজার", pwSub:"দেখতে পাসওয়ার্ড দিন", btnUnlock:"খুলুন 🔓", btnPwBack:"ফিরে যান",
+    pwWrong:"ভুল পাসওয়ার্ড ❌", noRecords:"এখনো কোনো ফলাফল সংরক্ষিত নেই", enterName:"অনুগ্রহ করে কর্মচারীর নাম দিন" }
+};
+
+// ───── STATE ─────
+let lang = 'ar';
+let quiz = [];        // [{ qi, order }] built per employee: 20 random questions, shuffled options
+let currentQ = 0;
+let score = 0;
+let picked = null;
+let empName = '';
+let records = [];
+
+try {
+  const saved = localStorage.getItem('health_quiz_records');
+  if (saved) records = JSON.parse(saved);
+} catch (e) {}
+function saveRecords() {
+  try { localStorage.setItem('health_quiz_records', JSON.stringify(records)); } catch (e) {}
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ───── LANGUAGE ─────
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+  applyTranslations();
+  if (document.getElementById('screen-quiz').classList.contains('active')) renderQuestion();
+  if (document.getElementById('screen-records').classList.contains('active')) renderRecords();
+}
+
+function applyTranslations() {
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.getElementById('lbl-lang').textContent = t.lbl;
+  document.getElementById('hdr-title').textContent = t.hdrTitle;
+  document.getElementById('hdr-sub').textContent = t.hdrSub;
+  document.getElementById('s-title').textContent = t.startTitle;
+  document.getElementById('s-sub').textContent = t.startSub;
+  document.getElementById('lbl-name').textContent = t.lblName;
+  document.getElementById('btn-start').textContent = t.btnStart;
+  document.getElementById('nav-records').textContent = t.navRec;
+  document.getElementById('btn-new-emp').textContent = t.btnNew;
+  document.getElementById('btn-back-start').textContent = t.btnHome;
+  document.getElementById('pw-title').textContent = t.pwTitle;
+  document.getElementById('pw-sub').textContent = t.pwSub;
+  document.getElementById('btn-unlock').textContent = t.btnUnlock;
+  document.getElementById('btn-pw-back').textContent = t.btnPwBack;
+  document.getElementById('rec-title').textContent = t.recTitle;
+  document.getElementById('btn-clear').textContent = t.btnClear;
+  document.getElementById('btn-rec-back').textContent = t.btnRecBack;
+  document.getElementById('th-name').textContent = t.thName;
+  document.getElementById('th-score').textContent = t.thScore;
+  document.getElementById('th-pct').textContent = t.thPct;
+  document.getElementById('th-verdict').textContent = t.thVerdict;
+  document.getElementById('th-date').textContent = t.thDate;
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+}
+function showStart() { showScreen('start'); }
+
+// ───── QUIZ FLOW ─────
+function startQuiz() {
+  empName = document.getElementById('emp-name').value.trim();
+  const err = document.getElementById('name-error');
+  if (!empName) {
+    err.textContent = T[lang].enterName;
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+  // Random 20 questions, each with its options shuffled so the answer position changes.
+  quiz = shuffle(BANK.map((_, i) => i)).slice(0, QUIZ_LENGTH).map(qi => {
+    const order = shuffle([0, 1, 2, 3]);
+    return { qi, order, correctPos: order.indexOf(BANK[qi].c) };
+  });
+  currentQ = 0;
+  score = 0;
+  picked = null;
+  showScreen('quiz');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const item = quiz[currentQ];
+  const bq = BANK[item.qi];
+  const total = quiz.length;
+  document.getElementById('emp-display').textContent = T[lang].empOf + ' ' + empName;
+  document.getElementById('progress-fill').style.width = Math.round((currentQ / total) * 100) + '%';
+  document.getElementById('q-counter').textContent = (currentQ + 1) + ' / ' + total;
+  document.getElementById('q-cat').textContent = bq.cat[lang];
+  document.getElementById('q-text').textContent = bq.q[lang];
+
+  const labels = lang === 'ar' ? ['أ','ب','ج','د'] : ['A','B','C','D'];
+  const opts = bq.o[lang];
+  const wrap = document.getElementById('options');
+  wrap.innerHTML = '';
+  item.order.forEach((origIdx, pos) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn' + (picked === pos ? ' picked' : '');
+    btn.disabled = picked !== null;
+    btn.innerHTML = '<span class="opt-label">' + labels[pos] + '</span>';
+    const txt = document.createElement('span');
+    txt.textContent = opts[origIdx];
+    btn.appendChild(txt);
+    btn.addEventListener('click', () => selectOption(pos));
+    wrap.appendChild(btn);
+  });
+
+  const next = document.getElementById('btn-next');
+  next.textContent = currentQ === total - 1 ? T[lang].finish : T[lang].next;
+  next.style.display = picked !== null ? '' : 'none';
+  next.onclick = nextQuestion;
+}
+
+// No feedback shown during the test, so the next employee cannot learn the answers.
+function selectOption(pos) {
+  if (picked !== null) return;
+  picked = pos;
+  if (pos === quiz[currentQ].correctPos) score++;
+  renderQuestion();
+}
+
+function nextQuestion() {
+  currentQ++;
+  picked = null;
+  if (currentQ >= quiz.length) { showResult(); return; }
+  renderQuestion();
+}
+
+// ───── RESULT ─────
+function showResult() {
+  const t = T[lang];
+  const total = quiz.length;
+  const pct = Math.round((score / total) * 100);
+  const pass = score >= PASS_SCORE;
+
+  showScreen('result');
+  const circle = document.getElementById('score-circle');
+  circle.className = 'score-circle ' + (pass ? 'pass' : 'fail');
+  document.getElementById('score-pct').textContent = pct + '%';
+  document.getElementById('score-frac').textContent = score + '/' + total;
+  document.getElementById('res-name').textContent = empName;
+  const verdict = document.getElementById('res-verdict');
+  verdict.textContent = pass ? t.pass : t.fail;
+  verdict.className = 'verdict ' + (pass ? 'verdict-pass' : 'verdict-fail');
+  document.getElementById('btn-new-emp').onclick = newEmployee;
+  document.getElementById('btn-back-start').onclick = showStart;
+
+  const now = new Date();
+  const date = now.toLocaleDateString('ar-SA') + ' ' + now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+  records.push({ name: empName, score, total, pct, pass, date });
+  saveRecords();
+  sendToSheet({ name: empName, score, total, pct, pass });
+}
+
+function newEmployee() {
+  document.getElementById('emp-name').value = '';
+  showScreen('start');
+}
+
+// ───── RECORDS ─────
+function showRecords() {
+  document.getElementById('pw-input').value = '';
+  document.getElementById('pw-error').style.display = 'none';
+  showScreen('password');
+  document.getElementById('pw-input').focus();
+}
+
+function checkPassword() {
+  const val = document.getElementById('pw-input').value;
+  if (val === PASSWORD) {
+    document.getElementById('pw-error').style.display = 'none';
+    renderRecords();
+    showScreen('records');
+  } else {
+    const e = document.getElementById('pw-error');
+    e.textContent = T[lang].pwWrong;
+    e.style.display = 'block';
+  }
+}
+
+function renderRecords() {
+  const t = T[lang];
+  const tbody = document.getElementById('records-body');
+  tbody.innerHTML = '';
+  if (records.length === 0) {
+    const tr = document.createElement('tr');
+    const td = document.createElement('td');
+    td.colSpan = 6;
+    td.className = 'empty-state';
+    td.textContent = t.noRecords;
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+    return;
+  }
+  records.slice().reverse().forEach((r, i) => {
+    const tr = document.createElement('tr');
+    const cells = [
+      String(records.length - i),
+      r.name,
+      r.score + ' / ' + r.total,
+      r.pct + '%',
+      null,
+      r.date
+    ];
+    cells.forEach((val, ci) => {
+      const td = document.createElement('td');
+      if (ci === 4) {
+        const b = document.createElement('span');
+        b.className = 'badge ' + (r.pass ? 'badge-pass' : 'badge-fail');
+        b.textContent = r.pass ? t.pass : t.fail;
+        td.appendChild(b);
+      } else {
+        td.textContent = val;
+        if (ci === 1) td.style.fontWeight = '700';
+        if (ci === 5) { td.style.color = 'var(--fg-soft)'; td.style.fontSize = '0.82rem'; td.style.whiteSpace = 'nowrap'; }
+      }
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+let clearArmed = false;
+function clearRecords() {
+  const btn = document.getElementById('btn-clear');
+  if (!clearArmed) {
+    clearArmed = true;
+    btn.textContent = T[lang].confirmClear;
+    setTimeout(() => { clearArmed = false; btn.textContent = T[lang].btnClear; }, 4000);
+    return;
+  }
+  clearArmed = false;
+  records = [];
+  saveRecords();
+  renderRecords();
+  btn.textContent = T[lang].btnClear;
+}
+
+// ───── WIRING ─────
+document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+document.getElementById('btn-start').addEventListener('click', startQuiz);
+document.getElementById('emp-name').addEventListener('keydown', e => { if (e.key === 'Enter') startQuiz(); });
+document.getElementById('nav-records').addEventListener('click', showRecords);
+document.getElementById('btn-unlock').addEventListener('click', checkPassword);
+document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+document.getElementById('btn-pw-back').addEventListener('click', showStart);
+document.getElementById('btn-rec-back').addEventListener('click', showStart);
+document.getElementById('btn-clear').addEventListener('click', clearRecords);
+document.getElementById('btn-new-emp').addEventListener('click', newEmployee);
+document.getElementById('btn-back-start').addEventListener('click', showStart);
+
+applyTranslations();
+</script>
