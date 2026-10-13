@@ -177,6 +177,14 @@
   .ord-ranks { display: flex; gap: 8px; }
   .num-btn { flex: 1; padding: 10px 0; border-radius: 10px; border: 1.5px solid var(--border); background: var(--bg); color: var(--fg); font-family: 'Cairo', sans-serif; font-weight: 800; font-size: 1rem; cursor: pointer; }
   .num-btn.picked { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .match-box { position: relative; }
+  .match-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: visible; }
+  .match-svg .match-line { stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
+  .match-cols { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 48px; }
+  .match-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+  .match-item { min-height: 58px; padding: 10px 12px; border-radius: 12px; border: 1.5px solid var(--border); background: var(--surface); color: var(--fg); font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 0.92rem; line-height: 1.4; text-align: center; cursor: pointer; }
+  .match-item.sel { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+  .match-item.linked { background: var(--accent-light); border-color: var(--accent); }
 </style>
 
 <div class="app">
@@ -456,7 +464,12 @@ const BANK = [
   {"cat":{"ar":"ترتيب الخطوات","en":"Order of steps","hi":"चरणों का क्रम","bn":"ধাপের ক্রম","id":"Urutan langkah"},"q":{"en":"Put the steps for safely thawing frozen chicken in the correct order (1 = first).","ar":"رتّب خطوات إذابة الدجاج المجمد بأمان بالترتيب الصحيح (١ = أولاً).","hi":"जमे हुए चिकन को सुरक्षित रूप से पिघलाने के चरणों को सही क्रम में लगाएँ (1 = पहला)।","bn":"জমা মুরগি নিরাপদে গলানোর ধাপগুলো সঠিক ক্রমে সাজান (১ = প্রথম)।","id":"Urutkan langkah mencairkan ayam beku dengan aman (1 = pertama)."},"o":{"en":["Take the frozen chicken out of the freezer","Place the chicken in a sealed container on the lowest fridge shelf","Keep it at 0 to 4°C until it is fully thawed","Cook it thoroughly after it has fully thawed"],"ar":["أخرج الدجاج المجمد من الفريزر","ضع الدجاج في وعاء محكم على الرف السفلي للثلاجة","أبقه بين ٠ و٤°م حتى يذوب تماماً","اطبخه جيداً بعد أن يذوب تماماً"],"hi":["जमे हुए चिकन को फ़्रीज़र से निकालें","चिकन को सीलबंद बर्तन में फ़्रिज की सबसे निचली शेल्फ़ पर रखें","पूरी तरह पिघलने तक इसे 0 से 4°C पर रखें","पूरी तरह पिघलने के बाद इसे अच्छी तरह पकाएँ"],"bn":["ফ্রিজার থেকে জমা মুরগি বের করুন","মুরগি সিল করা পাত্রে ফ্রিজের সবচেয়ে নিচের তাকে রাখুন","সম্পূর্ণ গলে না যাওয়া পর্যন্ত ০ থেকে ৪°C তাপমাত্রায় রাখুন","সম্পূর্ণ গলে যাওয়ার পর ভালো করে রান্না করুন"],"id":["Keluarkan ayam beku dari freezer","Letakkan ayam dalam wadah tertutup di rak paling bawah kulkas","Jaga pada suhu 0 sampai 4°C hingga benar-benar mencair","Masak hingga matang setelah benar-benar mencair"]},"c":null,"ordering":true,"pts":3},
   {"cat":{"ar":"ترتيب الخطوات","en":"Order of steps","hi":"चरणों का क्रम","bn":"ধাপের ক্রম","id":"Urutan langkah"},"q":{"en":"Put these steps for cooking and holding hot food in the correct order (1 = first).","ar":"رتّب خطوات طهي الطعام وحفظه ساخناً بالترتيب الصحيح (١ = أولاً).","hi":"पकाकर गर्म रखने वाले खाने के चरणों को सही क्रम में लगाएँ (1 = पहला)।","bn":"রান্না করে গরম রাখা খাবারের ধাপগুলো সঠিক ক্রমে সাজান (১ = প্রথম)।","id":"Urutkan langkah memasak dan menjaga makanan panas dengan benar (1 = pertama)."},"o":{"en":["Cook the food to the required core temperature","Check the core temperature with a probe thermometer","Hold the food at 63°C or above until service","Serve the food promptly once it is ready"],"ar":["اطبخ الطعام إلى درجة حرارة المركز المطلوبة","تحقق من حرارة المركز بمقياس الحرارة بالمسبار","احفظ الطعام عند ٦٣°م أو أكثر حتى التقديم","قدّم الطعام فوراً بعد أن يصبح جاهزاً"],"hi":["खाने को ज़रूरी कोर तापमान तक पकाएँ","प्रोब थर्मामीटर से कोर तापमान की जाँच करें","सर्विस तक खाने को 63°C या उससे ऊपर रखें","तैयार होते ही खाना तुरंत परोसें"],"bn":["প্রয়োজনীয় কোর তাপমাত্রা পর্যন্ত খাবার রান্না করুন","প্রোব থার্মোমিটার দিয়ে কোর তাপমাত্রা পরীক্ষা করুন","পরিবেশন পর্যন্ত খাবার ৬৩°C বা তার উপরে রাখুন","তৈরি হওয়ার সঙ্গে সঙ্গে খাবার পরিবেশন করুন"],"id":["Masak makanan hingga suhu inti yang disyaratkan","Periksa suhu inti dengan termometer probe","Jaga makanan pada 63°C atau lebih hingga disajikan","Sajikan makanan segera setelah siap"]},"c":null,"ordering":true,"pts":4},
   {"cat":{"ar":"ترتيب الخطوات","en":"Order of steps","hi":"चरणों का क्रम","bn":"ধাপের ক্রম","id":"Urutan langkah"},"q":{"en":"Put these steps for receiving a food delivery in the correct order (1 = first).","ar":"رتّب خطوات استلام توريد الطعام بالترتيب الصحيح (١ = أولاً).","hi":"खाने की डिलीवरी लेने के चरणों को सही क्रम में लगाएँ (1 = पहला)।","bn":"খাবার ডেলিভারি গ্রহণের ধাপগুলো সঠিক ক্রমে সাজান (১ = প্রথম)।","id":"Urutkan langkah menerima pengiriman makanan dengan benar (1 = pertama)."},"o":{"en":["Check the packaging and labels for damage or missing information","Check the temperature of chilled and frozen items on arrival","Move the items to the correct cold storage immediately","Record the delivery in the receiving log"],"ar":["افحص التغليف والملصقات بحثاً عن التلف أو النقص","افحص حرارة المنتجات المبردة والمجمدة عند الوصول","انقل المنتجات فوراً إلى التخزين البارد المناسب","سجّل التوريد في سجل الاستلام"],"hi":["पैकिंग और लेबल में नुकसान या जानकारी की कमी जाँचें","आने पर ठंडी और जमी चीज़ों का तापमान जाँचें","सामान तुरंत सही ठंडे भंडारण में ले जाएँ","डिलीवरी को रिसीविंग लॉग में दर्ज करें"],"bn":["প্যাকেজিং ও লেবেলে ক্ষতি বা তথ্যের ঘাটতি পরীক্ষা করুন","পৌঁছানোর সময় ঠান্ডা ও জমা জিনিসের তাপমাত্রা দেখুন","জিনিসপত্র দ্রুত সঠিক ঠান্ডা মজুত জায়গায় সরান","রিসিভিং লগে ডেলিভারির তথ্য লিখুন"],"id":["Periksa kemasan dan label untuk kerusakan atau informasi yang hilang","Periksa suhu barang dingin dan beku saat tiba","Pindahkan barang segera ke penyimpanan dingin yang sesuai","Catat pengiriman dalam log penerimaan"]},"c":null,"ordering":true,"pts":1},
-  {"cat":{"ar":"ترتيب الخطوات","en":"Order of steps","hi":"चरणों का क्रम","bn":"ধাপের ক্রম","id":"Urutan langkah"},"q":{"en":"A worker sees a mouse near the food storage. Put the actions in the correct order (1 = first).","ar":"شاهد عامل فأراً قرب مخزن الطعام. رتّب الإجراءات بالترتيب الصحيح (١ = أولاً).","hi":"एक कर्मचारी को खाना रखने की जगह के पास चूहा दिखता है। कदमों को सही क्रम में लगाएँ (1 = पहला)।","bn":"একজন কর্মী খাবার মজুতের কাছে একটি ইঁদুর দেখেন। ধাপগুলো সঠিক ক্রমে সাজান (১ = প্রথম)।","id":"Seorang pekerja melihat tikus di dekat penyimpanan makanan. Urutkan tindakan dengan benar (1 = pertama)."},"o":{"en":["Stop using the area for food and close it off","Move the open food and utensils away from the area","Report the sighting to the supervisor","Contact the pest control provider"],"ar":["أوقف استخدام المنطقة للطعام وأغلقها","انقل الطعام المكشوف والأدوات بعيداً عن المنطقة","أبلغ المشرف بالمشاهدة","اتصل بمزوّد مكافحة الآفات"],"hi":["उस जगह पर खाना तैयार करना रोककर उसे बंद करें","खुला खाना और बर्तन उस जगह से हटाएँ","सुपरवाइज़र को इसकी सूचना दें","कीट नियंत्रण सेवा से संपर्क करें"],"bn":["ওই জায়গায় খাবার তৈরি বন্ধ করে জায়গাটি বন্ধ করুন","খোলা খাবার ও বাসন ওই জায়গা থেকে সরান","সুপারভাইজারকে জানান","কীটনাশক সেবা প্রদানকারীর সঙ্গে যোগাযোগ করুন"],"id":["Hentikan penggunaan area untuk makanan dan tutup area itu","Pindahkan makanan terbuka dan peralatan dari area tersebut","Laporkan temuan kepada supervisor","Hubungi penyedia pengendalian hama"]},"c":null,"ordering":true,"pts":2}
+  {"cat":{"ar":"ترتيب الخطوات","en":"Order of steps","hi":"चरणों का क्रम","bn":"ধাপের ক্রম","id":"Urutan langkah"},"q":{"en":"A worker sees a mouse near the food storage. Put the actions in the correct order (1 = first).","ar":"شاهد عامل فأراً قرب مخزن الطعام. رتّب الإجراءات بالترتيب الصحيح (١ = أولاً).","hi":"एक कर्मचारी को खाना रखने की जगह के पास चूहा दिखता है। कदमों को सही क्रम में लगाएँ (1 = पहला)।","bn":"একজন কর্মী খাবার মজুতের কাছে একটি ইঁদুর দেখেন। ধাপগুলো সঠিক ক্রমে সাজান (১ = প্রথম)।","id":"Seorang pekerja melihat tikus di dekat penyimpanan makanan. Urutkan tindakan dengan benar (1 = pertama)."},"o":{"en":["Stop using the area for food and close it off","Move the open food and utensils away from the area","Report the sighting to the supervisor","Contact the pest control provider"],"ar":["أوقف استخدام المنطقة للطعام وأغلقها","انقل الطعام المكشوف والأدوات بعيداً عن المنطقة","أبلغ المشرف بالمشاهدة","اتصل بمزوّد مكافحة الآفات"],"hi":["उस जगह पर खाना तैयार करना रोककर उसे बंद करें","खुला खाना और बर्तन उस जगह से हटाएँ","सुपरवाइज़र को इसकी सूचना दें","कीट नियंत्रण सेवा से संपर्क करें"],"bn":["ওই জায়গায় খাবার তৈরি বন্ধ করে জায়গাটি বন্ধ করুন","খোলা খাবার ও বাসন ওই জায়গা থেকে সরান","সুপারভাইজারকে জানান","কীটনাশক সেবা প্রদানকারীর সঙ্গে যোগাযোগ করুন"],"id":["Hentikan penggunaan area untuk makanan dan tutup area itu","Pindahkan makanan terbuka dan peralatan dari area tersebut","Laporkan temuan kepada supervisor","Hubungi penyedia pengendalian hama"]},"c":null,"ordering":true,"pts":2},
+  {"cat":{"ar":"وصّل","en":"Matching","hi":"मिलान","bn":"মেলানো","id":"Pasangkan"},"q":{"en":"Match each food with its main bacteria risk.","ar":"وصّل كل طعام بالخطر البكتيري الرئيسي فيه.","hi":"हर खाने को उसके मुख्य बैक्टीरिया खतरे से जोड़ें।","bn":"প্রতিটি খাবারকে তার প্রধান জীবাণু ঝুঁকির সঙ্গে মেলান।","id":"Hubungkan setiap makanan dengan risiko bakteri utamanya."},"l":{"en":["Raw poultry","Cooked rice left out","Swollen or leaking cans","Human skin and nose"],"ar":["الدواجن النيئة","الأرز المطبوخ المتروك","العلب المنتفخة أو المتسربة","جلد الإنسان وأنفه"],"hi":["कच्चा पोल्ट्री","बाहर छोड़ा गया पका चावल","फूले या रिसते डिब्बे","इंसान की त्वचा और नाक"],"bn":["কাঁচা পোল্ট্রি","বাইরে রাখা রান্না করা ভাত","ফোলা বা চুঁইয়ে পড়া ক্যান","মানুষের ত্বক ও নাক"],"id":["Unggas mentah","Nasi matang yang dibiarkan","Kaleng menggembung atau bocor","Kulit dan hidung manusia"]},"r":{"en":["Salmonella","Bacillus cereus","Botulism","Staphylococcus aureus"],"ar":["السالمونيلا","باسيلاس سيريوس","التسمم الوشيقي (البوتيوليزم)","المكورات العنقودية الذهبية"],"hi":["साल्मोनेला","बैसिलस सेरियस","बोटुलिज़्म","स्टैफ़िलोकोकस ऑरियस"],"bn":["সালমোনেলা","ব্যাসিলাস সেরিয়াস","বোটুলিজম","স্ট্যাফাইলোকক্কাস অরিয়াস"],"id":["Salmonella","Bacillus cereus","Botulisme","Staphylococcus aureus"]},"o":{"ar":["الدواجن النيئة ↔ السالمونيلا","الأرز المطبوخ المتروك ↔ باسيلاس سيريوس","العلب المنتفخة أو المتسربة ↔ التسمم الوشيقي (البوتيوليزم)","جلد الإنسان وأنفه ↔ المكورات العنقودية الذهبية"],"en":["Raw poultry ↔ Salmonella","Cooked rice left out ↔ Bacillus cereus","Swollen or leaking cans ↔ Botulism","Human skin and nose ↔ Staphylococcus aureus"],"hi":["कच्चा पोल्ट्री ↔ साल्मोनेला","बाहर छोड़ा गया पका चावल ↔ बैसिलस सेरियस","फूले या रिसते डिब्बे ↔ बोटुलिज़्म","इंसान की त्वचा और नाक ↔ स्टैफ़िलोकोकस ऑरियस"],"bn":["কাঁচা পোল্ট্রি ↔ সালমোনেলা","বাইরে রাখা রান্না করা ভাত ↔ ব্যাসিলাস সেরিয়াস","ফোলা বা চুঁইয়ে পড়া ক্যান ↔ বোটুলিজম","মানুষের ত্বক ও নাক ↔ স্ট্যাফাইলোকক্কাস অরিয়াস"],"id":["Unggas mentah ↔ Salmonella","Nasi matang yang dibiarkan ↔ Bacillus cereus","Kaleng menggembung atau bocor ↔ Botulisme","Kulit dan hidung manusia ↔ Staphylococcus aureus"]},"c":null,"matching":true,"pts":1},
+  {"cat":{"ar":"وصّل","en":"Matching","hi":"मिलान","bn":"মেলানো","id":"Pasangkan"},"q":{"en":"Match each cleaning step with its purpose.","ar":"وصّل كل خطوة تنظيف بالغرض منها.","hi":"हर सफ़ाई के चरण को उसके उद्देश्य से जोड़ें।","bn":"প্রতিটি পরিষ্কারের ধাপকে তার উদ্দেশ্যের সঙ্গে মেলান।","id":"Hubungkan setiap langkah pembersihan dengan tujuannya."},"l":{"en":["Pre-clean","Main wash","Rinse","Sanitize"],"ar":["التنظيف الأولي","الغسل الرئيسي","الشطف","التعقيم"],"hi":["प्री-क्लीन","मुख्य धुलाई","खंगालना","सैनिटाइज़ करना"],"bn":["প্রাক-পরিষ্কার","মূল ধোয়া","ধুয়ে ফেলা","জীবাণুমুক্ত করা"],"id":["Pra-bersihkan","Cuci utama","Bilas","Sanitasi"]},"r":{"en":["Remove food debris","Remove grease and dirt","Remove detergent residue","Kill germs"],"ar":["إزالة بقايا الطعام","إزالة الدهون والأوساخ","إزالة بقايا المنظف","قتل الجراثيم"],"hi":["खाने के अवशेष हटाना","चिकनाई और गंदगी हटाना","डिटर्जेंट के अवशेष हटाना","कीटाणु मारना"],"bn":["খাবারের অবশিষ্ট সরানো","চর্বি ও ময়লা সরানো","ডিটারজেন্টের অবশিষ্ট সরানো","জীবাণু মারা"],"id":["Membuang sisa makanan","Menghilangkan lemak dan kotoran","Membuang sisa deterjen","Membunuh kuman"]},"o":{"ar":["التنظيف الأولي ↔ إزالة بقايا الطعام","الغسل الرئيسي ↔ إزالة الدهون والأوساخ","الشطف ↔ إزالة بقايا المنظف","التعقيم ↔ قتل الجراثيم"],"en":["Pre-clean ↔ Remove food debris","Main wash ↔ Remove grease and dirt","Rinse ↔ Remove detergent residue","Sanitize ↔ Kill germs"],"hi":["प्री-क्लीन ↔ खाने के अवशेष हटाना","मुख्य धुलाई ↔ चिकनाई और गंदगी हटाना","खंगालना ↔ डिटर्जेंट के अवशेष हटाना","सैनिटाइज़ करना ↔ कीटाणु मारना"],"bn":["প্রাক-পরিষ্কার ↔ খাবারের অবশিষ্ট সরানো","মূল ধোয়া ↔ চর্বি ও ময়লা সরানো","ধুয়ে ফেলা ↔ ডিটারজেন্টের অবশিষ্ট সরানো","জীবাণুমুক্ত করা ↔ জীবাণু মারা"],"id":["Pra-bersihkan ↔ Membuang sisa makanan","Cuci utama ↔ Menghilangkan lemak dan kotoran","Bilas ↔ Membuang sisa deterjen","Sanitasi ↔ Membunuh kuman"]},"c":null,"matching":true,"pts":1},
+  {"cat":{"ar":"وصّل","en":"Matching","hi":"मिलान","bn":"মেলানো","id":"Pasangkan"},"q":{"en":"Match each tool with what it is used for.","ar":"وصّل كل أداة بالاستخدام الصحيح لها.","hi":"हर उपकरण को उसके उपयोग से जोड़ें।","bn":"প্রতিটি যন্ত্রকে তার ব্যবহারের সঙ্গে মেলান।","id":"Hubungkan setiap alat dengan kegunaannya."},"l":{"en":["Probe thermometer","Fridge thermometer","Waterproof dressing","Sanitizer test strips"],"ar":["مقياس حرارة بالمسبار","مقياس حرارة الثلاجة","ضمادة مقاومة للماء","شرائط اختبار المعقم"],"hi":["प्रोब थर्मामीटर","फ़्रिज थर्मामीटर","वॉटरप्रूफ पट्टी","सैनिटाइज़र टेस्ट स्ट्रिप्स"],"bn":["প্রোব থার্মোমিটার","ফ্রিজ থার্মোমিটার","ওয়াটারপ্রুফ ড্রেসিং","জীবাণুনাশক টেস্ট স্ট্রিপ"],"id":["Termometer probe","Termometer kulkas","Plester kedap air","Strip uji sanitizer"]},"r":{"en":["Checking the core temperature of cooked food","Checking the temperature inside the fridge","Covering a cut","Checking the sanitizer strength"],"ar":["فحص حرارة مركز الطعام المطبوخ","فحص الحرارة داخل الثلاجة","تغطية الجرح","فحص قوة المعقم"],"hi":["पके खाने का कोर तापमान जाँचना","फ़्रिज के अंदर का तापमान जाँचना","घाव को ढकना","सैनिटाइज़र की ताकत जाँचना"],"bn":["রান্না খাবারের কোর তাপমাত্রা দেখা","ফ্রিজের ভেতরের তাপমাত্রা দেখা","ক্ষত ঢাকা","জীবাণুনাশকের শক্তি দেখা"],"id":["Mengecek suhu inti makanan matang","Mengecek suhu di dalam kulkas","Menutup luka","Mengecek kekuatan sanitizer"]},"o":{"ar":["مقياس حرارة بالمسبار ↔ فحص حرارة مركز الطعام المطبوخ","مقياس حرارة الثلاجة ↔ فحص الحرارة داخل الثلاجة","ضمادة مقاومة للماء ↔ تغطية الجرح","شرائط اختبار المعقم ↔ فحص قوة المعقم"],"en":["Probe thermometer ↔ Checking the core temperature of cooked food","Fridge thermometer ↔ Checking the temperature inside the fridge","Waterproof dressing ↔ Covering a cut","Sanitizer test strips ↔ Checking the sanitizer strength"],"hi":["प्रोब थर्मामीटर ↔ पके खाने का कोर तापमान जाँचना","फ़्रिज थर्मामीटर ↔ फ़्रिज के अंदर का तापमान जाँचना","वॉटरप्रूफ पट्टी ↔ घाव को ढकना","सैनिटाइज़र टेस्ट स्ट्रिप्स ↔ सैनिटाइज़र की ताकत जाँचना"],"bn":["প্রোব থার্মোমিটার ↔ রান্না খাবারের কোর তাপমাত্রা দেখা","ফ্রিজ থার্মোমিটার ↔ ফ্রিজের ভেতরের তাপমাত্রা দেখা","ওয়াটারপ্রুফ ড্রেসিং ↔ ক্ষত ঢাকা","জীবাণুনাশক টেস্ট স্ট্রিপ ↔ জীবাণুনাশকের শক্তি দেখা"],"id":["Termometer probe ↔ Mengecek suhu inti makanan matang","Termometer kulkas ↔ Mengecek suhu di dalam kulkas","Plester kedap air ↔ Menutup luka","Strip uji sanitizer ↔ Mengecek kekuatan sanitizer"]},"c":null,"matching":true,"pts":1},
+  {"cat":{"ar":"وصّل","en":"Matching","hi":"मिलान","bn":"মেলানো","id":"Pasangkan"},"q":{"en":"Match each situation with the correct first action.","ar":"وصّل كل حالة بالإجراء الأول الصحيح.","hi":"हर स्थिति को सही पहले कदम से जोड़ें।","bn":"প্রতিটি পরিস্থিতিকে সঠিক প্রথম পদক্ষেপের সঙ্গে মেলান।","id":"Hubungkan setiap situasi dengan tindakan pertama yang benar."},"l":{"en":["Diarrhoea and vomiting","Small cut on a finger","Glass breaks near food","Cooking oil catches fire"],"ar":["إسهال وقيء","جرح صغير في الإصبع","تكسر زجاج قرب الطعام","اشتعال زيت الطبخ"],"hi":["दस्त और उल्टी","उंगली पर छोटा कट","खाने के पास कांच टूटना","खाना पकाने के तेल में आग लगना"],"bn":["ডায়রিয়া ও বমি","আঙুলে ছোট কাটা","খাবারের কাছে কাচ ভাঙা","রান্নার তেলে আগুন ধরা"],"id":["Diare dan muntah","Luka kecil di jari","Kaca pecah dekat makanan","Minyak goreng terbakar"]},"r":{"en":["Stop handling food and inform the supervisor","Cover the cut with a waterproof dressing and glove","Stop work in the area and report","Cover the pan with a lid"],"ar":["التوقف عن لمس الطعام وإبلاغ المشرف","تغطية الجرح بضمادة مقاومة للماء وقفاز","إيقاف العمل في المنطقة والإبلاغ","تغطية الوعاء بغطاء"],"hi":["खाना छूना बंद करें और सुपरवाइज़र को बताएँ","घाव पर वॉटरप्रूफ पट्टी और दस्ताना लगाएँ","क्षेत्र में काम रोकें और रिपोर्ट करें","बर्तन को ढक्कन से ढकें"],"bn":["খাবার স্পর্শ বন্ধ করে সুপারভাইজারকে জানানো","ক্ষতে ওয়াটারপ্রুফ ড্রেসিং ও গ্লাভস লাগানো","ওই এলাকায় কাজ থামিয়ে রিপোর্ট করা","কড়াইয়ের উপর ঢাকনা দেওয়া"],"id":["Berhenti menangani makanan dan lapor ke supervisor","Tutup luka dengan plester kedap air dan sarung tangan","Hentikan kerja di area itu dan laporkan","Tutup wajan dengan tutupnya"]},"o":{"ar":["إسهال وقيء ↔ التوقف عن لمس الطعام وإبلاغ المشرف","جرح صغير في الإصبع ↔ تغطية الجرح بضمادة مقاومة للماء وقفاز","تكسر زجاج قرب الطعام ↔ إيقاف العمل في المنطقة والإبلاغ","اشتعال زيت الطبخ ↔ تغطية الوعاء بغطاء"],"en":["Diarrhoea and vomiting ↔ Stop handling food and inform the supervisor","Small cut on a finger ↔ Cover the cut with a waterproof dressing and glove","Glass breaks near food ↔ Stop work in the area and report","Cooking oil catches fire ↔ Cover the pan with a lid"],"hi":["दस्त और उल्टी ↔ खाना छूना बंद करें और सुपरवाइज़र को बताएँ","उंगली पर छोटा कट ↔ घाव पर वॉटरप्रूफ पट्टी और दस्ताना लगाएँ","खाने के पास कांच टूटना ↔ क्षेत्र में काम रोकें और रिपोर्ट करें","खाना पकाने के तेल में आग लगना ↔ बर्तन को ढक्कन से ढकें"],"bn":["ডায়রিয়া ও বমি ↔ খাবার স্পর্শ বন্ধ করে সুপারভাইজারকে জানানো","আঙুলে ছোট কাটা ↔ ক্ষতে ওয়াটারপ্রুফ ড্রেসিং ও গ্লাভস লাগানো","খাবারের কাছে কাচ ভাঙা ↔ ওই এলাকায় কাজ থামিয়ে রিপোর্ট করা","রান্নার তেলে আগুন ধরা ↔ কড়াইয়ের উপর ঢাকনা দেওয়া"],"id":["Diare dan muntah ↔ Berhenti menangani makanan dan lapor ke supervisor","Luka kecil di jari ↔ Tutup luka dengan plester kedap air dan sarung tangan","Kaca pecah dekat makanan ↔ Hentikan kerja di area itu dan laporkan","Minyak goreng terbakar ↔ Tutup wajan dengan tutupnya"]},"c":null,"matching":true,"pts":1},
+  {"cat":{"ar":"وصّل","en":"Matching","hi":"मिलान","bn":"মেলানো","id":"Pasangkan"},"q":{"en":"Match each date or storage rule with its meaning.","ar":"وصّل كل تاريخ أو قاعدة تخزين بمعناها.","hi":"हर तारीख या भंडारण नियम को उसके अर्थ से जोड़ें।","bn":"প্রতিটি তারিখ বা সংরক্ষণ নিয়মকে তার অর্থের সঙ্গে মেলান।","id":"Hubungkan setiap tanggal atau aturan penyimpanan dengan maknanya."},"l":{"en":["Use by","Best before","FIFO","Frozen meat storage"],"ar":["تاريخ الاستخدام","تاريخ الأفضلية","الأقدم يخرج أولاً (FIFO)","تخزين اللحم المجمد"],"hi":["उपयोग तिथि","सर्वोत्तम पूर्व तिथि","FIFO","जमे मांस का भंडारण"],"bn":["ব্যবহারের শেষ তারিখ","সেরা ব্যবহারের তারিখ","FIFO","হিমায়িত মাংসের সংরক্ষণ"],"id":["Gunakan sebelum","Sebaiknya dikonsumsi sebelum","FIFO","Penyimpanan daging beku"]},"r":{"en":["Relates to food safety","Relates to quality","First in, first out","-18°C or below"],"ar":["يتعلق بالسلامة","يتعلق بالجودة","أول داخل أول خارج","-١٨°م أو أقل"],"hi":["सुरक्षा से जुड़ा","गुणवत्ता से जुड़ी","पहले आया, पहले गया","-18°C या उससे कम"],"bn":["নিরাপত্তার সঙ্গে সম্পর্কিত","মানের সঙ্গে সম্পর্কিত","আগে আসা, আগে যাওয়া","-১৮°C বা তার নিচে"],"id":["Berkaitan dengan keamanan","Berkaitan dengan mutu","Masuk pertama, keluar pertama","-18°C atau lebih rendah"]},"o":{"ar":["تاريخ الاستخدام ↔ يتعلق بالسلامة","تاريخ الأفضلية ↔ يتعلق بالجودة","الأقدم يخرج أولاً (FIFO) ↔ أول داخل أول خارج","تخزين اللحم المجمد ↔ -١٨°م أو أقل"],"en":["Use by ↔ Relates to food safety","Best before ↔ Relates to quality","FIFO ↔ First in, first out","Frozen meat storage ↔ -18°C or below"],"hi":["उपयोग तिथि ↔ सुरक्षा से जुड़ा","सर्वोत्तम पूर्व तिथि ↔ गुणवत्ता से जुड़ी","FIFO ↔ पहले आया, पहले गया","जमे मांस का भंडारण ↔ -18°C या उससे कम"],"bn":["ব্যবহারের শেষ তারিখ ↔ নিরাপত্তার সঙ্গে সম্পর্কিত","সেরা ব্যবহারের তারিখ ↔ মানের সঙ্গে সম্পর্কিত","FIFO ↔ আগে আসা, আগে যাওয়া","হিমায়িত মাংসের সংরক্ষণ ↔ -১৮°C বা তার নিচে"],"id":["Gunakan sebelum ↔ Berkaitan dengan keamanan","Sebaiknya dikonsumsi sebelum ↔ Berkaitan dengan mutu","FIFO ↔ Masuk pertama, keluar pertama","Penyimpanan daging beku ↔ -18°C atau lebih rendah"]},"c":null,"matching":true,"pts":1}
 ];
 
 // ───── UI TEXT ─────
@@ -612,19 +625,25 @@ function startQuiz() {
   const REASONING_CATS = ['Logic', 'Calculation', 'Prioritizing', 'Reasoning'];
   const isTF = i => !!BANK[i].tf;
   const isOrd = i => !!BANK[i].ordering;
+  const isMatch = i => !!BANK[i].matching;
   const isReasoning = i => REASONING_CATS.includes(BANK[i].cat.en);
   const allIdx = BANK.map((_, i) => i);
-  const mcIdx = allIdx.filter(i => !isTF(i) && !isOrd(i));
-  const TF_COUNT = 20, ORD_COUNT = 5, REASON_COUNT = 5;
+  const mcIdx = allIdx.filter(i => !isTF(i) && !isOrd(i) && !isMatch(i));
+  const TF_COUNT = 20, ORD_COUNT = 5, REASON_COUNT = 5, MATCH_COUNT = 5;
   const reasoningPick = shuffle(mcIdx.filter(isReasoning)).slice(0, REASON_COUNT);
-  const healthPick = shuffle(mcIdx.filter(i => !isReasoning(i))).slice(0, QUIZ_LENGTH - TF_COUNT - ORD_COUNT - REASON_COUNT);
+  const healthPick = shuffle(mcIdx.filter(i => !isReasoning(i))).slice(0, QUIZ_LENGTH - TF_COUNT - ORD_COUNT - REASON_COUNT - MATCH_COUNT);
   const tfPick = shuffle(allIdx.filter(isTF)).slice(0, TF_COUNT);
   const ordPick = shuffle(allIdx.filter(isOrd)).slice(0, ORD_COUNT);
-  const picked60 = shuffle(reasoningPick.concat(healthPick, tfPick, ordPick));
+  const matchPick = shuffle(allIdx.filter(isMatch)).slice(0, MATCH_COUNT);
+  const picked60 = shuffle(reasoningPick.concat(healthPick, tfPick, ordPick, matchPick));
   quiz = picked60.map(qi => {
     if (isOrd(qi)) {
       // Steps are shown in a shuffled order; the employee gives each one a rank 1-4.
       return { qi, order: shuffle([0, 1, 2, 3]), ordering: true, correctPos: null };
+    }
+    if (isMatch(qi)) {
+      // Right-hand items are shown in a shuffled order; order[k] = which pair's right item is shown in slot k.
+      return { qi, order: shuffle([0, 1, 2, 3]), matching: true, correctPos: null };
     }
     const order = shuffle(BANK[qi].o.ar.map((_, k) => k));
     return { qi, order, correctPos: order.indexOf(BANK[qi].c) };
@@ -632,7 +651,8 @@ function startQuiz() {
   currentQ = 0;
   score = 0;
   picked = null;
-  answers = quiz.map(it => it.ordering ? [null, null, null, null] : null);
+  answers = quiz.map(it => (it.ordering || it.matching) ? [null, null, null, null] : null);
+  matchSel = null;
   showScreen('quiz');
   renderQuestion();
 }
@@ -652,7 +672,9 @@ function renderQuestion() {
   const opts = bq.o[lang];
   const wrap = document.getElementById('options');
   wrap.innerHTML = '';
-  if (item.ordering) {
+  if (item.matching) {
+    renderMatch(item, bq);
+  } else if (item.ordering) {
     // item.order[k] is the step shown in row k; answers[currentQ][k] is the rank (1-4) the employee gave it.
     item.order.forEach((stepIdx, k) => {
       const row = document.createElement('div');
@@ -701,8 +723,97 @@ function selectOption(pos) {
   renderQuestion();
 }
 
+// ───── MATCHING (tap a left item, then a right item, to join them with a line) ─────
+// answers[currentQ][i] = the right slot k joined to left item i, or null.
+let matchSel = null; // { side: 'L' | 'R', idx } while the employee is choosing the first item
+
+function renderMatch(item, bq) {
+  const wrap = document.getElementById('options');
+  const a = answers[currentQ];
+  const box = document.createElement('div');
+  box.className = 'match-box';
+  const cols = document.createElement('div');
+  cols.className = 'match-cols';
+  const colL = document.createElement('div'); colL.className = 'match-col';
+  const colR = document.createElement('div'); colR.className = 'match-col';
+  const used = new Set(a.filter(v => v !== null));
+  bq.l[lang].forEach((txt, i) => {
+    const b = document.createElement('button');
+    b.className = 'match-item' + (a[i] !== null ? ' linked' : '') + (matchSel && matchSel.side === 'L' && matchSel.idx === i ? ' sel' : '');
+    b.dataset.side = 'L'; b.dataset.idx = i;
+    b.textContent = txt;
+    b.addEventListener('click', () => matchClick('L', i));
+    colL.appendChild(b);
+  });
+  item.order.forEach((pairIdx, k) => {
+    const b = document.createElement('button');
+    b.className = 'match-item' + (used.has(k) ? ' linked' : '') + (matchSel && matchSel.side === 'R' && matchSel.idx === k ? ' sel' : '');
+    b.dataset.side = 'R'; b.dataset.idx = k;
+    b.textContent = bq.r[lang][pairIdx];
+    b.addEventListener('click', () => matchClick('R', k));
+    colR.appendChild(b);
+  });
+  cols.appendChild(colL); cols.appendChild(colR);
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'match-svg');
+  box.appendChild(svg);
+  box.appendChild(cols);
+  wrap.appendChild(box);
+  drawMatchLines();
+}
+
+function drawMatchLines() {
+  const box = document.querySelector('#options .match-box');
+  const item = quiz[currentQ];
+  if (!box || !item || !item.matching) return;
+  const svg = box.querySelector('svg.match-svg');
+  const br = box.getBoundingClientRect();
+  svg.setAttribute('width', br.width); svg.setAttribute('height', br.height);
+  svg.setAttribute('viewBox', '0 0 ' + br.width + ' ' + br.height);
+  svg.innerHTML = '';
+  const a = answers[currentQ];
+  a.forEach((k, i) => {
+    if (k === null) return;
+    const l = box.querySelector('[data-side="L"][data-idx="' + i + '"]');
+    const r = box.querySelector('[data-side="R"][data-idx="' + k + '"]');
+    if (!l || !r) return;
+    const lr = l.getBoundingClientRect(), rr = r.getBoundingClientRect();
+    // Left column is on the right of the screen (RTL): line leaves its left edge and enters the right column's right edge.
+    const x1 = lr.left - br.left, y1 = lr.top + lr.height / 2 - br.top;
+    const x2 = rr.right - br.left, y2 = rr.top + rr.height / 2 - br.top;
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x1); line.setAttribute('y1', y1); line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+    line.setAttribute('class', 'match-line');
+    svg.appendChild(line);
+  });
+}
+
+window.addEventListener('resize', () => { if (quiz[currentQ] && quiz[currentQ].matching) drawMatchLines(); });
+
+function matchClick(side, idx) {
+  const a = answers[currentQ].slice();
+  // Second tap on the other side: join the two items (a previous link on either item is replaced).
+  if (matchSel && matchSel.side !== side) {
+    const li = side === 'L' ? idx : matchSel.idx;
+    const rk = side === 'L' ? matchSel.idx : idx;
+    for (let j = 0; j < a.length; j++) if (a[j] === rk) a[j] = null;
+    a[li] = rk;
+    answers[currentQ] = a; matchSel = null; renderQuestion(); return;
+  }
+  // Tapping an item that is already joined removes that line.
+  const linkedLeft = side === 'L' && a[idx] !== null;
+  const linkedRight = side === 'R' && a.indexOf(idx) !== -1;
+  if (linkedLeft || linkedRight) {
+    if (side === 'L') a[idx] = null; else a[a.indexOf(idx)] = null;
+    answers[currentQ] = a; matchSel = null; renderQuestion(); return;
+  }
+  // First tap: remember the item and wait for the other side.
+  matchSel = { side, idx }; renderQuestion();
+}
+
 function isAnswered(i) {
   const a = answers[i];
+  if (quiz[i].matching) return Array.isArray(a) && a.every(v => v !== null);
   if (quiz[i].ordering) return Array.isArray(a) && a.every(v => v !== null);
   return a !== null && a !== undefined;
 }
@@ -721,12 +832,14 @@ function setRank(k, n) {
 function itemPoints(item) { return item.ordering ? BANK[item.qi].pts : 1; }
 
 function isCorrect(item, a) {
+  if (item.matching) return a.every((k, i) => k !== null && item.order[k] === i);
   if (item.ordering) return a.every((n, k) => n - 1 === item.order[k]);
   return a === item.correctPos;
 }
 
 function nextQuestion() {
   if (!isAnswered(currentQ)) return;
+  matchSel = null;
   currentQ++;
   if (currentQ >= quiz.length) { showResult(); return; }
   renderQuestion();
@@ -734,6 +847,7 @@ function nextQuestion() {
 
 function prevQuestion() {
   if (currentQ === 0) return;
+  matchSel = null;
   currentQ--;
   renderQuestion();
 }
@@ -741,7 +855,7 @@ function prevQuestion() {
 // ───── RESULT ─────
 function showResult() {
   const t = T[lang];
-  const log = quiz.map((item, i) => ({ qi: item.qi, order: item.order, chosen: answers[i], correctPos: item.correctPos, ordering: !!item.ordering, ok: isCorrect(item, answers[i]), pts: itemPoints(item) }));
+  const log = quiz.map((item, i) => ({ qi: item.qi, order: item.order, chosen: answers[i], correctPos: item.correctPos, ordering: !!item.ordering, matching: !!item.matching, ok: isCorrect(item, answers[i]), pts: itemPoints(item) }));
   const totalPts = log.reduce((sum, a) => sum + a.pts, 0);
   score = log.filter(a => a.ok).reduce((sum, a) => sum + a.pts, 0);
   const total = totalPts;
@@ -769,6 +883,12 @@ function showResult() {
     .filter(a => !a.ok)
     .map((a, i) => {
       const bq = BANK[a.qi];
+      if (a.matching) {
+        // Chosen pairs (left item <-> right item the employee joined) vs. the correct pairs.
+        const chosen = a.chosen.map((k, i) => bq.l.ar[i] + ' ↔ ' + (k === null ? '—' : bq.r.ar[a.order[k]])).join(' | ');
+        const correct = bq.l.ar.map((x, i) => x + ' ↔ ' + bq.r.ar[i]).join(' | ');
+        return (i + 1) + ') ' + bq.q.ar + ' | إجابته: ' + chosen + ' | الصح: ' + correct;
+      }
       if (a.ordering) {
         // Chosen sequence: steps sorted by the rank given; correct sequence: canonical order.
         const chosenSeq = [1, 2, 3, 4].map(r => {
