@@ -180,7 +180,7 @@
       <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
       <div>
         <h1 id="hdr-title">اختبار الوعي الصحي للموظفين</h1>
-        <p id="hdr-sub">٤٠ سؤال من بنك أسئلة متنوع</p>
+        <p id="hdr-sub">٦٠ سؤال من بنك أسئلة متنوع</p>
       </div>
     </div>
   </div>
@@ -238,7 +238,7 @@
     <div class="card result-card">
       <div class="score-circle" id="score-circle">
         <div id="score-pct">0%</div>
-        <span id="score-frac">0/40</span>
+        <span id="score-frac">0/60</span>
       </div>
       <div class="result-name" id="res-name"></div>
       <div class="verdict" id="res-verdict"></div>
@@ -307,7 +307,7 @@
 </div>
 
 <script>
-const PASS_SCORE = 24;       // out of 40 (60%)
+const PASS_SCORE = 36;       // out of 60 (60%)
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbyUF34JXE3kdRJp0h9y3lJvFsy1F1T0MFvdWcFyzfcGucQ9oWv8EbSm3LsE7tfdDDsn/exec";
 
 // Sends the result to the Google Sheet. Fire-and-forget: no-cors means we cannot read the reply,
@@ -317,7 +317,7 @@ function sendToSheet(data) {
     fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
   } catch (e) {}
 }
-const QUIZ_LENGTH = 40;
+const QUIZ_LENGTH = 60;       // 40 multiple-choice + 20 true/false
 const PASSWORD = "1122";
 const TEST_CODE = "1234"; // code the manager gives employees when they are allowed to take the test
 const CODE_T = {
@@ -395,12 +395,32 @@ const BANK = [
   {"cat":{"ar":"منطق","en":"Logic","hi":"तर्क","bn":"যুক্তি","id":"Logika"},"q":{"ar":"كل الطهاة في هذا المطبخ يرتدون غطاء الرأس. أحمد لا يرتدي غطاء رأس. أي عبارة صحيحة؟","en":"Every chef in this kitchen wears a hairnet. Ahmed does not wear a hairnet. Which statement is correct?","hi":"इस रसोई में हर शेफ हेयरनेट पहनता है। अहमद हेयरनेट नहीं पहनता। कौन सा कथन सही है?","bn":"এই রান্নাঘরের প্রতিটি শেফ হেয়ারনেট পরেন। আহমেদ হেয়ারনেট পরেন না। কোন বিবৃতিটি সঠিক?","id":"Setiap koki di dapur ini memakai penutup kepala. Ahmed tidak memakai penutup kepala. Pernyataan mana yang benar?"},"o":{"ar":["أحمد طاهٍ بالتأكيد وقد نسي غطاء الرأس اليوم فقط","أحمد ليس طاهياً في هذا المطبخ، حسب القاعدة","أحمد ربما يكون طاهياً لأن غطاء الرأس ليس مطلوباً دائماً","أحمد يرتدي غطاء الرأس أحياناً، لذلك قد يكون طاهياً"],"en":["Ahmed is definitely a chef who simply forgot his hairnet today","Ahmed is not a chef in this kitchen, as the rule shows","Ahmed may be a chef, because hairnets are not always required","Ahmed sometimes wears a hairnet, so he might be a chef"],"hi":["अहमद पक्का शेफ़ है, बस आज उसने हेयरनेट पहनना भूल गया","इस नियम के अनुसार, अहमद इस रसोई में शेफ़ नहीं है","अहमद शायद शेफ़ हो, क्योंकि हेयरनेट हमेशा ज़रूरी नहीं होता","अहमद कभी-कभी हेयरनेट पहनता है, इसलिए वह शेफ़ हो सकता है"],"bn":["আহমদ নিশ্চিত একজন শেফ, আজ শুধু হেয়ারনেট পরতে ভুলে গেছে","এই নিয়ম অনুযায়ী, আহমদ এই রান্নাঘরের শেফ নয়","আহমদ হয়তো শেফ, কারণ হেয়ারনেট সবসময় বাধ্যতামূলক নয়","আহমদ মাঝে মাঝে হেয়ারনেট পরে, তাই সে শেফ হতে পারে"],"id":["Ahmed pasti seorang koki yang hari ini lupa memakai penutup kepala","Berdasarkan aturan ini, Ahmed bukan koki di dapur ini","Ahmed mungkin koki, karena penutup kepala tidak selalu wajib","Ahmed kadang memakai penutup kepala, jadi ia mungkin seorang koki"]},"c":1},
   {"cat":{"ar":"نمط","en":"Reasoning","hi":"तर्क","bn":"যুক্তি","id":"Penalaran"},"q":{"ar":"أي رقم لا ينتمي للمجموعة: 4، 9، 16، 25، 36، 42؟","en":"Which number does not belong in this group: 4, 9, 16, 25, 36, 42?","hi":"इस समूह में कौन सी संख्या सही नहीं बैठती: 4, 9, 16, 25, 36, 42?","bn":"এই গ্রুপে কোন সংখ্যাটি মেলে না: ৪, ৯, ১৬, ২৫, ৩৬, ৪২?","id":"Angka mana yang tidak termasuk dalam kelompok ini: 4, 9, 16, 25, 36, 42?"},"o":{"ar":["9","25","42","36"],"en":["9","25","42","36"],"hi":["9","25","42","36"],"bn":["৯","২৫","৪২","৩৬"],"id":["9","25","42","36"]},"c":2},
   {"cat":{"ar":"حساب","en":"Calculation","hi":"गणना","bn":"হিসাব","id":"Hitungan"},"q":{"ar":"عامل ينظف 4 محطات في 20 دقيقة بنفس السرعة. كم دقيقة يحتاج لتنظيف 7 محطات؟","en":"A worker cleans 4 stations in 20 minutes at a steady pace. How many minutes will 7 stations take?","hi":"एक कर्मचारी 20 मिनट में 4 स्टेशन साफ करता है, एक समान गति से। 7 स्टेशन में कितने मिनट लगेंगे?","bn":"একজন কর্মী সমান গতিতে ২০ মিনিটে ৪টি স্টেশন পরিষ্কার করেন। ৭টি স্টেশনে কত মিনিট লাগবে?","id":"Seorang pekerja membersihkan 4 stasiun dalam 20 menit dengan kecepatan tetap. Berapa menit untuk 7 stasiun?"},"o":{"ar":["30 دقيقة","40 دقيقة","45 دقيقة","35 دقيقة"],"en":["30 minutes","40 minutes","45 minutes","35 minutes"],"hi":["30 मिनट","40 मिनट","45 मिनट","35 मिनट"],"bn":["৩০ মিনিট","৪০ মিনিট","৪৫ মিনিট","৩৫ মিনিট"],"id":["30 menit","40 menit","45 menit","35 menit"]},"c":3},
-  {"cat":{"ar":"أولويات","en":"Prioritizing","hi":"प्राथमिकता","bn":"অগ্রাধিকার","id":"Prioritas"},"q":{"ar":"وصل المفتش أثناء تفريغ شحنة لحم نيء عند الباب الخلفي، وشكا زبون عند الكاونتر. ما الأولوية؟","en":"An inspector arrives while raw meat is being unloaded at the back door, and a customer complains at the counter. What is the priority?","hi":"पिछले दरवाज़े पर कच्चे मांस की उतराई चल रही है, तभी इंस्पेक्टर आता है और काउंटर पर एक ग्राहक शिकायत करता है। प्राथमिकता क्या है?","bn":"পিছনের দরজায় কাঁচা মাংস নামানো হচ্ছে, এমন সময় একজন পরিদর্শক আসেন এবং কাউন্টারে একজন গ্রাহক অভিযোগ করেন। অগ্রাধিকার কী?","id":"Seorang inspektur datang saat daging mentah sedang dibongkar di pintu belakang, dan pelanggan mengeluh di kasir. Apa prioritasnya?"},"o":{"ar":["إدخال اللحم النيء إلى التخزين البارد أولاً حفاظاً على سلامة الطعام","تحية المفتش أولاً ثم التعامل مع باقي المهام","معالجة شكوى الزبون أولاً لأنها أكثر إلحاحاً","إنهاء الأوراق أولاً حتى يراها المفتش فوراً"],"en":["Get the raw meat into cold storage first, to protect food safety","Greet the inspector first and then deal with the other tasks","Address the customer complaint first, because an unhappy customer is more urgent right now","Finish the paperwork first so the inspector can see it at once"],"hi":["कच्चे मांस को पहले ठंडे भंडारण में रखें, ताकि खाने की सुरक्षा बनी रहे","पहले निरीक्षक का स्वागत करें और फिर बाकी काम देखें","पहले ग्राहक की शिकायत सुलझाएँ क्योंकि वह ज़्यादा ज़रूरी है","पहले कागज़ात पूरे करें ताकि निरीक्षक उन्हें तुरंत देख सके"],"bn":["কাঁচা মাংস আগে ঠান্ডা মজুত জায়গায় রাখুন, খাবারের নিরাপত্তা বজায় রাখতে","আগে পরিদর্শককে স্বাগত জানিয়ে তারপর বাকি কাজ দেখুন","আগে গ্রাহকের অভিযোগ মেটান, কারণ সেটি বেশি জরুরি","আগে কাগজপত্র শেষ করুন যাতে পরিদর্শক তা তৎক্ষণাৎ দেখতে পারেন"],"id":["Masukkan daging mentah ke penyimpanan dingin dulu, demi menjaga keamanan makanan","Sambut pemeriksa terlebih dahulu lalu tangani tugas lainnya","Tangani keluhan pelanggan dulu karena lebih mendesak","Selesaikan administrasi dulu agar pemeriksa bisa langsung melihatnya"]},"c":0}
+  {"cat":{"ar":"أولويات","en":"Prioritizing","hi":"प्राथमिकता","bn":"অগ্রাধিকার","id":"Prioritas"},"q":{"ar":"وصل المفتش أثناء تفريغ شحنة لحم نيء عند الباب الخلفي، وشكا زبون عند الكاونتر. ما الأولوية؟","en":"An inspector arrives while raw meat is being unloaded at the back door, and a customer complains at the counter. What is the priority?","hi":"पिछले दरवाज़े पर कच्चे मांस की उतराई चल रही है, तभी इंस्पेक्टर आता है और काउंटर पर एक ग्राहक शिकायत करता है। प्राथमिकता क्या है?","bn":"পিছনের দরজায় কাঁচা মাংস নামানো হচ্ছে, এমন সময় একজন পরিদর্শক আসেন এবং কাউন্টারে একজন গ্রাহক অভিযোগ করেন। অগ্রাধিকার কী?","id":"Seorang inspektur datang saat daging mentah sedang dibongkar di pintu belakang, dan pelanggan mengeluh di kasir. Apa prioritasnya?"},"o":{"ar":["إدخال اللحم النيء إلى التخزين البارد أولاً حفاظاً على سلامة الطعام","تحية المفتش أولاً ثم التعامل مع باقي المهام","معالجة شكوى الزبون أولاً لأنها أكثر إلحاحاً","إنهاء الأوراق أولاً حتى يراها المفتش فوراً"],"en":["Get the raw meat into cold storage first, to protect food safety","Greet the inspector first and then deal with the other tasks","Address the customer complaint first, because an unhappy customer is more urgent right now","Finish the paperwork first so the inspector can see it at once"],"hi":["कच्चे मांस को पहले ठंडे भंडारण में रखें, ताकि खाने की सुरक्षा बनी रहे","पहले निरीक्षक का स्वागत करें और फिर बाकी काम देखें","पहले ग्राहक की शिकायत सुलझाएँ क्योंकि वह ज़्यादा ज़रूरी है","पहले कागज़ात पूरे करें ताकि निरीक्षक उन्हें तुरंत देख सके"],"bn":["কাঁচা মাংস আগে ঠান্ডা মজুত জায়গায় রাখুন, খাবারের নিরাপত্তা বজায় রাখতে","আগে পরিদর্শককে স্বাগত জানিয়ে তারপর বাকি কাজ দেখুন","আগে গ্রাহকের অভিযোগ মেটান, কারণ সেটি বেশি জরুরি","আগে কাগজপত্র শেষ করুন যাতে পরিদর্শক তা তৎক্ষণাৎ দেখতে পারেন"],"id":["Masukkan daging mentah ke penyimpanan dingin dulu, demi menjaga keamanan makanan","Sambut pemeriksa terlebih dahulu lalu tangani tugas lainnya","Tangani keluhan pelanggan dulu karena lebih mendesak","Selesaikan administrasi dulu agar pemeriksa bisa langsung melihatnya"]},"c":0},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Bacteria grow fastest between 5°C and 63°C.","ar":"تتكاثر البكتيريا بأسرع ما يمكن بين ٥°م و٦٣°م.","hi":"जीवाणु 5°C से 63°C के बीच सबसे तेज़ बढ़ते हैं।","bn":"জীবাণু ৫°C থেকে ৬৩°C তাপমাত্রার মধ্যে সবচেয়ে দ্রুত বাড়ে।","id":"Bakteri tumbuh paling cepat antara 5°C dan 63°C."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":0,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Frozen food can be thawed on the kitchen counter at room temperature.","ar":"يمكن إذابة الطعام المجمد على طاولة المطبخ في حرارة الغرفة.","hi":"जमे हुए खाने को रसोई के काउंटर पर कमरे के तापमान पर पिघलाया जा सकता है।","bn":"জমা খাবার রান্নাঘরের কাউন্টারে ঘরের তাপমাত্রায় গলানো যায়।","id":"Makanan beku boleh dicairkan di meja dapur pada suhu ruang."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":1,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Handwashing with soap should last at least 20 seconds.","ar":"يجب أن يستغرق غسل اليدين بالصابون ٢٠ ثانية على الأقل.","hi":"साबुन से हाथ धोने में कम से कम 20 सेकंड लगने चाहिए।","bn":"সাবান দিয়ে হাত ধোয়ায় কমপক্ষে ২০ সেকেন্ড লাগা উচিত।","id":"Mencuci tangan dengan sabun harus berlangsung minimal 20 detik."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":0,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"A worker with diarrhoea may keep working if he wears gloves.","ar":"يجوز للعامل المصاب بالإسهال أن يستمر في العمل إذا لبس القفازات.","hi":"दस्त वाला कर्मचारी दस्ताने पहनकर काम जारी रख सकता है।","bn":"ডায়রিয়া আক্রান্ত কর্মী গ্লাভস পরলে কাজ চালিয়ে যেতে পারেন।","id":"Pekerja yang diare boleh tetap bekerja asalkan memakai sarung tangan."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":1,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Cooked rice should be cooled quickly and not left at room temperature for long.","ar":"يجب تبريد الأرز المطبوخ بسرعة وعدم تركه في حرارة الغرفة لفترة طويلة.","hi":"पका चावल जल्दी ठंडा करना चाहिए और कमरे के तापमान पर लंबे समय तक नहीं छोड़ना चाहिए।","bn":"রান্না করা ভাত দ্রুত ঠান্ডা করতে হবে এবং ঘরের তাপমাত্রায় দীর্ঘক্ষণ রাখা যাবে না।","id":"Nasi matang harus didinginkan dengan cepat dan tidak dibiarkan lama di suhu ruang."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":0,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Chemicals may be stored on the top shelf above food.","ar":"يجوز تخزين المواد الكيميائية على الرف العلوي فوق الطعام.","hi":"रसायनों को भोजन के ऊपर वाली शेल्फ़ पर रखा जा सकता है।","bn":"খাবারের উপরের তাকে রাসায়নিক রাখা যায়।","id":"Bahan kimia boleh disimpan di rak paling atas di atas makanan."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":1,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Raw meat should be stored on the lowest shelf of the fridge.","ar":"يُخزَّن اللحم النيء على الرف السفلي للثلاجة.","hi":"कच्चा मांस फ़्रिज की सबसे निचली शेल्फ़ पर रखना चाहिए।","bn":"কাঁচা মাংস ফ্রিজের সবচেয়ে নিচের তাকে রাখতে হবে।","id":"Daging mentah harus disimpan di rak paling bawah kulkas."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":0,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"A \"Use by\" date relates to food safety.","ar":"تاريخ «الاستخدام» يتعلق بسلامة الطعام.","hi":"'उपयोग तिथि' खाने की सुरक्षा से जुड़ी है।","bn":"'ব্যবহারের শেষ তারিখ' খাবারের নিরাপত্তার সঙ্গে সম্পর্কিত।","id":"Tanggal 'Gunakan sebelum' berkaitan dengan keamanan makanan."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":0,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Cloth towels are the best way to dry cutting boards because they absorb water.","ar":"المناشف القماشية هي أفضل طريقة لتجفيف ألواح التقطيع لأنها تمتص الماء.","hi":"कटिंग बोर्ड सुखाने का सबसे अच्छा तरीका कपड़े का तौलिया है क्योंकि वह पानी सोखता है।","bn":"কাটিং বোর্ড শুকানোর সেরা উপায় কাপড়ের তোয়ালে, কারণ তা পানি শোষণ করে।","id":"Handuk kain adalah cara terbaik mengeringkan talenan karena menyerap air."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":1,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Cooking chicken to 75°C is enough to kill most harmful bacteria.","ar":"طهي الدجاج إلى ٧٥°م كافٍ لقتل معظم البكتيريا الضارة.","hi":"चिकन को 75°C तक पकाना अधिकांश हानिकारक बैक्टीरिया मारने के लिए काफ़ी है।","bn":"মুরগি ৭৫°C পর্যন্ত রান্না করলে বেশিরভাগ ক্ষতিকর জীবাণু মরে।","id":"Memasak ayam hingga 75°C cukup untuk membunuh sebagian besar bakteri berbahaya."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":0,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"A food handler with a wound should cover it with a waterproof dressing and wear a glove.","ar":"العامل الذي لديه جرح يجب أن يغطيه بضمادة مقاومة للماء ويرتدي قفازاً.","hi":"जिस कर्मचारी को घाव है, उसे वॉटरप्रूफ पट्टी लगाकर दस्ताना पहनना चाहिए।","bn":"যার কাটা আছে তাকে ওয়াটারপ্রুফ ড্রেসিং দিয়ে গ্লাভস পরতে হবে।","id":"Pekerja yang terluka harus menutup lukanya dengan plester kedap air dan memakai sarung tangan."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":0,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Fresh rodent droppings are a clear sign that rodents are present.","ar":"فضلات القوارض الطازجة علامة واضحة على وجودها.","hi":"ताज़ी कुतरने की बीट चूहों की मौजूदगी का साफ़ संकेत है।","bn":"তাজা ইঁদুরের বিষ্ঠা ইঁদুরের উপস্থিতির স্পষ্ট লক্ষণ।","id":"Kotoran tikus yang segar adalah tanda jelas adanya tikus."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":0,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Leaving food open to attract cockroaches is an effective control method.","ar":"ترك الطعام مفتوحاً لجذب الصراصير ثم اصطيادها طريقة فعالة للمكافحة.","hi":"कॉकरोच को आकर्षित करने के लिए खाना खुला छोड़ना एक प्रभावी उपाय है।","bn":"তেলাপোকা আকর্ষণ করতে খাবার খোলা রাখা একটি কার্যকর উপায়।","id":"Membiarkan makanan terbuka untuk menarik kecoa adalah cara pengendalian yang efektif."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":1,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"A health certificate is valid for two years.","ar":"الشهادة الصحية صالحة لمدة سنتين.","hi":"स्वास्थ्य प्रमाणपत्र दो वर्ष के लिए मान्य है।","bn":"স্বাস্থ্য সনদ দুই বছরের জন্য বৈধ।","id":"Sertifikat kesehatan berlaku selama dua tahun."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":1,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Staphylococcus aureus commonly comes from human skin and nose.","ar":"بكتيريا المكورات العنقودية الذهبية تأتي غالباً من جلد الإنسان وأنفه.","hi":"स्टैफ़िलोकोकस ऑरियस अक्सर इंसान की त्वचा और नाक से आता है।","bn":"স্ট্যাফাইলোকক্কাস অরিয়াস সাধারণত মানুষের ত্বক ও নাক থেকে আসে।","id":"Staphylococcus aureus umumnya berasal dari kulit dan hidung manusia."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":0,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Cooked food can be left at room temperature overnight if it is covered.","ar":"يجوز ترك الطعام المطبوخ في حرارة الغرفة طوال الليل إذا كان مغطى.","hi":"पका खाना ढका हो तो रात भर कमरे के तापमान पर छोड़ा जा सकता है।","bn":"ঢাকা থাকলে রান্না করা খাবার সারারাত ঘরের তাপমাত্রায় রাখা যায়।","id":"Makanan matang boleh dibiarkan di suhu ruang semalaman asalkan ditutup."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":1,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"If glass breaks near food, the worker keeps working and reports at the end of the shift.","ar":"إذا انكسر زجاج قرب الطعام يكمل العامل عمله ويبلغ في نهاية الوردية.","hi":"खाने के पास कांच टूटे तो कर्मचारी काम जारी रखे और शिफ़्ट के अंत में बताए।","bn":"খাবারের কাছে কাচ ভাঙলে কর্মী কাজ চালিয়ে যাবে এবং শিফটের শেষে জানাবে।","id":"Jika kaca pecah dekat makanan, pekerja tetap bekerja dan melapor di akhir shift."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":1,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"A cooking oil fire should be put out directly with water.","ar":"يُطفأ حريق الزيت في المطبخ بالماء مباشرة.","hi":"रसोई में तेल की आग पर सीधे पानी डालकर बुझाना चाहिए।","bn":"রান্নাঘরে তেলের আগুন সরাসরি পানি দিয়ে নেভানো উচিত।","id":"Api minyak di dapur dipadamkan langsung dengan air."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":1,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Contact time for a chemical sanitizer should follow the product label.","ar":"مدة تلامس المطهر الكيميائي تكون حسب ما هو مكتوب على بطاقة المنتج.","hi":"रासायनिक सैनिटाइज़र का संपर्क समय उत्पाद के लेबल के अनुसार होना चाहिए।","bn":"রাসায়নিক জীবাণুনাশকের সংস্পর্শের সময় পণ্যের লেবেল অনুযায়ী হওয়া উচিত।","id":"Waktu kontak pensanitasi kimia harus sesuai petunjuk label produk."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":0,"tf":true},
+  {"cat":{"ar":"صح أو غلط","en":"True or False","hi":"सही या गलत","bn":"সত্য না মিথ্যা","id":"Benar atau Salah"},"q":{"en":"Food allergy symptoms appear only after a month of eating the food.","ar":"أعراض الحساسية الغذائية لا تظهر إلا بعد شهر من تناول الطعام.","hi":"खाने की एलर्जी के लक्षण खाने के एक महीने बाद ही दिखते हैं।","bn":"খাবারের অ্যালার্জির লক্ষণ খাওয়ার এক মাস পরেই শুধু দেখা যায়।","id":"Gejala alergi makanan hanya muncul setelah sebulan memakan makanan tersebut."},"o":{"ar":["صح","غلط"],"en":["True","False"],"hi":["सही","गलत"],"bn":["সত্য","মিথ্যা"],"id":["Benar","Salah"]},"c":1,"tf":true}
 ];
 
 // ───── UI TEXT ─────
 const T = {
-  ar: { lbl:"اللغة:", hdrTitle:"اختبار الوعي الصحي للموظفين", hdrSub:"٤٠ سؤال من بنك أسئلة متنوع",
+  ar: { lbl:"اللغة:", hdrTitle:"اختبار الوعي الصحي للموظفين", hdrSub:"٦٠ سؤال من بنك أسئلة متنوع",
     startTitle:"أدخل اسم الموظف للبدء", startSub:"تُحفظ النتيجة تلقائياً بعد الانتهاء", lblName:"اسم الموظف",
     btnStart:"ابدأ الاختبار ◄", navRec:"📋 سجل النتائج", empOf:"الموظف:", next:"التالي ◄", finish:"إنهاء ✓",
     pass:"ناجح ✅", fail:"راسب ❌", passMsg:"وصل للحد المطلوب (60%) ويمكن إرساله لاختبار الشهادة الصحية.",
@@ -409,7 +429,7 @@ const T = {
     btnRecBack:"رجوع", thName:"الاسم", thScore:"النتيجة", thPct:"النسبة", thVerdict:"الحكم", thDate:"التاريخ",
     pwTitle:"سجل النتائج — مدير فقط", pwSub:"أدخل كلمة السر للمشاهدة", btnUnlock:"دخول 🔓", btnPwBack:"رجوع",
     pwWrong:"كلمة السر غلط ❌", noRecords:"لا توجد نتائج محفوظة بعد", enterName:"الرجاء إدخال اسم الموظف" },
-  en: { lbl:"Language:", hdrTitle:"Employee Health Awareness Test", hdrSub:"40 mixed questions",
+  en: { lbl:"Language:", hdrTitle:"Employee Health Awareness Test", hdrSub:"60 mixed questions",
     startTitle:"Enter the employee name to begin", startSub:"The result is saved automatically when finished", lblName:"Employee name",
     btnStart:"Start test ►", navRec:"📋 Results log", empOf:"Employee:", next:"Next ►", finish:"Finish ✓",
     pass:"PASS ✅", fail:"FAIL ❌", passMsg:"Reached the required 60% and can proceed to the official health certificate exam.",
@@ -418,7 +438,7 @@ const T = {
     btnRecBack:"Back", thName:"Name", thScore:"Score", thPct:"Percent", thVerdict:"Result", thDate:"Date",
     pwTitle:"Results log — manager only", pwSub:"Enter the password to view", btnUnlock:"Unlock 🔓", btnPwBack:"Back",
     pwWrong:"Wrong password ❌", noRecords:"No saved results yet", enterName:"Please enter the employee name" },
-  hi: { lbl:"भाषा:", hdrTitle:"कर्मचारी स्वास्थ्य जागरूकता परीक्षा", hdrSub:"40 मिश्रित प्रश्न",
+  hi: { lbl:"भाषा:", hdrTitle:"कर्मचारी स्वास्थ्य जागरूकता परीक्षा", hdrSub:"60 मिश्रित प्रश्न",
     startTitle:"शुरू करने के लिए कर्मचारी का नाम लिखें", startSub:"पूरा होने पर परिणाम अपने आप सहेजा जाएगा", lblName:"कर्मचारी का नाम",
     btnStart:"परीक्षा शुरू करें ►", navRec:"📋 परिणाम सूची", empOf:"कर्मचारी:", next:"अगला ►", finish:"समाप्त ✓",
     pass:"पास ✅", fail:"फेल ❌", passMsg:"60% का आवश्यक स्तर पार किया। आधिकारिक प्रमाण परीक्षा दे सकते हैं।",
@@ -427,7 +447,7 @@ const T = {
     btnRecBack:"वापस", thName:"नाम", thScore:"स्कोर", thPct:"प्रतिशत", thVerdict:"परिणाम", thDate:"तारीख",
     pwTitle:"परिणाम सूची — केवल प्रबंधक", pwSub:"देखने के लिए पासवर्ड लिखें", btnUnlock:"खोलें 🔓", btnPwBack:"वापस",
     pwWrong:"गलत पासवर्ड ❌", noRecords:"अभी तक कोई परिणाम सहेजा नहीं गया", enterName:"कृपया कर्मचारी का नाम लिखें" },
-  bn: { lbl:"ভাষা:", hdrTitle:"কর্মচারী স্বাস্থ্য সচেতনতা পরীক্ষা", hdrSub:"৪০টি মিশ্র প্রশ্ন",
+  bn: { lbl:"ভাষা:", hdrTitle:"কর্মচারী স্বাস্থ্য সচেতনতা পরীক্ষা", hdrSub:"৬০টি মিশ্র প্রশ্ন",
     startTitle:"শুরু করতে কর্মচারীর নাম দিন", startSub:"শেষ হলে ফলাফল স্বয়ংক্রিয়ভাবে সংরক্ষিত হবে", lblName:"কর্মচারীর নাম",
     btnStart:"পরীক্ষা শুরু করুন ►", navRec:"📋 ফলাফল তালিকা", empOf:"কর্মচারী:", next:"পরবর্তী ►", finish:"শেষ ✓",
     pass:"পাস ✅", fail:"ফেল ❌", passMsg:"৬০% এর প্রয়োজনীয় মান পেয়েছেন। সরকারি স্বাস্থ্য সনদ পরীক্ষায় বসতে পারেন।",
@@ -436,7 +456,7 @@ const T = {
     btnRecBack:"ফিরে যান", thName:"নাম", thScore:"স্কোর", thPct:"শতাংশ", thVerdict:"ফলাফল", thDate:"তারিখ",
     pwTitle:"ফলাফল তালিকা — শুধু ম্যানেজার", pwSub:"দেখতে পাসওয়ার্ড দিন", btnUnlock:"খুলুন 🔓", btnPwBack:"ফিরে যান",
     pwWrong:"ভুল পাসওয়ার্ড ❌", noRecords:"এখনো কোনো ফলাফল সংরক্ষিত নেই", enterName:"অনুগ্রহ করে কর্মচারীর নাম দিন" },
-  id: { lbl:"Bahasa:", hdrTitle:"Tes Kesadaran Kesehatan Karyawan", hdrSub:"40 pertanyaan dari bank soal beragam",
+  id: { lbl:"Bahasa:", hdrTitle:"Tes Kesadaran Kesehatan Karyawan", hdrSub:"60 pertanyaan dari bank soal beragam",
     startTitle:"Masukkan nama karyawan untuk mulai", startSub:"Hasil disimpan otomatis setelah selesai", lblName:"Nama karyawan",
     btnStart:"Mulai tes ►", navRec:"📋 Daftar hasil", empOf:"Karyawan:", next:"Berikutnya ►", finish:"Selesai ✓",
     pass:"LULUS ✅", fail:"GAGAL ❌", passMsg:"Mencapai batas 60% dan dapat lanjut ke ujian sertifikat kesehatan resmi.",
@@ -546,16 +566,20 @@ function startQuiz() {
     return;
   }
   codeErr.style.display = 'none';
-  // Random 40 questions, each with its options shuffled so the answer position changes.
-  // 35 food-safety questions + 5 reasoning questions, shuffled together.
+  // 60 questions: 40 multiple-choice (35 food-safety + 5 reasoning) and 20 true/false.
+  // Options are shuffled per employee so the answer position changes.
   const REASONING_CATS = ['Logic', 'Calculation', 'Prioritizing', 'Reasoning'];
+  const isTF = i => !!BANK[i].tf;
   const isReasoning = i => REASONING_CATS.includes(BANK[i].cat.en);
   const allIdx = BANK.map((_, i) => i);
-  const reasoningPick = shuffle(allIdx.filter(isReasoning)).slice(0, 5);
-  const healthPick = shuffle(allIdx.filter(i => !isReasoning(i))).slice(0, QUIZ_LENGTH - 5);
-  const picked40 = shuffle(reasoningPick.concat(healthPick));
-  quiz = picked40.map(qi => {
-    const order = shuffle([0, 1, 2, 3]);
+  const mcIdx = allIdx.filter(i => !isTF(i));
+  const TF_COUNT = 20;
+  const reasoningPick = shuffle(mcIdx.filter(isReasoning)).slice(0, 5);
+  const healthPick = shuffle(mcIdx.filter(i => !isReasoning(i))).slice(0, QUIZ_LENGTH - TF_COUNT - 5);
+  const tfPick = shuffle(allIdx.filter(isTF)).slice(0, TF_COUNT);
+  const picked60 = shuffle(reasoningPick.concat(healthPick, tfPick));
+  quiz = picked60.map(qi => {
+    const order = shuffle(BANK[qi].o.ar.map((_, k) => k));
     return { qi, order, correctPos: order.indexOf(BANK[qi].c) };
   });
   currentQ = 0;
