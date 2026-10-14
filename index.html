@@ -1227,46 +1227,64 @@ function splitWrongItems(raw) {
   });
   return items;
 }
-// Same layout as the review screen, with the employee's wrong choice marked ✗ and the correct one ✓.
-function buildWrongCard(bq, chosenPos) {
+// Results log: for each wrong question show only the employee's answer (✗) and the correct answer (✓),
+// in the same row style as the test. Works for multiple choice, true/false, ordering and matching.
+function parseWrongItem(item) {
+  const question = item.split('\n')[0].split(' | ')[0].replace(/^\d+\)\s*/, '').trim();
+  const bi = BANK.findIndex(b => b.q.ar === question);
+  if (bi === -1) return null;
+  const cm = item.match(/إجابت(?:ك|ه):([\s\S]*?)(?:\n\s*الصحيح:|\s\|\s*الصح:|$)/);
+  const raw = cm ? cm[1] : '';
+  const tokens = raw.split(/\n|\s\|\s/)
+    .map(t => t.replace(/^\s*(?:•|✓|✗|\d+\.)\s*/, '').replace(/\s*(?:✓|✗)\s*$/, '').trim())
+    .flatMap(t => t.split(' ← '))
+    .filter(Boolean);
+  return { bq: BANK[bi], tokens: tokens };
+}
+function buildWrongCard(bq, tokens) {
+  let his, correctRows;
+  if (bq.matching) {
+    his = tokens.map(t => {
+      const parts = t.split(' ↔ ');
+      const ok = parts.length === 2 && bq.r.ar[bq.l.ar.indexOf(parts[0])] === parts[1];
+      return { text: t, ok: ok };
+    });
+    correctRows = bq.l.ar.map((x, i) => x + ' ↔ ' + bq.r.ar[i]);
+  } else if (bq.ordering) {
+    his = tokens.map((t, k) => ({ text: (k + 1) + '. ' + t, ok: bq.o.ar.indexOf(t) === k }));
+    correctRows = bq.o.ar.map((x, j) => (j + 1) + '. ' + x);
+  } else {
+    his = tokens.map(t => ({ text: t, ok: t === bq.o.ar[bq.c] }));
+    correctRows = [bq.o.ar[bq.c]];
+  }
   const wrap = document.createElement('div');
   wrap.className = 'rev-item';
   const head = document.createElement('div');
   head.className = 'rev-head';
-  head.textContent = bq.cat.en + ' — ' + bq.cat.ar;
+  head.textContent = bq.cat.ar;
+  const q = document.createElement('div');
+  q.className = 'rev-q';
+  q.textContent = bq.q.ar;
   wrap.appendChild(head);
-  // Results log shows Arabic only.
-  [['ar', 'عربي']].forEach(([L, name]) => {
-    const lang = document.createElement('div');
-    lang.className = 'rev-lang';
-    const lbl = document.createElement('div'); lbl.className = 'rev-lbl'; lbl.textContent = name;
-    const q = document.createElement('div'); q.className = 'rev-q'; q.textContent = bq.q[L];
-    lang.appendChild(lbl); lang.appendChild(q);
-    bq.o[L].forEach((o, p) => {
+  wrap.appendChild(q);
+  const addRows = (label, rows, cls) => {
+    const lbl = document.createElement('div'); lbl.className = 'rev-lbl'; lbl.textContent = label;
+    wrap.appendChild(lbl);
+    rows.forEach(r => {
       const d = document.createElement('div');
-      const ok = p === bq.c;
-      const bad = p === chosenPos && !ok;
-      d.className = 'rev-opt' + (ok ? ' ok' : '') + (bad ? ' bad' : '');
-      d.textContent = (ok ? '✓ ' : bad ? '✗ ' : '') + ['A', 'B', 'C', 'D'][p] + '. ' + o;
-      lang.appendChild(d);
+      d.className = 'rev-opt ' + (r.ok ? 'ok' : 'bad');
+      d.textContent = (r.ok ? '✓ ' : '✗ ') + r.text;
+      wrap.appendChild(d);
     });
-    wrap.appendChild(lang);
-  });
+  };
+  addRows('إجابة الموظف', his, false);
+  addRows('الإجابة الصحيحة', correctRows.map(t => ({ text: t, ok: true })), true);
   return wrap;
 }
 function buildWrongItem(item) {
-  const question = item.split('\n')[0].split(' | ')[0].replace(/^\d+\)\s*/, '').trim();
-  const bi = BANK.findIndex(b => b.q.ar === question);
-  const m = item.match(/إجابت(?:ك|ه):[ \t]*([^\n|]+)/);
-  const chosen = m ? m[1].trim() : '';
-  if (bi !== -1) {
-    const bq = BANK[bi];
-    if (!bq.ordering && !bq.matching && bq.c !== null && chosen) {
-      const pos = bq.o.ar.indexOf(chosen);
-      if (pos !== -1) return buildWrongCard(bq, pos);
-    }
-  }
-  // Ordering / matching (or unknown question): plain readable text.
+  const parsed = parseWrongItem(item);
+  if (parsed) return buildWrongCard(parsed.bq, parsed.tokens);
+  // Unknown question (e.g. text changed): show the stored text as is.
   const pre = document.createElement('pre');
   pre.style.whiteSpace = 'pre-wrap'; pre.style.fontFamily = 'inherit'; pre.style.lineHeight = '1.7'; pre.style.margin = '0';
   pre.textContent = reformatWrong(item);
