@@ -1308,13 +1308,19 @@ function buildOrderBlock(bq, rankOfStep, cls, label) {
   });
   return wrap;
 }
-function buildWrongCard(bq, tokens, ok) {
+function buildWrongCard(bq, tokens, ok, num) {
   const good = !!ok;
   const cls = good ? 'res-ok' : 'res-bad';
   const lineCls = good ? 'res-line-ok' : 'res-line-bad';
   const wrap = document.createElement('div');
   wrap.className = 'rev-item';
-  const head = document.createElement('div'); head.className = 'rev-head'; head.textContent = bq.cat.ar;
+  const head = document.createElement('div'); head.className = 'rev-head';
+  head.style.display = 'flex'; head.style.justifyContent = 'space-between'; head.style.alignItems = 'center'; head.style.gap = '8px';
+  const hTitle = document.createElement('span'); hTitle.textContent = (num ? num + '. ' : '') + bq.cat.ar;
+  const hBadge = document.createElement('span');
+  hBadge.className = 'badge ' + (good ? 'badge-pass' : 'badge-fail');
+  hBadge.textContent = good ? 'صح ✓' : 'غلط ✗';
+  head.appendChild(hTitle); head.appendChild(hBadge);
   const q = document.createElement('div'); q.className = 'rev-q'; q.textContent = bq.q.ar;
   wrap.appendChild(head); wrap.appendChild(q);
   if (bq.matching) {
@@ -1388,9 +1394,10 @@ function renderImported() {
     let detailItems = null;
     try { if (r.detail) detailItems = JSON.parse(r.detail); } catch (e) { detailItems = null; }
     if (Array.isArray(detailItems) && detailItems.length) {
-      detailItems.forEach(([qAr, ok, tokens]) => {
+      detailItems.forEach(([qAr, ok, tokens], idx) => {
+        const num = idx + 1;
         const bi = BANK.findIndex(b => b.q.ar === qAr);
-        if (bi !== -1) body.appendChild(buildWrongCard(BANK[bi], tokens || [], ok));
+        if (bi !== -1) body.appendChild(buildWrongCard(BANK[bi], tokens || [], ok, num));
       });
     }
     const items = (Array.isArray(detailItems) && detailItems.length) ? [] : splitWrongItems(r.wrong);
