@@ -875,7 +875,7 @@ function setRank(k, n) {
 }
 
 // Points: ordering questions are worth 1-4 by difficulty (BANK pts); every other question is worth 1.
-function itemPoints(item) { return (item.ordering || item.matching) ? BANK[item.qi].pts : 1; }
+function itemPoints(item) { return 2; } // every question is worth 2 points: 50 x 2 = 100
 
 function isCorrect(item, a) {
   if (item.matching) return a.every((k, i) => k !== null && item.order[k] === i);
