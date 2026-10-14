@@ -1185,12 +1185,34 @@ async function importFromSheet() {
     if (!data.ok) throw new Error('not ok');
     importedRows = data.rows.slice(1).filter(r => r[1]).map(r => ({
       date: String(r[0] || ''), name: String(r[1] || ''), score: String(r[2] || ''),
-      pct: String(r[3] || ''), verdict: String(r[4] || ''), wrong: String(r[5] || '')
+      pct: String(r[3] || ''), verdict: String(r[4] || ''), wrong: reformatWrong(String(r[5] || ''))
     }));
     renderImported();
   } catch (e) {
     setImportMsg('تعذر الاستيراد من الشيت. تأكد من تحديث Apps Script وإعادة النشر.');
   }
+}
+// Old records were stored as one line per wrong answer ("... | إجابته: ... | الصح: ...").
+// Convert them to the same readable layout used for new tests.
+function reformatWrong(text) {
+  if (!text || text.indexOf('إجابتك') !== -1 || text === 'لا يوجد' || text.indexOf('إجابته:') === -1) return text;
+  const render = (label, arr) => {
+    const items = arr.flatMap(x => x.split(' ← '));
+    if (items.length === 1 && items[0].indexOf('↔') === -1) return '\n  ' + label + ' ' + items[0];
+    const numbered = items.length > 1 && items[0].indexOf('↔') === -1;
+    return '\n  ' + label + '\n' + items.map((x, k) => numbered ? '   ' + (k + 1) + '. ' + x : '   • ' + x).join('\n');
+  };
+  return text.split('\n').filter(l => l.trim()).map(line => {
+    const parts = line.split(' | ');
+    const chosen = [], correct = [];
+    let cur = null;
+    parts.slice(1).forEach(seg => {
+      if (seg.indexOf('إجابته:') === 0) { cur = chosen; seg = seg.slice('إجابته:'.length).trim(); }
+      else if (seg.indexOf('الصح:') === 0) { cur = correct; seg = seg.slice('الصح:'.length).trim(); }
+      if (cur) cur.push(seg);
+    });
+    return parts[0] + render('إجابتك:', chosen) + render('الصحيح:', correct);
+  }).join('\n\n');
 }
 function renderImported() {
   const box = document.getElementById('import-box');
