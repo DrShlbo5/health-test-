@@ -1380,6 +1380,7 @@ function renderImported() {
     head.style.cursor = 'pointer';
     card.appendChild(head);
     // Details hidden until the manager taps the name/row.
+    pendingDraws = [];
     const body = document.createElement('div');
     body.style.display = 'none';
     body.style.flexDirection = 'column';
@@ -1399,10 +1400,13 @@ function renderImported() {
     } else {
       items.forEach(item => body.appendChild(buildWrongItem(item)));
     }
+    const myDraws = pendingDraws; pendingDraws = [];
     card.appendChild(body);
     head.addEventListener('click', () => {
       const open = body.style.display === 'none';
       body.style.display = open ? 'flex' : 'none';
+      // Lines can only be measured once the block is visible.
+      if (open) myDraws.forEach(f => f());
     });
     box.appendChild(card);
   });
