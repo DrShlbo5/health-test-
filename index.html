@@ -251,7 +251,7 @@
     <div class="card result-card">
       <div class="score-circle" id="score-circle">
         <div id="score-pct">0%</div>
-        <span id="score-frac">0/80</span>
+        <span id="score-frac">0/50</span>
       </div>
       <div class="result-name" id="res-name"></div>
       <div class="verdict" id="res-verdict"></div>
@@ -330,7 +330,7 @@ function sendToSheet(data) {
     fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
   } catch (e) {}
 }
-const QUIZ_LENGTH = 80;       // 45 multiple-choice + 5 math + 20 true/false + 5 ordering + 5 matching
+const QUIZ_LENGTH = 50;       // 10 each: food-safety MC, math, true/false, ordering, matching
 const PASSWORD = "1122";
 const TEST_CODE = "1234"; // code the manager gives employees when they are allowed to take the test
 const CODE_T = {
@@ -511,7 +511,7 @@ const BANK = [
 
 // ───── UI TEXT ─────
 const T = {
-  ar: { lbl:"اللغة:", hdrTitle:"اختبار الوعي الصحي للموظفين", hdrSub:"٨٠ سؤال من بنك أسئلة متنوع",
+  ar: { lbl:"اللغة:", hdrTitle:"اختبار الوعي الصحي للموظفين", hdrSub:"٥٠ سؤال من بنك أسئلة متنوع",
     startTitle:"أدخل اسم الموظف للبدء", startSub:"تُحفظ النتيجة تلقائياً بعد الانتهاء", lblName:"اسم الموظف",
     btnStart:"ابدأ الاختبار ◄", navRec:"📋 سجل النتائج", empOf:"الموظف:", next:"التالي ◄", finish:"إنهاء ✓",
     pass:"ناجح ✅", fail:"راسب ❌", passMsg:"وصل للحد المطلوب (60%) ويمكن إرساله لاختبار الشهادة الصحية.",
@@ -520,7 +520,7 @@ const T = {
     btnRecBack:"رجوع", thName:"الاسم", thScore:"النتيجة", thPct:"النسبة", thVerdict:"الحكم", thDate:"التاريخ",
     pwTitle:"سجل النتائج — مدير فقط", pwSub:"أدخل كلمة السر للمشاهدة", btnUnlock:"دخول 🔓", btnPwBack:"رجوع",
     pwWrong:"كلمة السر غلط ❌", noRecords:"لا توجد نتائج محفوظة بعد", enterName:"الرجاء إدخال اسم الموظف" },
-  en: { lbl:"Language:", hdrTitle:"Employee Health Awareness Test", hdrSub:"80 mixed questions",
+  en: { lbl:"Language:", hdrTitle:"Employee Health Awareness Test", hdrSub:"50 mixed questions",
     startTitle:"Enter the employee name to begin", startSub:"The result is saved automatically when finished", lblName:"Employee name",
     btnStart:"Start test ►", navRec:"📋 Results log", empOf:"Employee:", next:"Next ►", finish:"Finish ✓",
     pass:"PASS ✅", fail:"FAIL ❌", passMsg:"Reached the required 60% and can proceed to the official health certificate exam.",
@@ -529,7 +529,7 @@ const T = {
     btnRecBack:"Back", thName:"Name", thScore:"Score", thPct:"Percent", thVerdict:"Result", thDate:"Date",
     pwTitle:"Results log — manager only", pwSub:"Enter the password to view", btnUnlock:"Unlock 🔓", btnPwBack:"Back",
     pwWrong:"Wrong password ❌", noRecords:"No saved results yet", enterName:"Please enter the employee name" },
-  hi: { lbl:"भाषा:", hdrTitle:"कर्मचारी स्वास्थ्य जागरूकता परीक्षा", hdrSub:"80 मिश्रित प्रश्न",
+  hi: { lbl:"भाषा:", hdrTitle:"कर्मचारी स्वास्थ्य जागरूकता परीक्षा", hdrSub:"50 मिश्रित प्रश्न",
     startTitle:"शुरू करने के लिए कर्मचारी का नाम लिखें", startSub:"पूरा होने पर परिणाम अपने आप सहेजा जाएगा", lblName:"कर्मचारी का नाम",
     btnStart:"परीक्षा शुरू करें ►", navRec:"📋 परिणाम सूची", empOf:"कर्मचारी:", next:"अगला ►", finish:"समाप्त ✓",
     pass:"पास ✅", fail:"फेल ❌", passMsg:"60% का आवश्यक स्तर पार किया। आधिकारिक प्रमाण परीक्षा दे सकते हैं।",
@@ -538,7 +538,7 @@ const T = {
     btnRecBack:"वापस", thName:"नाम", thScore:"स्कोर", thPct:"प्रतिशत", thVerdict:"परिणाम", thDate:"तारीख",
     pwTitle:"परिणाम सूची — केवल प्रबंधक", pwSub:"देखने के लिए पासवर्ड लिखें", btnUnlock:"खोलें 🔓", btnPwBack:"वापस",
     pwWrong:"गलत पासवर्ड ❌", noRecords:"अभी तक कोई परिणाम सहेजा नहीं गया", enterName:"कृपया कर्मचारी का नाम लिखें" },
-  bn: { lbl:"ভাষা:", hdrTitle:"কর্মচারী স্বাস্থ্য সচেতনতা পরীক্ষা", hdrSub:"৮০টি মিশ্র প্রশ্ন",
+  bn: { lbl:"ভাষা:", hdrTitle:"কর্মচারী স্বাস্থ্য সচেতনতা পরীক্ষা", hdrSub:"৫০টি মিশ্র প্রশ্ন",
     startTitle:"শুরু করতে কর্মচারীর নাম দিন", startSub:"শেষ হলে ফলাফল স্বয়ংক্রিয়ভাবে সংরক্ষিত হবে", lblName:"কর্মচারীর নাম",
     btnStart:"পরীক্ষা শুরু করুন ►", navRec:"📋 ফলাফল তালিকা", empOf:"কর্মচারী:", next:"পরবর্তী ►", finish:"শেষ ✓",
     pass:"পাস ✅", fail:"ফেল ❌", passMsg:"৬০% এর প্রয়োজনীয় মান পেয়েছেন। সরকারি স্বাস্থ্য সনদ পরীক্ষায় বসতে পারেন।",
@@ -547,7 +547,7 @@ const T = {
     btnRecBack:"ফিরে যান", thName:"নাম", thScore:"স্কোর", thPct:"শতাংশ", thVerdict:"ফলাফল", thDate:"তারিখ",
     pwTitle:"ফলাফল তালিকা — শুধু ম্যানেজার", pwSub:"দেখতে পাসওয়ার্ড দিন", btnUnlock:"খুলুন 🔓", btnPwBack:"ফিরে যান",
     pwWrong:"ভুল পাসওয়ার্ড ❌", noRecords:"এখনো কোনো ফলাফল সংরক্ষিত নেই", enterName:"অনুগ্রহ করে কর্মচারীর নাম দিন" },
-  id: { lbl:"Bahasa:", hdrTitle:"Tes Kesadaran Kesehatan Karyawan", hdrSub:"80 pertanyaan dari bank soal beragam",
+  id: { lbl:"Bahasa:", hdrTitle:"Tes Kesadaran Kesehatan Karyawan", hdrSub:"50 pertanyaan dari bank soal beragam",
     startTitle:"Masukkan nama karyawan untuk mulai", startSub:"Hasil disimpan otomatis setelah selesai", lblName:"Nama karyawan",
     btnStart:"Mulai tes ►", navRec:"📋 Daftar hasil", empOf:"Karyawan:", next:"Berikutnya ►", finish:"Selesai ✓",
     pass:"LULUS ✅", fail:"GAGAL ❌", passMsg:"Mencapai batas 60% dan dapat lanjut ke ujian sertifikat kesehatan resmi.",
@@ -657,7 +657,7 @@ function startQuiz() {
     return;
   }
   codeErr.style.display = 'none';
-  // 80 questions: 45 food-safety + 5 reasoning multiple-choice, 20 true/false, 5 ordering, 5 matching.
+  // 50 questions: 10 food-safety MC, 10 reasoning MC, 10 true/false, 10 ordering, 10 matching.
   // Options are shuffled per employee so the answer position changes.
   const REASONING_CATS = ['Logic', 'Calculation', 'Prioritizing', 'Reasoning'];
   const isTF = i => !!BANK[i].tf;
@@ -666,7 +666,7 @@ function startQuiz() {
   const isReasoning = i => REASONING_CATS.includes(BANK[i].cat.en);
   const allIdx = BANK.map((_, i) => i);
   const mcIdx = allIdx.filter(i => !isTF(i) && !isOrd(i) && !isMatch(i));
-  const TF_COUNT = 20, ORD_COUNT = 5, REASON_COUNT = 5, MATCH_COUNT = 5;
+  const TF_COUNT = 10, ORD_COUNT = 10, REASON_COUNT = 10, MATCH_COUNT = 10;
   const reasoningPick = shuffle(mcIdx.filter(isReasoning)).slice(0, REASON_COUNT);
   const healthPick = shuffle(mcIdx.filter(i => !isReasoning(i))).slice(0, QUIZ_LENGTH - TF_COUNT - ORD_COUNT - REASON_COUNT - MATCH_COUNT);
   const tfPick = shuffle(allIdx.filter(isTF)).slice(0, TF_COUNT);
