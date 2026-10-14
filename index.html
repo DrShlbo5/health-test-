@@ -927,8 +927,12 @@ function showResult() {
       const head = (i + 1) + ') ' + bq.q.ar;
       if (a.matching) {
         // Each joined pair on its own line: what the employee joined vs. the correct pairs.
-        const chosen = a.chosen.map((k, j) => '   • ' + bq.l.ar[j] + ' ↔ ' + (k === null ? '(بدون وصل)' : bq.r.ar[a.order[k]])).join('\n');
-        const correct = bq.l.ar.map((x, j) => '   • ' + x + ' ↔ ' + bq.r.ar[j]).join('\n');
+        const chosen = a.chosen.map((k, j) => {
+          const right = k === null ? '(بدون وصل)' : bq.r.ar[a.order[k]];
+          const mark = (k !== null && a.order[k] === j) ? '✓' : '✗';
+          return '   ' + mark + ' ' + bq.l.ar[j] + ' ↔ ' + right;
+        }).join('\n');
+        const correct = bq.l.ar.map((x, j) => '   ✓ ' + x + ' ↔ ' + bq.r.ar[j]).join('\n');
         return head + '\n  إجابتك:\n' + chosen + '\n  الصحيح:\n' + correct;
       }
       if (a.ordering) {
