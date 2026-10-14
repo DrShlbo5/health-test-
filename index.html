@@ -923,25 +923,25 @@ function showResult() {
     .filter(a => !a.ok)
     .map((a, i) => {
       const bq = BANK[a.qi];
+      const head = (i + 1) + ') ' + bq.q.ar;
       if (a.matching) {
-        // Chosen pairs (left item <-> right item the employee joined) vs. the correct pairs.
-        const chosen = a.chosen.map((k, i) => bq.l.ar[i] + ' ↔ ' + (k === null ? '—' : bq.r.ar[a.order[k]])).join(' | ');
-        const correct = bq.l.ar.map((x, i) => x + ' ↔ ' + bq.r.ar[i]).join(' | ');
-        return (i + 1) + ') ' + bq.q.ar + ' | إجابته: ' + chosen + ' | الصح: ' + correct;
+        // Each joined pair on its own line: what the employee joined vs. the correct pairs.
+        const chosen = a.chosen.map((k, j) => '   • ' + bq.l.ar[j] + ' ↔ ' + (k === null ? '(بدون وصل)' : bq.r.ar[a.order[k]])).join('\n');
+        const correct = bq.l.ar.map((x, j) => '   • ' + x + ' ↔ ' + bq.r.ar[j]).join('\n');
+        return head + '\n  إجابتك:\n' + chosen + '\n  الصحيح:\n' + correct;
       }
       if (a.ordering) {
-        // Chosen sequence: steps sorted by the rank given; correct sequence: canonical order.
+        // Steps listed in the order the employee ranked them, then the correct order.
         const chosenSeq = [1, 2, 3, 4].map(r => {
           const k = a.chosen.indexOf(r);
-          return k === -1 ? '—' : bq.o.ar[a.order[k]];
-        }).join(' ← ');
-        return (i + 1) + ') ' + bq.q.ar + ' | إجابته: ' + chosenSeq + ' | الصح: ' + bq.o.ar.join(' ← ');
+          return '   ' + r + '. ' + (k === -1 ? '—' : bq.o.ar[a.order[k]]);
+        }).join('\n');
+        const correct = bq.o.ar.map((x, j) => '   ' + (j + 1) + '. ' + x).join('\n');
+        return head + '\n  إجابتك:\n' + chosenSeq + '\n  الصحيح:\n' + correct;
       }
-      return (i + 1) + ') ' + bq.q.ar +
-        ' | إجابته: ' + bq.o.ar[a.order[a.chosen]] +
-        ' | الصح: ' + bq.o.ar[a.order[a.correctPos]];
+      return head + '\n  إجابتك: ' + bq.o.ar[a.order[a.chosen]] + '\n  الصحيح: ' + bq.o.ar[a.order[a.correctPos]];
     });
-  sendToSheet({ name: empName, score, total, pct, pass, wrong: wrongLines.join('\n') || 'لا يوجد' });
+  sendToSheet({ name: empName, score, total, pct, pass, wrong: wrongLines.join('\n\n') || 'لا يوجد' });
 }
 
 function newEmployee() {
