@@ -1,0 +1,11 @@
+{
+  "name": "health-test-tests",
+  "private": true,
+  "description": "Automated checks for the food-safety test site (no changes to the site itself)",
+  "scripts": {
+    "test": "node run_all.js"
+  },
+  "devDependencies": {
+    "playwright": "1.56.0"
+  }
+}
