@@ -1247,11 +1247,11 @@ function buildWrongCard(bq, tokens) {
     his = tokens.map(t => {
       const parts = t.split(' ↔ ');
       const ok = parts.length === 2 && bq.r.ar[bq.l.ar.indexOf(parts[0])] === parts[1];
-      return { text: t, ok: ok };
+      return { text: t, ok: false };
     });
     correctRows = bq.l.ar.map((x, i) => x + ' ↔ ' + bq.r.ar[i]);
   } else if (bq.ordering) {
-    his = tokens.map((t, k) => ({ text: (k + 1) + '. ' + t, ok: bq.o.ar.indexOf(t) === k }));
+    his = tokens.map((t, k) => ({ text: (k + 1) + '. ' + t, ok: false }));
     correctRows = bq.o.ar.map((x, j) => (j + 1) + '. ' + x);
   } else {
     his = tokens.map(t => ({ text: t, ok: t === bq.o.ar[bq.c] }));
@@ -1267,7 +1267,7 @@ function buildWrongCard(bq, tokens) {
   q.textContent = bq.q.ar;
   wrap.appendChild(head);
   wrap.appendChild(q);
-  const addRows = (label, rows, cls) => {
+  const addRows = (label, rows) => {
     const lbl = document.createElement('div'); lbl.className = 'rev-lbl'; lbl.textContent = label;
     wrap.appendChild(lbl);
     rows.forEach(r => {
@@ -1277,8 +1277,8 @@ function buildWrongCard(bq, tokens) {
       wrap.appendChild(d);
     });
   };
-  addRows('إجابة الموظف', his, false);
-  addRows('الإجابة الصحيحة', correctRows.map(t => ({ text: t, ok: true })), true);
+  addRows('إجابة الموظف', his);
+  addRows('الإجابة الصحيحة', correctRows.map(t => ({ text: t, ok: true })));
   return wrap;
 }
 function buildWrongItem(item) {
