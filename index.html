@@ -667,16 +667,16 @@ function startQuiz() {
     return;
   }
   codeErr.style.display = 'none';
-  // 50 questions: 10 food-safety MC, 10 reasoning MC, 10 true/false, 10 ordering, 10 matching.
+  // 50 questions: 30 food-safety MC, 3 logic MC, 13 true/false, 2 ordering, 2 matching. Calculation questions are excluded.
   // Options are shuffled per employee so the answer position changes.
-  const REASONING_CATS = ['Logic', 'Calculation', 'Prioritizing', 'Reasoning'];
+  const REASONING_CATS = ['Logic', 'Prioritizing', 'Reasoning'];
   const isTF = i => !!BANK[i].tf;
   const isOrd = i => !!BANK[i].ordering;
   const isMatch = i => !!BANK[i].matching;
   const isReasoning = i => REASONING_CATS.includes(BANK[i].cat.en);
   const allIdx = BANK.map((_, i) => i);
-  const mcIdx = allIdx.filter(i => !isTF(i) && !isOrd(i) && !isMatch(i));
-  const TF_COUNT = 10, ORD_COUNT = 10, REASON_COUNT = 10, MATCH_COUNT = 10;
+  const mcIdx = allIdx.filter(i => !isTF(i) && !isOrd(i) && !isMatch(i) && BANK[i].cat.en !== 'Calculation');
+  const TF_COUNT = 13, ORD_COUNT = 2, REASON_COUNT = 3, MATCH_COUNT = 2;
   const reasoningPick = shuffle(mcIdx.filter(isReasoning)).slice(0, REASON_COUNT);
   const healthPick = shuffle(mcIdx.filter(i => !isReasoning(i))).slice(0, QUIZ_LENGTH - TF_COUNT - ORD_COUNT - REASON_COUNT - MATCH_COUNT);
   const tfPick = shuffle(allIdx.filter(isTF)).slice(0, TF_COUNT);
