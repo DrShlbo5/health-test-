@@ -158,6 +158,10 @@
   .lang-chips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
   .rev-opt.ok { background: var(--success-bg); color: var(--success); font-weight: 700; }
   .rev-opt.bad { background: rgba(220,38,38,.14); color: var(--danger); font-weight: 700; }
+  .num-btn.res-bad { background: #d64545; border-color: #d64545; color: #fff; }
+  .num-btn.res-ok { background: #1e9e62; border-color: #1e9e62; color: #fff; }
+  .match-svg .match-line.res-line-bad { stroke: #d64545; }
+  .match-svg .match-line.res-line-ok { stroke: #1e9e62; }
 
   .note-wrap { display: flex; flex-direction: column; gap: 14px; }
   .note-nav { display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
@@ -1241,44 +1245,96 @@ function parseWrongItem(item) {
     .filter(Boolean);
   return { bq: BANK[bi], tokens: tokens };
 }
-function buildWrongCard(bq, tokens) {
-  let his, correctRows;
-  if (bq.matching) {
-    his = tokens.map(t => {
-      const parts = t.split(' ↔ ');
-      const ok = parts.length === 2 && bq.r.ar[bq.l.ar.indexOf(parts[0])] === parts[1];
-      return { text: t, ok: false };
+let pendingDraws = [];
+// One test-style block: left/right columns with lines drawn between joined items.
+function buildMatchBlock(bq, pairs, lineClass, label) {
+  const lbl = document.createElement('div'); lbl.className = 'rev-lbl'; lbl.textContent = label;
+  const box = document.createElement('div'); box.className = 'match-box';
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'match-svg');
+  const cols = document.createElement('div'); cols.className = 'match-cols';
+  const colL = document.createElement('div'); colL.className = 'match-col';
+  const colR = document.createElement('div'); colR.className = 'match-col';
+  bq.l.ar.forEach(t => { const d = document.createElement('div'); d.className = 'match-item'; d.textContent = t; colL.appendChild(d); });
+  bq.r.ar.forEach(t => { const d = document.createElement('div'); d.className = 'match-item'; d.textContent = t; colR.appendChild(d); });
+  cols.appendChild(colL); cols.appendChild(colR);
+  box.appendChild(svg); box.appendChild(cols);
+  const wrap = document.createElement('div'); wrap.style.display = 'flex'; wrap.style.flexDirection = 'column'; wrap.style.gap = '6px';
+  wrap.appendChild(lbl); wrap.appendChild(box);
+  pendingDraws.push(() => {
+    const br = box.getBoundingClientRect();
+    svg.setAttribute('width', br.width); svg.setAttribute('height', br.height);
+    svg.setAttribute('viewBox', '0 0 ' + br.width + ' ' + br.height);
+    svg.innerHTML = '';
+    pairs.forEach(([i, j]) => {
+      const l = colL.children[i], r = colR.children[j];
+      if (!l || !r) return;
+      const lr = l.getBoundingClientRect(), rr = r.getBoundingClientRect();
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', lr.left - br.left); line.setAttribute('y1', lr.top + lr.height / 2 - br.top);
+      line.setAttribute('x2', rr.right - br.left); line.setAttribute('y2', rr.top + rr.height / 2 - br.top);
+      line.setAttribute('class', 'match-line ' + lineClass);
+      svg.appendChild(line);
     });
-    correctRows = bq.l.ar.map((x, i) => x + ' ↔ ' + bq.r.ar[i]);
-  } else if (bq.ordering) {
-    his = tokens.map((t, k) => ({ text: (k + 1) + '. ' + t, ok: false }));
-    correctRows = bq.o.ar.map((x, j) => (j + 1) + '. ' + x);
-  } else {
-    his = tokens.map(t => ({ text: t, ok: t === bq.o.ar[bq.c] }));
-    correctRows = [bq.o.ar[bq.c]];
-  }
+  });
+  return wrap;
+}
+// One test-style block: each step with rank buttons 1-4; the chosen rank is coloured.
+function buildOrderBlock(bq, rankOfStep, cls, label) {
+  const wrap = document.createElement('div'); wrap.style.display = 'flex'; wrap.style.flexDirection = 'column'; wrap.style.gap = '8px';
+  const lbl = document.createElement('div'); lbl.className = 'rev-lbl'; lbl.textContent = label;
+  wrap.appendChild(lbl);
+  bq.o.ar.forEach((step, j) => {
+    const row = document.createElement('div'); row.className = 'ord-row';
+    const t = document.createElement('div'); t.className = 'ord-text'; t.textContent = step;
+    const ranks = document.createElement('div'); ranks.className = 'ord-ranks';
+    [1, 2, 3, 4].forEach(r => {
+      const b = document.createElement('div');
+      b.className = 'num-btn' + (rankOfStep[j] === r ? ' ' + cls : '');
+      b.textContent = r;
+      ranks.appendChild(b);
+    });
+    row.appendChild(t); row.appendChild(ranks);
+    wrap.appendChild(row);
+  });
+  return wrap;
+}
+function buildWrongCard(bq, tokens) {
   const wrap = document.createElement('div');
   wrap.className = 'rev-item';
-  const head = document.createElement('div');
-  head.className = 'rev-head';
-  head.textContent = bq.cat.ar;
-  const q = document.createElement('div');
-  q.className = 'rev-q';
-  q.textContent = bq.q.ar;
-  wrap.appendChild(head);
-  wrap.appendChild(q);
-  const addRows = (label, rows) => {
-    const lbl = document.createElement('div'); lbl.className = 'rev-lbl'; lbl.textContent = label;
-    wrap.appendChild(lbl);
-    rows.forEach(r => {
-      const d = document.createElement('div');
-      d.className = 'rev-opt ' + (r.ok ? 'ok' : 'bad');
-      d.textContent = (r.ok ? '✓ ' : '✗ ') + r.text;
-      wrap.appendChild(d);
-    });
-  };
-  addRows('إجابة الموظف', his);
-  addRows('الإجابة الصحيحة', correctRows.map(t => ({ text: t, ok: true })));
+  const head = document.createElement('div'); head.className = 'rev-head'; head.textContent = bq.cat.ar;
+  const q = document.createElement('div'); q.className = 'rev-q'; q.textContent = bq.q.ar;
+  wrap.appendChild(head); wrap.appendChild(q);
+  if (bq.matching) {
+    // Employee's joined pairs (red) and the correct pairs (green).
+    const his = tokens.map(t => {
+      const parts = t.split(' ↔ ');
+      return [bq.l.ar.indexOf(parts[0]), bq.r.ar.indexOf(parts[1])];
+    }).filter(([i, j]) => i !== -1 && j !== -1);
+    const correct = bq.l.ar.map((x, i) => [i, i]);
+    wrap.appendChild(buildMatchBlock(bq, his, 'res-line-bad', 'إجابة الموظف'));
+    wrap.appendChild(buildMatchBlock(bq, correct, 'res-line-ok', 'الإجابة الصحيحة'));
+  } else if (bq.ordering) {
+    // Employee's rank for each step (red) and the correct rank (green).
+    const hisRank = bq.o.ar.map(step => { const k = tokens.indexOf(step); return k === -1 ? null : k + 1; });
+    const correctRank = bq.o.ar.map((step, j) => j + 1);
+    wrap.appendChild(buildOrderBlock(bq, hisRank, 'res-bad', 'إجابة الموظف'));
+    wrap.appendChild(buildOrderBlock(bq, correctRank, 'res-ok', 'الإجابة الصحيحة'));
+  } else {
+    const his = tokens.map(t => ({ text: t, ok: false }));
+    const addRows = (label, rows) => {
+      const lbl = document.createElement('div'); lbl.className = 'rev-lbl'; lbl.textContent = label;
+      wrap.appendChild(lbl);
+      rows.forEach(r => {
+        const d = document.createElement('div');
+        d.className = 'rev-opt ' + (r.ok ? 'ok' : 'bad');
+        d.textContent = (r.ok ? '✓ ' : '✗ ') + r.text;
+        wrap.appendChild(d);
+      });
+    };
+    addRows('إجابة الموظف', his);
+    addRows('الإجابة الصحيحة', [{ text: bq.o.ar[bq.c], ok: true }]);
+  }
   return wrap;
 }
 function buildWrongItem(item) {
@@ -1319,6 +1375,8 @@ function renderImported() {
     }
     box.appendChild(card);
   });
+  const draws = pendingDraws; pendingDraws = [];
+  draws.forEach(f => f());
 }
 document.getElementById('btn-import').addEventListener('click', importFromSheet);
 
