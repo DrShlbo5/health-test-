@@ -950,7 +950,16 @@ function showResult() {
       }
       return head + '\n  إجابتك: ' + bq.o.ar[a.order[a.chosen]] + '\n  الصحيح: ' + bq.o.ar[a.order[a.correctPos]];
     });
-  sendToSheet({ name: empName, score, total, pct, pass, wrong: wrongLines.join('\n\n') || 'لا يوجد' });
+  // Every answer in test order, so the results log can show the whole test: [question, correct?, employee's answer tokens]
+  const detailArr = log.map(a => {
+    const bq = BANK[a.qi];
+    let tokens = [];
+    if (a.matching) tokens = a.chosen.map((k, j) => k === null ? null : bq.l.ar[j] + ' ↔ ' + bq.r.ar[a.order[k]]).filter(Boolean);
+    else if (a.ordering) tokens = [1, 2, 3, 4].map(r => { const k = a.chosen.indexOf(r); return k === -1 ? null : bq.o.ar[a.order[k]]; }).filter(Boolean);
+    else if (a.chosen !== null && a.chosen !== undefined) tokens = [bq.o.ar[a.order[a.chosen]]];
+    return [bq.q.ar, !!a.ok, tokens];
+  });
+  sendToSheet({ name: empName, score, total, pct, pass, wrong: wrongLines.join('\n\n') || 'لا يوجد', detail: JSON.stringify(detailArr) });
 }
 
 function newEmployee() {
@@ -1194,7 +1203,7 @@ async function importFromSheet() {
     if (!data.ok) throw new Error('not ok');
     importedRows = data.rows.slice(1).filter(r => r[1]).map(r => ({
       date: String(r[0] || ''), name: String(r[1] || ''), score: String(r[2] || ''),
-      pct: String(r[3] || ''), verdict: String(r[4] || ''), wrong: String(r[5] || '')
+      pct: String(r[3] || ''), verdict: String(r[4] || ''), wrong: String(r[5] || ''), detail: String(r[6] || '')
     }));
     renderImported();
   } catch (e) {
@@ -1299,7 +1308,10 @@ function buildOrderBlock(bq, rankOfStep, cls, label) {
   });
   return wrap;
 }
-function buildWrongCard(bq, tokens) {
+function buildWrongCard(bq, tokens, ok) {
+  const good = !!ok;
+  const cls = good ? 'res-ok' : 'res-bad';
+  const lineCls = good ? 'res-line-ok' : 'res-line-bad';
   const wrap = document.createElement('div');
   wrap.className = 'rev-item';
   const head = document.createElement('div'); head.className = 'rev-head'; head.textContent = bq.cat.ar;
@@ -1312,16 +1324,16 @@ function buildWrongCard(bq, tokens) {
       return [bq.l.ar.indexOf(parts[0]), bq.r.ar.indexOf(parts[1])];
     }).filter(([i, j]) => i !== -1 && j !== -1);
     const correct = bq.l.ar.map((x, i) => [i, i]);
-    wrap.appendChild(buildMatchBlock(bq, his, 'res-line-bad', 'إجابة الموظف'));
-    wrap.appendChild(buildMatchBlock(bq, correct, 'res-line-ok', 'الإجابة الصحيحة'));
+    wrap.appendChild(buildMatchBlock(bq, his, lineCls, 'إجابة الموظف'));
+    if (!good) wrap.appendChild(buildMatchBlock(bq, correct, 'res-line-ok', 'الإجابة الصحيحة'));
   } else if (bq.ordering) {
     // Employee's rank for each step (red) and the correct rank (green).
     const hisRank = bq.o.ar.map(step => { const k = tokens.indexOf(step); return k === -1 ? null : k + 1; });
     const correctRank = bq.o.ar.map((step, j) => j + 1);
-    wrap.appendChild(buildOrderBlock(bq, hisRank, 'res-bad', 'إجابة الموظف'));
-    wrap.appendChild(buildOrderBlock(bq, correctRank, 'res-ok', 'الإجابة الصحيحة'));
+    wrap.appendChild(buildOrderBlock(bq, hisRank, cls, 'إجابة الموظف'));
+    if (!good) wrap.appendChild(buildOrderBlock(bq, correctRank, 'res-ok', 'الإجابة الصحيحة'));
   } else {
-    const his = tokens.map(t => ({ text: t, ok: false }));
+    const his = tokens.map(t => ({ text: t, ok: good }));
     const addRows = (label, rows) => {
       const lbl = document.createElement('div'); lbl.className = 'rev-lbl'; lbl.textContent = label;
       wrap.appendChild(lbl);
@@ -1333,7 +1345,7 @@ function buildWrongCard(bq, tokens) {
       });
     };
     addRows('إجابة الموظف', his);
-    addRows('الإجابة الصحيحة', [{ text: bq.o.ar[bq.c], ok: true }]);
+    if (!good) addRows('الإجابة الصحيحة', [{ text: bq.o.ar[bq.c], ok: true }]);
   }
   return wrap;
 }
@@ -1372,8 +1384,16 @@ function renderImported() {
     body.style.display = 'none';
     body.style.flexDirection = 'column';
     body.style.gap = '12px';
-    const items = splitWrongItems(r.wrong);
-    if (items.length === 0) {
+    let detailItems = null;
+    try { if (r.detail) detailItems = JSON.parse(r.detail); } catch (e) { detailItems = null; }
+    if (Array.isArray(detailItems) && detailItems.length) {
+      detailItems.forEach(([qAr, ok, tokens]) => {
+        const bi = BANK.findIndex(b => b.q.ar === qAr);
+        if (bi !== -1) body.appendChild(buildWrongCard(BANK[bi], tokens || [], ok));
+      });
+    }
+    const items = (Array.isArray(detailItems) && detailItems.length) ? [] : splitWrongItems(r.wrong);
+    if (!Array.isArray(detailItems) && items.length === 0) {
       const none = document.createElement('p'); none.className = 'empty-state'; none.textContent = 'لا توجد إجابات غلط';
       body.appendChild(none);
     } else {
