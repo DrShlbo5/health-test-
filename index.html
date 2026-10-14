@@ -1235,7 +1235,8 @@ function buildWrongCard(bq, chosenPos) {
   head.className = 'rev-head';
   head.textContent = bq.cat.en + ' — ' + bq.cat.ar;
   wrap.appendChild(head);
-  REV_LANGS.forEach(([L, name]) => {
+  // Results log shows Arabic only.
+  [['ar', 'عربي']].forEach(([L, name]) => {
     const lang = document.createElement('div');
     lang.className = 'rev-lang';
     const lbl = document.createElement('div'); lbl.className = 'rev-lbl'; lbl.textContent = name;
