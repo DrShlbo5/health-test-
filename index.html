@@ -280,6 +280,7 @@
     <div class="card records-header">
       <h2 id="rec-title"></h2>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-secondary btn-small" id="btn-import"></button>
         <button class="btn btn-primary btn-small" id="btn-upload"></button>
         <button class="btn btn-danger btn-small" id="btn-clear"></button>
         <button class="btn btn-secondary btn-small" id="btn-review"></button>
@@ -297,6 +298,7 @@
         <tbody id="records-body"></tbody>
       </table>
     </div>
+    <div id="import-box"></div>
   </div>
 
   <!-- STUDY (public study notes from the book, all languages) -->
@@ -516,7 +518,7 @@ const T = {
     btnStart:"ابدأ الاختبار ◄", navRec:"📋 سجل النتائج", empOf:"الموظف:", next:"التالي ◄", finish:"إنهاء ✓",
     pass:"ناجح ✅", fail:"راسب ❌", passMsg:"وصل للحد المطلوب (60 نقطة) ويمكن إرساله لاختبار الشهادة الصحية.",
     failMsg:"ما وصل للحد المطلوب (60 نقطة). ينصح بالتدريب قبل الاختبار الرسمي.",
-    btnNew:"موظف جديد ◄", btnHome:"الرئيسية", recTitle:"📋 سجل النتائج", prev:"► السابق", btnUpload:"⬆ رفع السجلات للشيت", btnUploadDone:"تم إرسال الكل ✓", btnClear:"حذف الكل 🗑", confirmClear:"اضغط مرة ثانية للتأكيد",
+    btnNew:"موظف جديد ◄", btnHome:"الرئيسية", recTitle:"📋 سجل النتائج", prev:"► السابق", btnImport:"⬇ استيراد من الشيت", btnUpload:"⬆ رفع السجلات للشيت", btnUploadDone:"تم إرسال الكل ✓", btnClear:"حذف الكل 🗑", confirmClear:"اضغط مرة ثانية للتأكيد",
     btnRecBack:"رجوع", thName:"الاسم", thScore:"النتيجة", thPct:"النسبة", thVerdict:"الحكم", thDate:"التاريخ",
     pwTitle:"سجل النتائج — مدير فقط", pwSub:"أدخل كلمة السر للمشاهدة", btnUnlock:"دخول 🔓", btnPwBack:"رجوع",
     pwWrong:"كلمة السر غلط ❌", noRecords:"لا توجد نتائج محفوظة بعد", enterName:"الرجاء إدخال اسم الموظف" },
@@ -525,7 +527,7 @@ const T = {
     btnStart:"Start test ►", navRec:"📋 Results log", empOf:"Employee:", next:"Next ►", finish:"Finish ✓",
     pass:"PASS ✅", fail:"FAIL ❌", passMsg:"Reached the required 60 points and can proceed to the official health certificate exam.",
     failMsg:"Did not reach the required 60 points. Training is recommended before the official exam.",
-    btnNew:"New employee ►", btnHome:"Home", recTitle:"📋 Results log", prev:"◄ Previous", btnUpload:"⬆ Upload records to sheet", btnUploadDone:"All sent ✓", btnClear:"Clear all 🗑", confirmClear:"Press again to confirm",
+    btnNew:"New employee ►", btnHome:"Home", recTitle:"📋 Results log", prev:"◄ Previous", btnImport:"⬇ Import from sheet", btnUpload:"⬆ Upload records to sheet", btnUploadDone:"All sent ✓", btnClear:"Clear all 🗑", confirmClear:"Press again to confirm",
     btnRecBack:"Back", thName:"Name", thScore:"Score", thPct:"Percent", thVerdict:"Result", thDate:"Date",
     pwTitle:"Results log — manager only", pwSub:"Enter the password to view", btnUnlock:"Unlock 🔓", btnPwBack:"Back",
     pwWrong:"Wrong password ❌", noRecords:"No saved results yet", enterName:"Please enter the employee name" },
@@ -534,7 +536,7 @@ const T = {
     btnStart:"परीक्षा शुरू करें ►", navRec:"📋 परिणाम सूची", empOf:"कर्मचारी:", next:"अगला ►", finish:"समाप्त ✓",
     pass:"पास ✅", fail:"फेल ❌", passMsg:"60 अंक का आवश्यक स्तर पार किया। आधिकारिक प्रमाण परीक्षा दे सकते हैं।",
     failMsg:"60 अंक का आवश्यक स्तर नहीं पहुंचा। आधिकारिक परीक्षा से पहले प्रशिक्षण की सलाह है।",
-    btnNew:"नया कर्मचारी ►", btnHome:"होम", recTitle:"📋 परिणाम सूची", prev:"◄ पिछला", btnUpload:"⬆ रिकॉर्ड शीट में भेजें", btnUploadDone:"सब भेज दिया गया ✓", btnClear:"सब हटाएं 🗑", confirmClear:"पुष्टि के लिए फिर दबाएं",
+    btnNew:"नया कर्मचारी ►", btnHome:"होम", recTitle:"📋 परिणाम सूची", prev:"◄ पिछला", btnImport:"⬇ शीट से आयात करें", btnUpload:"⬆ रिकॉर्ड शीट में भेजें", btnUploadDone:"सब भेज दिया गया ✓", btnClear:"सब हटाएं 🗑", confirmClear:"पुष्टि के लिए फिर दबाएं",
     btnRecBack:"वापस", thName:"नाम", thScore:"स्कोर", thPct:"प्रतिशत", thVerdict:"परिणाम", thDate:"तारीख",
     pwTitle:"परिणाम सूची — केवल प्रबंधक", pwSub:"देखने के लिए पासवर्ड लिखें", btnUnlock:"खोलें 🔓", btnPwBack:"वापस",
     pwWrong:"गलत पासवर्ड ❌", noRecords:"अभी तक कोई परिणाम सहेजा नहीं गया", enterName:"कृपया कर्मचारी का नाम लिखें" },
@@ -543,7 +545,7 @@ const T = {
     btnStart:"পরীক্ষা শুরু করুন ►", navRec:"📋 ফলাফল তালিকা", empOf:"কর্মচারী:", next:"পরবর্তী ►", finish:"শেষ ✓",
     pass:"পাস ✅", fail:"ফেল ❌", passMsg:"৬০ নম্বর এর প্রয়োজনীয় মান পেয়েছেন। সরকারি স্বাস্থ্য সনদ পরীক্ষায় বসতে পারেন।",
     failMsg:"৬০ নম্বর এর প্রয়োজনীয় মান পৌঁছায়নি। সরকারি পরীক্ষার আগে প্রশিক্ষণ নেওয়ার পরামর্শ।",
-    btnNew:"নতুন কর্মচারী ►", btnHome:"হোম", recTitle:"📋 ফলাফল তালিকা", prev:"◄ আগের", btnUpload:"⬆ রেকর্ড শিটে পাঠান", btnUploadDone:"সব পাঠানো হয়েছে ✓", btnClear:"সব মুছুন 🗑", confirmClear:"নিশ্চিত করতে আবার চাপুন",
+    btnNew:"নতুন কর্মচারী ►", btnHome:"হোম", recTitle:"📋 ফলাফল তালিকা", prev:"◄ আগের", btnImport:"⬇ শিট থেকে আনুন", btnUpload:"⬆ রেকর্ড শিটে পাঠান", btnUploadDone:"সব পাঠানো হয়েছে ✓", btnClear:"সব মুছুন 🗑", confirmClear:"নিশ্চিত করতে আবার চাপুন",
     btnRecBack:"ফিরে যান", thName:"নাম", thScore:"স্কোর", thPct:"শতাংশ", thVerdict:"ফলাফল", thDate:"তারিখ",
     pwTitle:"ফলাফল তালিকা — শুধু ম্যানেজার", pwSub:"দেখতে পাসওয়ার্ড দিন", btnUnlock:"খুলুন 🔓", btnPwBack:"ফিরে যান",
     pwWrong:"ভুল পাসওয়ার্ড ❌", noRecords:"এখনো কোনো ফলাফল সংরক্ষিত নেই", enterName:"অনুগ্রহ করে কর্মচারীর নাম দিন" },
@@ -552,7 +554,7 @@ const T = {
     btnStart:"Mulai tes ►", navRec:"📋 Daftar hasil", empOf:"Karyawan:", next:"Berikutnya ►", finish:"Selesai ✓",
     pass:"LULUS ✅", fail:"GAGAL ❌", passMsg:"Mencapai batas 60 poin dan dapat lanjut ke ujian sertifikat kesehatan resmi.",
     failMsg:"Belum mencapai batas 60 poin. Disarankan pelatihan sebelum ujian resmi.",
-    btnNew:"Karyawan baru ►", btnHome:"Beranda", recTitle:"📋 Daftar hasil", prev:"◄ Sebelumnya", btnUpload:"⬆ Unggah ke spreadsheet", btnUploadDone:"Semua terkirim ✓", btnClear:"Hapus semua 🗑", confirmClear:"Tekan lagi untuk konfirmasi",
+    btnNew:"Karyawan baru ►", btnHome:"Beranda", recTitle:"📋 Daftar hasil", prev:"◄ Sebelumnya", btnImport:"⬇ Impor dari sheet", btnUpload:"⬆ Unggah ke spreadsheet", btnUploadDone:"Semua terkirim ✓", btnClear:"Hapus semua 🗑", confirmClear:"Tekan lagi untuk konfirmasi",
     btnRecBack:"Kembali", thName:"Nama", thScore:"Skor", thPct:"Persen", thVerdict:"Hasil", thDate:"Tanggal",
     pwTitle:"Daftar hasil — khusus manajer", pwSub:"Masukkan kata sandi untuk melihat", btnUnlock:"Buka 🔓", btnPwBack:"Kembali",
     pwWrong:"Kata sandi salah ❌", noRecords:"Belum ada hasil tersimpan", enterName:"Silakan masukkan nama karyawan" }
@@ -614,6 +616,7 @@ function applyTranslations() {
   document.getElementById('btn-pw-back').textContent = t.btnPwBack;
   document.getElementById('rec-title').textContent = t.recTitle;
   document.getElementById('btn-clear').textContent = t.btnClear;
+  document.getElementById('btn-import').textContent = t.btnImport;
   document.getElementById('btn-upload').textContent = t.btnUpload;
   document.getElementById('btn-prev').textContent = t.prev;
   document.getElementById('btn-rec-back').textContent = t.btnRecBack;
@@ -1162,6 +1165,66 @@ function renderStudy() {
   document.getElementById('note-prev').addEventListener('click', () => go(studyChap - 1));
   document.getElementById('note-next').addEventListener('click', () => go(studyChap + 1));
 }
+
+
+// ───── IMPORT FROM SHEET (manager view of tests already stored in the sheet) ─────
+let importedRows = null;
+function setImportMsg(text) {
+  const box = document.getElementById('import-box');
+  box.innerHTML = '';
+  const p = document.createElement('p');
+  p.className = 'empty-state';
+  p.textContent = text;
+  box.appendChild(p);
+}
+async function importFromSheet() {
+  setImportMsg('...');
+  try {
+    const res = await fetch(SHEET_URL + '?key=' + encodeURIComponent(PASSWORD));
+    const data = await res.json();
+    if (!data.ok) throw new Error('not ok');
+    importedRows = data.rows.slice(1).filter(r => r[1]).map(r => ({
+      date: String(r[0] || ''), name: String(r[1] || ''), score: String(r[2] || ''),
+      pct: String(r[3] || ''), verdict: String(r[4] || ''), wrong: String(r[5] || '')
+    }));
+    renderImported();
+  } catch (e) {
+    setImportMsg('تعذر الاستيراد من الشيت. تأكد من تحديث Apps Script وإعادة النشر.');
+  }
+}
+function renderImported() {
+  const box = document.getElementById('import-box');
+  box.innerHTML = '';
+  if (!importedRows || importedRows.length === 0) { setImportMsg('لا توجد نتائج في الشيت.'); return; }
+  const title = document.createElement('h3');
+  title.className = 'note-h2';
+  title.textContent = 'نتائج من الشيت (' + importedRows.length + ')';
+  box.appendChild(title);
+  importedRows.slice().reverse().forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.marginTop = '10px';
+    const head = document.createElement('div');
+    head.style.display = 'flex'; head.style.justifyContent = 'space-between'; head.style.gap = '8px'; head.style.flexWrap = 'wrap';
+    const nm = document.createElement('strong'); nm.textContent = r.name;
+    const sc = document.createElement('span'); sc.textContent = r.score + ' (' + r.pct + ') — ' + r.verdict;
+    const dt = document.createElement('small'); dt.style.color = 'var(--fg-soft)'; dt.textContent = r.date;
+    head.appendChild(nm); head.appendChild(sc); head.appendChild(dt);
+    card.appendChild(head);
+    const det = document.createElement('details');
+    det.style.marginTop = '8px';
+    const sum = document.createElement('summary');
+    sum.textContent = 'الإجابات الغلط';
+    sum.style.cursor = 'pointer'; sum.style.fontWeight = '700';
+    const pre = document.createElement('pre');
+    pre.style.whiteSpace = 'pre-wrap'; pre.style.fontFamily = 'inherit'; pre.style.lineHeight = '1.7';
+    pre.textContent = r.wrong || 'لا يوجد';
+    det.appendChild(sum); det.appendChild(pre);
+    card.appendChild(det);
+    box.appendChild(card);
+  });
+}
+document.getElementById('btn-import').addEventListener('click', importFromSheet);
 
 // ───── WIRING ─────
 document.getElementById('nav-study').addEventListener('click', showStudy);
