@@ -1201,14 +1201,26 @@ async function importFromSheet() {
     const res = await fetch(SHEET_URL + '?key=' + encodeURIComponent(PASSWORD));
     const data = await res.json();
     if (!data.ok) throw new Error('not ok');
-    importedRows = data.rows.slice(1).filter(r => r[1]).map(r => ({
-      date: String(r[0] || ''), name: String(r[1] || ''), score: String(r[2] || ''),
+    // row = the record's row number in the sheet (1 = header), used for deleting it.
+    importedRows = data.rows.map((r, i) => ({ r, row: i + 1 })).slice(1).filter(x => x.r[1]).map(({ r, row }) => ({
+      row, date: String(r[0] || ''), name: String(r[1] || ''), score: String(r[2] || ''),
       pct: String(r[3] || ''), verdict: String(r[4] || ''), wrong: String(r[5] || ''), detail: String(r[6] || '')
     }));
     renderImported();
   } catch (e) {
     setImportMsg('تعذر الاستيراد من الشيت. تأكد من تحديث Apps Script وإعادة النشر.');
   }
+}
+// Deletes one record from the sheet. The Apps Script checks the row still holds this name before deleting.
+function deleteFromSheet(r) {
+  if (!confirm('سيتم حذف نتيجة "' + r.name + '" من الشيت نهائياً. متأكد؟')) return;
+  try {
+    fetch(SHEET_URL, { method: 'POST', mode: 'no-cors',
+      body: JSON.stringify({ action: 'delete', key: PASSWORD, row: r.row, name: r.name }) });
+  } catch (e) {}
+  setImportMsg('... جاري الحذف');
+  // The response is not readable in no-cors mode, so reload the list after a short wait.
+  setTimeout(importFromSheet, 1500);
 }
 // Old records were stored as one line per wrong answer ("... | إجابته: ... | الصح: ...").
 // Convert them to the same readable layout used for new tests.
@@ -1382,7 +1394,12 @@ function renderImported() {
     const nm = document.createElement('strong'); nm.textContent = r.name;
     const sc = document.createElement('span'); sc.textContent = r.score + ' (' + r.pct + ') — ' + r.verdict;
     const dt = document.createElement('small'); dt.style.color = 'var(--fg-soft)'; dt.textContent = r.date;
-    head.appendChild(nm); head.appendChild(sc); head.appendChild(dt);
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.textContent = 'حذف';
+    del.style.cssText = 'background:#d64545;color:#fff;border:0;border-radius:8px;padding:4px 12px;font:inherit;cursor:pointer;';
+    del.addEventListener('click', e => { e.stopPropagation(); deleteFromSheet(r); });
+    head.appendChild(nm); head.appendChild(sc); head.appendChild(dt); head.appendChild(del);
     head.style.cursor = 'pointer';
     card.appendChild(head);
     // Details hidden until the manager taps the name/row.
