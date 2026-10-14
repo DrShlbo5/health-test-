@@ -1365,14 +1365,25 @@ function renderImported() {
     const sc = document.createElement('span'); sc.textContent = r.score + ' (' + r.pct + ') — ' + r.verdict;
     const dt = document.createElement('small'); dt.style.color = 'var(--fg-soft)'; dt.textContent = r.date;
     head.appendChild(nm); head.appendChild(sc); head.appendChild(dt);
+    head.style.cursor = 'pointer';
     card.appendChild(head);
+    // Details hidden until the manager taps the name/row.
+    const body = document.createElement('div');
+    body.style.display = 'none';
+    body.style.flexDirection = 'column';
+    body.style.gap = '12px';
     const items = splitWrongItems(r.wrong);
     if (items.length === 0) {
       const none = document.createElement('p'); none.className = 'empty-state'; none.textContent = 'لا توجد إجابات غلط';
-      card.appendChild(none);
+      body.appendChild(none);
     } else {
-      items.forEach(item => card.appendChild(buildWrongItem(item)));
+      items.forEach(item => body.appendChild(buildWrongItem(item)));
     }
+    card.appendChild(body);
+    head.addEventListener('click', () => {
+      const open = body.style.display === 'none';
+      body.style.display = open ? 'flex' : 'none';
+    });
     box.appendChild(card);
   });
   const draws = pendingDraws; pendingDraws = [];
