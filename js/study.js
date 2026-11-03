@@ -111,15 +111,18 @@ function renderStudy() {
     `<button class="btn btn-secondary btn-small" id="note-next"${studyChap >= STUDY_NOTES.length - 1 ? ' disabled' : ''}>${escHtml(STUDY_T[lang].next)}</button>` +
     `</div>`;
   const chap = STUDY_NOTES[studyChap];
+  // icon + section title sit above the video; the notes follow below it
+  const headL = studyLang === 'all' ? lang : studyLang;
+  const head = `<div class="note-head">${noteIcon()}<h2 class="note-title" dir="auto">${escHtml(chap.t[NOTE_TITLE_IDX[headL]])}</h2></div>`;
   let body;
   if (studyLang === 'all') {
     body = REV_LANGS.map(([L, name]) =>
-      `<section class="note-lang-sec"><div class="rev-lbl">${escHtml(name)}</div>${noteIcon()}<h2 class="note-title" dir="auto">${escHtml(chap.t[NOTE_TITLE_IDX[L]])}</h2>${renderNoteBlock(chap, L)}</section>`).join('');
+      `<section class="note-lang-sec"><div class="rev-lbl">${escHtml(name)}</div><h2 class="note-title" dir="auto">${escHtml(chap.t[NOTE_TITLE_IDX[L]])}</h2>${renderNoteBlock(chap, L)}</section>`).join('');
   } else {
-    body = `${noteIcon()}<h2 class="note-title" dir="auto">${escHtml(chap.t[NOTE_TITLE_IDX[studyLang]])}</h2>${renderNoteBlock(chap, studyLang)}`;
+    body = renderNoteBlock(chap, studyLang);
   }
   document.getElementById('study-body').innerHTML =
-    `<div class="card note-wrap">${nav}${videoBox(studyChap)}<div class="note-content">${body}</div></div>`;
+    `<div class="card note-wrap">${nav}${head}${videoBox(studyChap)}<div class="note-content">${body}</div></div>`;
   const go = i => { studyChap = Math.max(0, Math.min(STUDY_NOTES.length - 1, i)); renderStudy(); window.scrollTo(0, 0); };
   document.getElementById('note-sel').addEventListener('change', e => go(+e.target.value));
   document.getElementById('note-prev').addEventListener('click', () => go(studyChap - 1));
