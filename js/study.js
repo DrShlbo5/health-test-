@@ -38,7 +38,8 @@ function noteText(row, L) {
 }
 
 // ───── VIDEO BOXES (one per STUDY_NOTES section; put a YouTube link here to show it) ─────
-const STUDY_VIDEOS = {}; // e.g. { 0: 'https://youtu.be/VIDEO_ID' }
+// Section i plays videos/section-NN.mp4; put a YouTube link in STUDY_VIDEOS[i] to override one.
+const STUDY_VIDEOS = Object.fromEntries(STUDY_NOTES.map((_, i) => [i, `videos/section-${String(i + 1).padStart(2, '0')}.mp4`]));
 const VIDEO_T = {
   ar: 'شرح الفيديو — سيُضاف قريباً', en: 'Video explanation — coming soon', hi: 'वीडियो व्याख्या — जल्द ही जोड़ी जाएगी',
   bn: 'ভিডিও ব্যাখ্যা — শীঘ্রই যোগ করা হবে', id: 'Video penjelasan — segera hadir', ne: 'भिडियो व्याख्या — छिट्टै थपिनेछ', te: 'వీడియో వివరణ — త్వరలో జోడించబడుతుంది'
@@ -53,14 +54,17 @@ function videoBox(i) {
     `<div class="note-video-frame"><span class="note-video-play" aria-hidden="true">▶</span></div>` +
     `<div class="note-video-cap">${escHtml(VIDEO_T[lang] || VIDEO_T.en)}</div></div>`;
 }
-// Any box that has (or later gets) data-video-url turns into a YouTube player.
+// Any box that has (or later gets) data-video-url turns into a player: YouTube link, or a direct .mp4 file.
 function hydrateVideo(box) {
-  const id = youtubeId(box.dataset.videoUrl || '');
-  if (!id || box.dataset.loaded === id) return;
-  box.dataset.loaded = id;
-  box.querySelector('.note-video-frame').innerHTML =
-    `<iframe src="https://www.youtube-nocookie.com/embed/${id}" title="video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
-  box.querySelector('.note-video-cap').remove();
+  const url = box.dataset.videoUrl || '';
+  const file = /\.mp4(\?|#|$)/i.test(url) ? url : '';
+  const id = file ? '' : youtubeId(url);
+  if ((!id && !file) || box.dataset.loaded === url) return;
+  box.dataset.loaded = url;
+  box.querySelector('.note-video-frame').innerHTML = file
+    ? `<video src="${escHtml(file)}" controls preload="metadata" playsinline></video>`
+    : `<iframe src="https://www.youtube-nocookie.com/embed/${id}" title="video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+  box.querySelector('.note-video-cap')?.remove();
   box.classList.add('has-video');
 }
 new MutationObserver(muts => muts.forEach(m => {

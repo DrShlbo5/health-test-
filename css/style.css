@@ -218,7 +218,7 @@
   #screen-study .note-video { display: flex; flex-direction: column; gap: 8px; }
   #screen-study .note-video-frame { position: relative; aspect-ratio: 16 / 9; width: 100%; border-radius: 18px; overflow: hidden; background: radial-gradient(circle at center, #2c3444 0%, var(--study-video-bg) 75%); box-shadow: var(--study-sec-shadow); display: flex; align-items: center; justify-content: center; }
   #screen-study .note-video-play { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.14); border: 2px solid rgba(255,255,255,0.5); color: #fff; font-size: 1.7rem; display: flex; align-items: center; justify-content: center; padding-inline-start: 5px; box-sizing: border-box; }
-  #screen-study .note-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  #screen-study .note-video-frame iframe, #screen-study .note-video-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
   #screen-study .note-video-cap { text-align: center; font-size: 0.88rem; color: var(--fg-soft); }
   @media (max-width: 520px) {
     #screen-study .note-sec { padding: 18px 16px; }
