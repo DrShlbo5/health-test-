@@ -261,8 +261,6 @@
   #screen-study .note-key { color: var(--st-key); font-weight: 800; }
   #screen-study .note-callout { background: var(--st-acc-l); border-inline-start: 4px solid var(--st-acc); border-radius: 14px; padding: 14px 16px; font-weight: 600; line-height: 1.9; color: var(--st-ink); }
   #screen-study .note-callout .note-key { color: var(--st-ink); }
-  #screen-study .note-lang-sec { display: flex; flex-direction: column; gap: 14px; padding-bottom: 20px; border-bottom: 2px dashed var(--st-line); }
-  #screen-study .note-lang-sec:last-child { border-bottom: none; }
 
   @media (max-width: 520px) {
     #screen-study .lesson-hero { padding: 22px 18px; border-radius: 18px; }

@@ -16,7 +16,7 @@ const LT = {
   ne: { title: 'स्वास्थ्य सचेतना नोट्स', sub: 'हरेक विषयको लागि भिडियो पाठ, त्यसपछि मुख्य बुँदाहरू', prog: (d, n) => `${n} मध्ये ${d} पाठ सकियो`, start: 'पहिलो पाठ सुरु गर्नुहोस्', cont: n => `जारी राख्नुहोस्: पाठ ${n}`, all: 'सबै पाठ सकियो — परीक्षाको लागि तयार 🎉', min: 'मि', lessons: 'पाठहरू', of: (i, n) => `पाठ ${i} / ${n}`, next: 'अर्को पाठ', prev: 'अघिल्लो', mark: 'मैले यो पाठ सकें', done: 'सकियो ✓', notes: 'पाठको सारांश', soon: 'भिडियो व्याख्या — छिट्टै' },
   te: { title: 'ఆరోగ్య అవగాహన నోట్స్', sub: 'ప్రతి అంశానికి ఒక వీడియో పాఠం, తర్వాత ముఖ్యాంశాలు', prog: (d, n) => `${n}లో ${d} పాఠాలు పూర్తి`, start: 'మొదటి పాఠం ప్రారంభించండి', cont: n => `కొనసాగించండి: పాఠం ${n}`, all: 'అన్ని పాఠాలు పూర్తి — పరీక్షకు సిద్ధం 🎉', min: 'ని', lessons: 'పాఠాలు', of: (i, n) => `పాఠం ${i} / ${n}`, next: 'తదుపరి పాఠం', prev: 'మునుపటి', mark: 'ఈ పాఠం పూర్తి చేశాను', done: 'పూర్తి ✓', notes: 'పాఠ సారాంశం', soon: 'వీడియో వివరణ — త్వరలో' }
 };
-const lt = () => LT[studyLang === 'all' ? lang : studyLang] || LT.en;
+const lt = () => LT[studyLang] || LT.en;
 const fmtTime = s => `${Math.floor(s / 60)}:${pad2(s % 60)}`;
 
 // Progress lives in this browser only (a per-worker convenience).
@@ -35,7 +35,7 @@ function lastLesson() { try { return +localStorage.getItem(LAST_KEY) || 0; } cat
 let studyChap = -1; // -1 = lesson list
 function lessonFromHash() { const m = location.hash.match(/^#lesson-(\d+)$/); return m ? Math.min(STUDY_NOTES.length, Math.max(1, +m[1])) - 1 : -1; }
 function showStudy() {
-  if (!studyLang) studyLang = lang;
+  if (!studyLang || !LT[studyLang]) studyLang = lang;
   studyChap = lessonFromHash();
   renderStudy();
   showScreen('study');
@@ -92,8 +92,7 @@ function renderNoteBlock(chap, L) {
 
 // ───── SCREENS ─────
 function renderStudy() {
-  const chipDefs = [['all', STUDY_T[lang].all], ...REV_LANGS];
-  document.getElementById('study-chips').innerHTML = chipDefs.map(([L, name]) =>
+  document.getElementById('study-chips').innerHTML = REV_LANGS.map(([L, name]) =>
     `<button class="lang-btn${(studyLang === L) ? ' active' : ''}" data-sl="${L}">${escHtml(name)}</button>`).join('');
   document.querySelectorAll('#study-chips [data-sl]').forEach(b =>
     b.addEventListener('click', () => { studyLang = b.dataset.sl; renderStudy(); }));
@@ -103,7 +102,7 @@ function renderStudy() {
 }
 
 function lessonListHtml() {
-  const t = lt(), n = STUDY_NOTES.length, d = studyDone.size, titleL = studyLang === 'all' ? lang : studyLang;
+  const t = lt(), n = STUDY_NOTES.length, d = studyDone.size, titleL = studyLang;
   const nextI = STUDY_NOTES.findIndex((_, i) => !studyDone.has(i));
   const resume = d === 0 ? Math.min(lastLesson(), n - 1) : nextI;
   const cta = nextI < 0 ? `<div class="lesson-alldone">${escHtml(t.all)}</div>`
@@ -123,12 +122,10 @@ function lessonListHtml() {
 }
 
 function lessonHtml(i) {
-  const t = lt(), n = STUDY_NOTES.length, chap = STUDY_NOTES[i], headL = studyLang === 'all' ? lang : studyLang;
+  const t = lt(), n = STUDY_NOTES.length, chap = STUDY_NOTES[i], headL = studyLang;
   try { localStorage.setItem(LAST_KEY, i); } catch (e) {}
   const done = studyDone.has(i);
-  const body = studyLang === 'all'
-    ? REV_LANGS.map(([L, name]) => `<section class="note-lang-sec"><div class="rev-lbl">${escHtml(name)}</div><h2 class="note-title" dir="auto">${escHtml(chap.t[NOTE_TITLE_IDX[L]])}</h2>${renderNoteBlock(chap, L)}</section>`).join('')
-    : renderNoteBlock(chap, studyLang);
+  const body = renderNoteBlock(chap, studyLang);
   return `<div class="lesson-top"><button class="lesson-back" id="lesson-back">‹ ${escHtml(t.lessons)}</button>` +
     `<span class="lesson-count">${escHtml(t.of(i + 1, n))}</span></div>` +
     `<div class="lesson-bar lesson-bar-thin"><span style="width:${Math.round((i + 1) / n * 100)}%"></span></div>` +
