@@ -107,3 +107,4 @@ document.getElementById('btn-new-emp').addEventListener('click', newEmployee);
 document.getElementById('btn-back-start').addEventListener('click', showStart);
 
 applyTranslations();
+showStudy(); // the study notes are the landing screen
