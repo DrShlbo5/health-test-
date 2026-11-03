@@ -3,10 +3,13 @@ const STUDY_NOTES = [{"t": ["مقدمة لك", "Introduction for you", "आप�
 const NOTE_IDX = { ar: 1, en: 2, hi: 3, bn: 4, id: 5, ne: 6, te: 2 }; // te: English until study notes are translated
 const NOTE_TITLE_IDX = { ar: 0, en: 1, hi: 2, bn: 3, id: 4, ne: 5, te: 1 };
 const pad2 = n => String(n).padStart(2, '0');
-// Lesson i plays videos/section-NN.mp4; put a YouTube link in STUDY_VIDEOS[i] to use YouTube instead.
+// Lesson i plays videos/section-NN.mp4 (Arabic: videos/ar/section-NN.mp4); put a YouTube link in STUDY_VIDEOS[i] to use YouTube instead.
 const STUDY_VIDEOS = Object.fromEntries(STUDY_NOTES.map((_, i) => [i, `videos/section-${pad2(i + 1)}.mp4`]));
+const STUDY_VIDEOS_AR = Object.fromEntries(STUDY_NOTES.map((_, i) => [i, `videos/ar/section-${pad2(i + 1)}.mp4`]));
 const STUDY_THUMB = i => `videos/thumbs/section-${pad2(i + 1)}.jpg`;
 const STUDY_SECS = [456,366,121,691,403,187,670,417,1032,44,96,43,100,122,98,62,81,81,71,40,64,81,86,81,80,76,83,83,84,66,84,68,89,88,164,107,207,99,69,105,95,148,106,61,260,117];
+const STUDY_SECS_AR = [601,490,155,932,551,250,908,559,1343,58,119,63,127,150,132,81,114,105,94,58,89,109,118,109,118,103,111,108,115,87,112,88,121,111,225,147,286,139,92,152,134,200,144,90,337,171];
+const isAr = () => studyLang === 'ar';
 const LT = {
   ar: { title: 'مذكرة الوعي الصحي', sub: 'درس بالفيديو لكل موضوع، ثم ملخص النقاط', prog: (d, n) => `أنهيت ${d} من ${n} درس`, start: 'ابدأ الدرس الأول', cont: n => `تابع: الدرس ${n}`, all: 'أنهيت كل الدروس — جاهز للاختبار 🎉', min: 'د', lessons: 'الدروس', of: (i, n) => `الدرس ${i} من ${n}`, next: 'الدرس التالي', prev: 'السابق', mark: 'أنهيت هذا الدرس', done: 'تم ✓', notes: 'ملخص الدرس', soon: 'شرح الفيديو — سيُضاف قريباً' },
   en: { title: 'Health Awareness Notes', sub: 'A video lesson for every topic, then the key points', prog: (d, n) => `${d} of ${n} lessons done`, start: 'Start the first lesson', cont: n => `Continue: lesson ${n}`, all: 'All lessons done — ready for the test 🎉', min: 'min', lessons: 'Lessons', of: (i, n) => `Lesson ${i} of ${n}`, next: 'Next lesson', prev: 'Previous', mark: 'I finished this lesson', done: 'Done ✓', notes: 'Lesson summary', soon: 'Video explanation — coming soon' },
@@ -56,7 +59,7 @@ function youtubeId(url) {
   return m ? m[1] : (/^[\w-]{11}$/.test(url) ? url : '');
 }
 function videoBox(i) {
-  const url = STUDY_VIDEOS[i] || '', id = /\.mp4(\?|#|$)/i.test(url) ? '' : youtubeId(url);
+  const url = (isAr() ? STUDY_VIDEOS_AR : STUDY_VIDEOS)[i] || '', id = /\.mp4(\?|#|$)/i.test(url) ? '' : youtubeId(url);
   let inner;
   if (/\.mp4(\?|#|$)/i.test(url)) inner = `<video src="${escHtml(url)}" poster="${STUDY_THUMB(i)}" controls preload="metadata" playsinline></video>`;
   else if (id) inner = `<iframe src="https://www.youtube-nocookie.com/embed/${id}" title="video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
@@ -113,7 +116,7 @@ function lessonListHtml() {
     return `<button class="lesson-card${done ? ' is-done' : ''}${i === resume && nextI >= 0 ? ' is-next' : ''}" data-open="${i}">` +
       `<span class="lesson-thumb"><img src="${STUDY_THUMB(i)}" alt="" loading="lazy"><span class="lesson-num">${i + 1}</span></span>` +
       `<span class="lesson-info"><span class="lesson-name" dir="auto">${escHtml(c.t[NOTE_TITLE_IDX[titleL]])}</span>` +
-      `<span class="lesson-meta">▶ ${fmtTime(STUDY_SECS[i] || 0)} ${escHtml(t.min)}</span></span>` +
+      `<span class="lesson-meta">▶ ${fmtTime((isAr() ? STUDY_SECS_AR : STUDY_SECS)[i] || 0)} ${escHtml(t.min)}</span></span>` +
       `<span class="lesson-state" aria-hidden="true">${done ? '✓' : ''}</span></button>`;
   }).join('');
   return `<section class="lesson-hero"><h2>${escHtml(t.title)}</h2><p>${escHtml(t.sub)}</p>` +
