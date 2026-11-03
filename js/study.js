@@ -7,7 +7,7 @@ const pad2 = n => String(n).padStart(2, '0');
 const STUDY_VIDEOS = Object.fromEntries(STUDY_NOTES.map((_, i) => [i, `videos/section-${pad2(i + 1)}.mp4`]));
 const STUDY_VIDEOS_AR = Object.fromEntries(STUDY_NOTES.map((_, i) => [i, `videos/ar/section-${pad2(i + 1)}.mp4`]));
 const STUDY_THUMB = i => `videos/thumbs/section-${pad2(i + 1)}.jpg`;
-const STUDY_SECS = [456,366,121,691,403,187,670,417,1032,44,96,43,100,122,98,62,81,81,71,40,64,81,86,81,80,76,83,83,84,66,84,68,89,88,164,107,207,99,69,105,95,148,106,61,260,117];
+const STUDY_SECS = [423,361,146,602,366,195,497,406,718,47,68,69,86,141,89,66,89,82,85,48,85,104,233,100,108,92,100,82,99,75,88,78,91,82,145,128,196,111,71,109,116,151,98,75,212,105];
 const STUDY_SECS_AR = [601,490,155,932,551,250,908,559,1343,58,119,63,127,150,132,81,114,105,94,58,89,109,118,109,118,103,111,108,115,87,112,88,121,111,225,147,286,139,92,152,134,200,144,90,337,171];
 const isAr = () => studyLang === 'ar';
 const LT = {
