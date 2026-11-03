@@ -188,42 +188,88 @@
   .match-item.sel { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
   .match-item.linked { background: var(--accent-light); border-color: var(--accent); }
 
-  /* ───── STUDY SCREEN: calm reading layout (scoped to #screen-study only) ───── */
+  /* ───── STUDY SCREEN: lesson app (scoped to #screen-study only) ───── */
   #screen-study {
-    --study-ink: #0b3d38; --study-key: #1f5f4a; --study-slate: #3d5a80;
-    --study-sec-bg: #ffffff; --study-sec-shadow: 0 1px 3px rgba(15,23,42,0.05), 0 6px 20px rgba(15,23,42,0.06);
-    --study-video-bg: #1e2430;
+    --st-bg: #ffffff; --st-ink: #0b3d38; --st-text: #2a313c; --st-soft: #667085; --st-line: #e6eaef;
+    --st-key: #1f6f55; --st-slate: #3d5a80; --st-acc: #0f766e; --st-acc-2: #14b8a6; --st-acc-l: #e7f6f3; --st-done: #16a34a;
+    --st-shadow: 0 1px 2px rgba(16,24,40,.05), 0 8px 24px rgba(16,24,40,.07);
+    gap: 16px;
   }
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) #screen-study { --study-ink: #c9f2ea; --study-key: #7fd8b8; --study-slate: #9db8e0; --study-sec-bg: var(--surface); --study-sec-shadow: 0 6px 20px rgba(0,0,0,0.35); --study-video-bg: #0b0e14; }
+    :root:not([data-theme="light"]) #screen-study { --st-bg: #1a1f2b; --st-ink: #d5f5ee; --st-text: #dfe5ee; --st-soft: #94a0b4; --st-line: #2a3142; --st-key: #6fdcb8; --st-slate: #a9c1e6; --st-acc: #2dd4bf; --st-acc-2: #5eead4; --st-acc-l: #123530; --st-done: #22c55e; --st-shadow: 0 8px 24px rgba(0,0,0,.35); }
   }
-  :root[data-theme="dark"] #screen-study { --study-ink: #c9f2ea; --study-key: #7fd8b8; --study-slate: #9db8e0; --study-sec-bg: var(--surface); --study-sec-shadow: 0 6px 20px rgba(0,0,0,0.35); --study-video-bg: #0b0e14; }
+  :root[data-theme="dark"] #screen-study { --st-bg: #1a1f2b; --st-ink: #d5f5ee; --st-text: #dfe5ee; --st-soft: #94a0b4; --st-line: #2a3142; --st-key: #6fdcb8; --st-slate: #a9c1e6; --st-acc: #2dd4bf; --st-acc-2: #5eead4; --st-acc-l: #123530; --st-done: #22c55e; --st-shadow: 0 8px 24px rgba(0,0,0,.35); }
 
   #screen-study .records-header { display: none; }
-  #screen-study .note-wrap { background: transparent; box-shadow: none; border: none; padding: 0; gap: 28px; }
-  #screen-study .note-nav { background: var(--study-sec-bg); border-radius: 16px; box-shadow: var(--study-sec-shadow); padding: 12px 14px; position: sticky; top: 8px; z-index: 5; }
-  #screen-study .note-content { gap: 28px; }
-  #screen-study .note-head { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: -12px; }
-  #screen-study .note-title { color: var(--study-ink); font-size: 1.7rem; line-height: 1.4; text-align: center; border-bottom: none; padding-bottom: 0; }
-  #screen-study .note-sec { background: var(--study-sec-bg); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--study-sec-shadow); padding: 24px 26px; display: flex; flex-direction: column; gap: 14px; }
-  #screen-study .note-sec:empty { display: none; }
-  #screen-study .note-h2 { color: var(--study-ink); font-size: 1.4rem; line-height: 1.45; margin-top: 0; padding-bottom: 10px; border-bottom: 2px solid var(--accent-light); }
-  #screen-study .note-h3 { color: var(--study-slate); font-size: 1.12rem; margin-top: 10px; }
-  #screen-study .note-p, #screen-study .note-ul { font-size: 1.06rem; line-height: 1.95; color: var(--fg); }
-  #screen-study .note-ul { gap: 10px; }
-  #screen-study .note-ul li::marker { color: var(--study-key); }
-  #screen-study .note-key { color: var(--study-key); font-weight: 800; }
-  #screen-study .note-callout { font-weight: 600; line-height: 1.9; padding: 14px 18px; margin-top: 6px; }
-  #screen-study .note-callout .note-key { color: var(--study-ink); }
-  #screen-study .note-lang-sec { gap: 28px; padding-bottom: 28px; }
+  #screen-study > .card:has(#study-chips) { background: transparent; box-shadow: none; border: none; padding: 0; }
+  #screen-study .lang-chips { justify-content: safe center; overflow-x: auto; flex-wrap: nowrap; padding: 2px 2px 6px; scrollbar-width: none; }
+  #screen-study .lang-chips .lang-btn { flex: none; background: var(--st-bg); border: 1px solid var(--st-line); color: var(--st-soft); padding: 7px 14px; font-size: .9rem; }
+  #screen-study .lang-chips .lang-btn.active { background: var(--st-acc); border-color: var(--st-acc); color: #fff; }
+  #study-body button { font-family: inherit; cursor: pointer; }
 
-  #screen-study .note-video { display: flex; flex-direction: column; gap: 8px; }
-  #screen-study .note-video-frame { position: relative; aspect-ratio: 16 / 9; width: 100%; border-radius: 18px; overflow: hidden; background: radial-gradient(circle at center, #2c3444 0%, var(--study-video-bg) 75%); box-shadow: var(--study-sec-shadow); display: flex; align-items: center; justify-content: center; }
-  #screen-study .note-video-play { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.14); border: 2px solid rgba(255,255,255,0.5); color: #fff; font-size: 1.7rem; display: flex; align-items: center; justify-content: center; padding-inline-start: 5px; box-sizing: border-box; }
+  /* lesson list */
+  #screen-study .lesson-hero { background: linear-gradient(135deg, #0f766e, #0d9488 60%, #14b8a6); color: #fff; border-radius: 22px; padding: 26px 24px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 12px 30px -12px rgba(15,118,110,.55); }
+  #screen-study .lesson-hero h2 { font-size: 1.6rem; font-weight: 900; line-height: 1.35; }
+  #screen-study .lesson-hero p { opacity: .9; font-size: 1rem; line-height: 1.6; }
+  #screen-study .lesson-progress { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; font-weight: 700; font-size: .95rem; }
+  #screen-study .lesson-bar { height: 10px; border-radius: 99px; background: rgba(255,255,255,.25); overflow: hidden; }
+  #screen-study .lesson-bar span { display: block; height: 100%; border-radius: 99px; background: #fff; transition: width .4s ease; }
+  #screen-study .lesson-cta { margin-top: 8px; align-self: flex-start; border: none; background: #fff; color: #0f766e; font-weight: 900; font-size: 1.05rem; padding: 12px 22px; border-radius: 14px; box-shadow: 0 6px 16px -8px rgba(0,0,0,.4); }
+  #screen-study .lesson-alldone { margin-top: 8px; background: rgba(255,255,255,.18); padding: 10px 14px; border-radius: 12px; font-weight: 800; }
+  #screen-study .lesson-list { display: flex; flex-direction: column; gap: 10px; }
+  #screen-study .lesson-card { display: flex; align-items: center; gap: 14px; width: 100%; text-align: start; background: var(--st-bg); border: 1px solid var(--st-line); border-radius: 18px; padding: 10px; box-shadow: var(--st-shadow); color: var(--st-text); transition: transform .15s ease, border-color .15s ease; }
+  #screen-study .lesson-card:hover { transform: translateY(-2px); border-color: var(--st-acc-2); }
+  #screen-study .lesson-card.is-next { border: 2px solid var(--st-acc); }
+  #screen-study .lesson-thumb { position: relative; flex: none; width: 92px; height: 69px; border-radius: 12px; overflow: hidden; background: var(--st-acc-l); }
+  #screen-study .lesson-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #screen-study .lesson-num { position: absolute; inset-inline-start: 6px; bottom: 6px; min-width: 26px; height: 26px; padding: 0 6px; border-radius: 99px; background: rgba(11,61,56,.85); color: #fff; font-weight: 900; font-size: .85rem; display: flex; align-items: center; justify-content: center; }
+  #screen-study .lesson-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  #screen-study .lesson-name { font-weight: 800; font-size: 1.02rem; line-height: 1.45; color: var(--st-ink); }
+  #screen-study .lesson-meta { font-size: .85rem; color: var(--st-soft); font-weight: 600; }
+  #screen-study .lesson-state { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--st-line); display: flex; align-items: center; justify-content: center; font-weight: 900; color: #fff; }
+  #screen-study .lesson-card.is-done .lesson-state { background: var(--st-done); border-color: var(--st-done); }
+  #screen-study .lesson-card.is-done .lesson-name { color: var(--st-soft); }
+
+  /* one lesson */
+  #screen-study .lesson-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 8px 0; }
+  #screen-study .lesson-back { border: 1px solid var(--st-line); background: var(--st-bg); color: var(--st-acc); font-weight: 800; padding: 8px 16px; border-radius: 12px; }
+  #screen-study .lesson-count { color: var(--st-soft); font-weight: 700; font-size: .92rem; }
+  #screen-study .lesson-bar-thin { height: 6px; background: var(--st-line); margin-top: -8px; }
+  #screen-study .lesson-bar-thin span { background: var(--st-acc); }
+  #screen-study .lesson-title { color: var(--st-ink); font-size: 1.6rem; font-weight: 900; line-height: 1.4; margin-top: 4px; }
+  #screen-study .note-video-frame { position: relative; aspect-ratio: 16 / 9; width: 100%; border-radius: 20px; overflow: hidden; background: #0b0e14; box-shadow: var(--st-shadow); display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; }
   #screen-study .note-video-frame iframe, #screen-study .note-video-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
-  #screen-study .note-video-cap { text-align: center; font-size: 0.88rem; color: var(--fg-soft); }
+  #screen-study .note-video-play { width: 68px; height: 68px; border-radius: 50%; border: 2px solid rgba(255,255,255,.5); color: #fff; font-size: 1.6rem; display: flex; align-items: center; justify-content: center; }
+  #screen-study .note-video-cap { font-size: .88rem; color: #aab4c4; }
+  #screen-study .lesson-mark { align-self: center; border: 2px solid var(--st-acc); background: transparent; color: var(--st-acc); font-weight: 800; font-size: 1rem; padding: 10px 22px; border-radius: 99px; }
+  #screen-study .lesson-mark.is-done { background: var(--st-done); border-color: var(--st-done); color: #fff; }
+  #screen-study .lesson-notes-h { color: var(--st-soft); font-size: .95rem; font-weight: 800; margin: 8px 4px -4px; }
+  #screen-study .lesson-pager { display: flex; justify-content: space-between; gap: 10px; margin: 6px 0 24px; }
+  #screen-study .lesson-prev { border: 1px solid var(--st-line); background: var(--st-bg); color: var(--st-soft); font-weight: 700; padding: 12px 18px; border-radius: 14px; }
+  #screen-study .lesson-next { flex: 1; max-width: 340px; margin-inline-start: auto; border: none; background: var(--st-acc); color: #fff; font-weight: 900; font-size: 1.05rem; padding: 14px 20px; border-radius: 14px; box-shadow: 0 10px 22px -10px var(--st-acc); }
+
+  /* notes */
+  #screen-study .note-content { display: flex; flex-direction: column; gap: 14px; }
+  #screen-study .note-sec { background: var(--st-bg); border: 1px solid var(--st-line); border-radius: 18px; box-shadow: var(--st-shadow); padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+  #screen-study .note-sec:empty { display: none; }
+  #screen-study .note-title { color: var(--st-ink); font-size: 1.3rem; font-weight: 900; }
+  #screen-study .note-h2 { color: var(--st-ink); font-size: 1.3rem; font-weight: 900; line-height: 1.45; padding-bottom: 10px; border-bottom: 2px solid var(--st-acc-l); }
+  #screen-study .note-h3 { color: var(--st-slate); font-size: 1.08rem; font-weight: 800; margin-top: 8px; }
+  #screen-study .note-p, #screen-study .note-ul { font-size: 1.04rem; line-height: 1.95; color: var(--st-text); }
+  #screen-study .note-ul { padding-inline-start: 22px; display: flex; flex-direction: column; gap: 8px; }
+  #screen-study .note-ul li::marker { color: var(--st-acc); }
+  #screen-study .note-key { color: var(--st-key); font-weight: 800; }
+  #screen-study .note-callout { background: var(--st-acc-l); border-inline-start: 4px solid var(--st-acc); border-radius: 14px; padding: 14px 16px; font-weight: 600; line-height: 1.9; color: var(--st-ink); }
+  #screen-study .note-callout .note-key { color: var(--st-ink); }
+  #screen-study .note-lang-sec { display: flex; flex-direction: column; gap: 14px; padding-bottom: 20px; border-bottom: 2px dashed var(--st-line); }
+  #screen-study .note-lang-sec:last-child { border-bottom: none; }
+
   @media (max-width: 520px) {
+    #screen-study .lesson-hero { padding: 22px 18px; border-radius: 18px; }
+    #screen-study .lesson-hero h2, #screen-study .lesson-title { font-size: 1.35rem; }
+    #screen-study .lesson-thumb { width: 80px; height: 60px; }
+    #screen-study .lesson-name { font-size: .97rem; }
     #screen-study .note-sec { padding: 18px 16px; }
-    #screen-study .note-title { font-size: 1.4rem; }
-    #screen-study .note-h2 { font-size: 1.2rem; }
+    #screen-study .note-h2 { font-size: 1.15rem; }
+    #screen-study .lesson-cta { align-self: stretch; text-align: center; }
   }
