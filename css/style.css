@@ -199,6 +199,7 @@
   }
   :root[data-theme="dark"] #screen-study { --study-ink: #c9f2ea; --study-key: #7fd8b8; --study-slate: #9db8e0; --study-sec-bg: var(--surface); --study-sec-shadow: 0 6px 20px rgba(0,0,0,0.35); --study-video-bg: #0b0e14; }
 
+  #screen-study .records-header { display: none; }
   #screen-study .note-wrap { background: transparent; box-shadow: none; border: none; padding: 0; gap: 28px; }
   #screen-study .note-nav { background: var(--study-sec-bg); border-radius: 16px; box-shadow: var(--study-sec-shadow); padding: 12px 14px; position: sticky; top: 8px; z-index: 5; }
   #screen-study .note-content { gap: 28px; }

@@ -85,6 +85,7 @@ function showScreen(id) {
   document.getElementById('screen-' + id).classList.add('active');
   // The study screen has its own language chips, so hide the global language bar there.
   document.querySelector('.lang-bar').style.display = id === 'study' ? 'none' : '';
+  document.querySelector('.header').style.display = id === 'study' ? 'none' : '';
 }
 function showStart() { showScreen('start'); }
 
@@ -107,4 +108,5 @@ document.getElementById('btn-new-emp').addEventListener('click', newEmployee);
 document.getElementById('btn-back-start').addEventListener('click', showStart);
 
 applyTranslations();
-showStudy(); // the study notes are the landing screen
+// the study notes are the landing screen; the test is reached at .../#test
+if (location.hash === '#test') showStart(); else showStudy();
