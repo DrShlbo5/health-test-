@@ -92,6 +92,7 @@ function renderNoteBlock(chap, L) {
 
 // ───── SCREENS ─────
 function renderStudy() {
+  document.getElementById('screen-study').dir = studyLang === 'ar' ? 'rtl' : 'ltr'; // other languages read left to right
   document.getElementById('study-chips').innerHTML = REV_LANGS.map(([L, name]) =>
     `<button class="lang-btn${(studyLang === L) ? ' active' : ''}" data-sl="${L}">${escHtml(name)}</button>`).join('');
   document.querySelectorAll('#study-chips [data-sl]').forEach(b =>
