@@ -108,5 +108,4 @@ document.getElementById('btn-new-emp').addEventListener('click', newEmployee);
 document.getElementById('btn-back-start').addEventListener('click', showStart);
 
 applyTranslations();
-// the study notes are the landing screen; the test is reached at .../#test
-if (location.hash === '#test') showStart(); else showStudy();
+showStudy(); // the site is the study notes only; the test screens stay in the code but are not reachable

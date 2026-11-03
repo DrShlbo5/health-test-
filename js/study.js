@@ -42,11 +42,7 @@ function showStudy() {
   window.scrollTo(0, 0);
 }
 function openLesson(i) { location.hash = 'lesson-' + (i + 1); }
-window.addEventListener('hashchange', () => {
-  if (location.hash === '#test') { showStart(); return; }
-  if (!document.getElementById('screen-study').classList.contains('active') && location.hash) return;
-  showStudy();
-});
+window.addEventListener('hashchange', showStudy);
 
 // Bold the lead term before the first colon ("Salmonella: ...") so key points stand out.
 function noteText(row, L) {
