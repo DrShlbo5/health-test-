@@ -119,7 +119,7 @@ function renderStudy() {
     body = `${noteIcon()}<h2 class="note-title" dir="auto">${escHtml(chap.t[NOTE_TITLE_IDX[studyLang]])}</h2>${renderNoteBlock(chap, studyLang)}`;
   }
   document.getElementById('study-body').innerHTML =
-    `<div class="card note-wrap">${nav}<div class="note-content">${body}</div>${videoBox(studyChap)}</div>`;
+    `<div class="card note-wrap">${nav}${videoBox(studyChap)}<div class="note-content">${body}</div></div>`;
   const go = i => { studyChap = Math.max(0, Math.min(STUDY_NOTES.length - 1, i)); renderStudy(); window.scrollTo(0, 0); };
   document.getElementById('note-sel').addEventListener('change', e => go(+e.target.value));
   document.getElementById('note-prev').addEventListener('click', () => go(studyChap - 1));
