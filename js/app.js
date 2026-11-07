@@ -43,8 +43,8 @@ function setLang(l) {
   lang = l;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
   applyTranslations();
-  if (testOpen) { document.getElementById('inline-emp-name').value = testValues[0]; document.getElementById('inline-test-code').value = testValues[1]; openInlineTestForm(); }
-  if (resultsOpen) { document.getElementById('inline-results-password').value = resultsValue; openInlineResultsForm(); }
+  if (testOpen) { document.getElementById('inline-emp-name').value = testValues[0]; document.getElementById('inline-test-code').value = testValues[1]; revealInlineForm('inline-test-form','test-entry-card','inline-emp-name'); }
+  if (resultsOpen) { document.getElementById('inline-results-password').value = resultsValue; revealInlineForm('inline-results-form','results-entry-card','inline-results-password'); }
   if (document.getElementById('screen-quiz').classList.contains('active')) renderQuestion();
   if (document.getElementById('screen-records').classList.contains('active')) renderRecords();
 }
@@ -216,12 +216,20 @@ function openInlineResultsForm() { toggleInlineForm('inline-results-form','resul
 function toggleInlineForm(formId,cardId,inputId) {
   const form = document.getElementById(formId);
   if (!form) return;
-  form.hidden = !form.hidden;
-  document.getElementById(cardId).setAttribute('aria-expanded',String(!form.hidden));
-  if (!form.hidden) {
-    form.scrollIntoView({behavior:'smooth',block:'nearest'});
-    document.getElementById(inputId).focus();
+  if (form.hidden) revealInlineForm(formId,cardId,inputId);
+  else {
+    form.hidden = true;
+    document.getElementById(cardId).setAttribute('aria-expanded','false');
   }
+}
+
+function revealInlineForm(formId,cardId,inputId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  form.hidden = false;
+  document.getElementById(cardId).setAttribute('aria-expanded','true');
+  form.scrollIntoView({behavior:'smooth',block:'nearest'});
+  document.getElementById(inputId).focus();
 }
 
 newEmployee = function() {
