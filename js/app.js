@@ -34,9 +34,17 @@ function shuffle(arr) {
 
 // ───── LANGUAGE ─────
 function setLang(l) {
+  const testForm = document.getElementById('inline-test-form');
+  const testOpen = !!testForm && !testForm.hidden;
+  const testValues = testOpen ? [document.getElementById('inline-emp-name')?.value || '', document.getElementById('inline-test-code')?.value || ''] : null;
+  const resultsForm = document.getElementById('inline-results-form');
+  const resultsOpen = !!resultsForm && !resultsForm.hidden;
+  const resultsValue = resultsOpen ? (document.getElementById('inline-results-password')?.value || '') : '';
   lang = l;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
   applyTranslations();
+  if (testOpen) { document.getElementById('inline-emp-name').value = testValues[0]; document.getElementById('inline-test-code').value = testValues[1]; openInlineTestForm(); }
+  if (resultsOpen) { document.getElementById('inline-results-password').value = resultsValue; openInlineResultsForm(); }
   if (document.getElementById('screen-quiz').classList.contains('active')) renderQuestion();
   if (document.getElementById('screen-records').classList.contains('active')) renderRecords();
 }
@@ -47,12 +55,6 @@ function applyTranslations() {
   document.getElementById('lbl-lang').textContent = t.lbl;
   document.getElementById('hdr-title').textContent = t.hdrTitle;
   document.getElementById('hdr-sub').textContent = t.hdrSub;
-  document.getElementById('s-title').textContent = t.startTitle;
-  document.getElementById('s-sub').textContent = t.startSub;
-  document.getElementById('lbl-name').textContent = t.lblName;
-  document.getElementById('lbl-code').textContent = CODE_T[lang].lbl;
-  document.getElementById('btn-start').textContent = t.btnStart;
-  document.getElementById('nav-records').textContent = t.navRec;
   document.getElementById('btn-new-emp').textContent = t.btnNew;
   document.getElementById('btn-back-start').textContent = t.btnHome;
   document.getElementById('pw-title').textContent = t.pwTitle;
@@ -74,7 +76,6 @@ function applyTranslations() {
   document.getElementById('btn-review').textContent = rt.btnReview;
   document.getElementById('rev-title').textContent = rt.revTitle;
   document.getElementById('btn-rev-back').textContent = rt.btnRevBack;
-  document.getElementById('nav-study').textContent = STUDY_T[lang].btn;
   document.getElementById('study-title').textContent = STUDY_T[lang].title;
   document.getElementById('btn-study-back').textContent = STUDY_T[lang].back;
   if (document.getElementById('screen-study').classList.contains('active')) renderStudy();
@@ -87,17 +88,13 @@ function showScreen(id) {
   document.querySelector('.lang-bar').style.display = id === 'study' ? 'none' : '';
   document.querySelector('.header').style.display = id === 'study' ? 'none' : '';
 }
-function showStart() { showScreen('start'); }
+function showStart() { showStudy(); }
 
 // ───── WIRING ─────
-document.getElementById('nav-study').addEventListener('click', showStudy);
 document.getElementById('btn-study-back').addEventListener('click', showStart);
 document.getElementById('btn-review').addEventListener('click', showReview);
 document.getElementById('btn-rev-back').addEventListener('click', () => { renderRecords(); showScreen('records'); });
 document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
-document.getElementById('btn-start').addEventListener('click', startQuiz);
-document.getElementById('emp-name').addEventListener('keydown', e => { if (e.key === 'Enter') startQuiz(); });
-document.getElementById('nav-records').addEventListener('click', showRecords);
 document.getElementById('btn-unlock').addEventListener('click', checkPassword);
 document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
 document.getElementById('btn-pw-back').addEventListener('click', showStart);
@@ -114,55 +111,43 @@ renderStudy = function() {
   addTestEntryCard();
 };
 
+// Append the test and protected-results controls after the last lesson.
+const renderStudyWithoutActions = renderStudy;
+renderStudy = function() {
+  renderStudyWithoutActions();
+  addTestEntryCard();
+};
+
 function addTestEntryCard() {
   const lessonList = document.querySelector('#study-body .lesson-list');
   if (!lessonList) return;
 
   const labels = {
-    ar: {
-      test: ['الاختبار', 'أدخل اسمك ورمز الاختبار للبدء'],
-      results: ['النتائج 🔒', 'أدخل كلمة مرور المدير لعرض النتائج']
-    },
-    en: {
-      test: ['Test', 'Enter your name and test code to begin'],
-      results: ['Results 🔒', 'Enter the manager password to view results']
-    },
-    hi: {
-      test: ['परीक्षा', 'शुरू करने के लिए अपना नाम और परीक्षा कोड लिखें'],
-      results: ['परिणाम 🔒', 'परिणाम देखने के लिए प्रबंधक का पासवर्ड लिखें']
-    },
-    bn: {
-      test: ['পরীক্ষা', 'শুরু করতে আপনার নাম ও পরীক্ষার কোড লিখুন'],
-      results: ['ফলাফল 🔒', 'ফলাফল দেখতে ম্যানেজারের পাসওয়ার্ড লিখুন']
-    },
-    id: {
-      test: ['Tes', 'Masukkan nama dan kode tes untuk memulai'],
-      results: ['Hasil 🔒', 'Masukkan kata sandi manajer untuk melihat hasil']
-    },
-    ne: {
-      test: ['परीक्षा', 'सुरु गर्न आफ्नो नाम र परीक्षा कोड लेख्नुहोस्'],
-      results: ['नतिजा 🔒', 'नतिजा हेर्न व्यवस्थापकको पासवर्ड लेख्नुहोस्']
-    },
-    te: {
-      test: ['పరీక్ష', 'ప్రారంభించడానికి మీ పేరు, పరీక్ష కోడ్ నమోదు చేయండి'],
-      results: ['ఫలితాలు 🔒', 'ఫలితాలు చూడటానికి నిర్వాహక పాస్‌వర్డ్ నమోదు చేయండి']
-    }
+    ar: { test:['الاختبار','أدخل اسمك ورمز الاختبار للبدء'], results:['النتائج','أدخل كلمة مرور المدير لعرض النتائج'] },
+    en: { test:['Test','Enter your name and test code to begin'], results:['Results','Enter the manager password to view results'] },
+    hi: { test:['परीक्षा','शुरू करने के लिए अपना नाम और परीक्षा कोड लिखें'], results:['परिणाम','परिणाम देखने के लिए प्रबंधक का पासवर्ड लिखें'] },
+    bn: { test:['পরীক্ষা','শুরু করতে আপনার নাম ও পরীক্ষার কোড লিখুন'], results:['ফলাফল','ফলাফল দেখতে ম্যানেজারের পাসওয়ার্ড লিখুন'] },
+    id: { test:['Tes','Masukkan nama dan kode tes untuk memulai'], results:['Hasil','Masukkan kata sandi manajer untuk melihat hasil'] },
+    ne: { test:['परीक्षा','सुरु गर्न आफ्नो नाम र परीक्षा कोड लेख्नुहोस्'], results:['नतिजा','नतिजा हेर्न व्यवस्थापकको पासवर्ड लेख्नुहोस्'] },
+    te: { test:['పరీక్ష','ప్రారంభించడానికి మీ పేరు, పరీక్ష కోడ్ నమోదు చేయండి'], results:['ఫలితాలు','ఫలితాలు చూడటానికి నిర్వాహక పాస్‌వర్డ్ నమోదు చేయండి'] }
   };
   const text = labels[lang] || labels.ar;
-  createStudyActionCard(lessonList, 'test-entry-card', 'test-entry-card', text.test, openInlineTestForm);
-  createStudyActionCard(lessonList, 'results-entry-card', 'results-entry-card', text.results, showRecords);
-  createInlineTestForm();
+  const testCard = createStudyActionCard(lessonList,'test-entry-card','test-entry-card',text.test,openInlineTestForm);
+  const resultsCard = createStudyActionCard(lessonList,'results-entry-card','results-entry-card',text.results,openInlineResultsForm);
+  createInlineTestForm(testCard);
+  createInlineResultsForm(resultsCard);
 }
 
-function createStudyActionCard(lessonList, id, kind, text, action) {
-  if (document.getElementById(id)) return;
-
-  const card = document.createElement('button');
-  card.type = 'button';
-  card.id = id;
-  card.className = 'lesson-card ' + kind;
-  card.setAttribute('aria-label', text[0] + '. ' + text[1]);
-
+function createStudyActionCard(lessonList,id,kind,text,action) {
+  let card = document.getElementById(id);
+  if (!card) {
+    card = document.createElement('button');
+    card.type = 'button';
+    card.id = id;
+    card.className = 'lesson-card ' + kind;
+    card.addEventListener('click', action);
+    lessonList.appendChild(card);
+  }
   const info = document.createElement('span');
   info.className = 'lesson-info';
   const title = document.createElement('span');
@@ -171,90 +156,90 @@ function createStudyActionCard(lessonList, id, kind, text, action) {
   const detail = document.createElement('span');
   detail.className = 'lesson-meta';
   detail.textContent = text[1];
-  info.append(title, detail);
-
+  info.append(title,detail);
   const lock = document.createElement('span');
   lock.className = 'lesson-state test-entry-lock';
   lock.textContent = '🔒';
-  lock.setAttribute('aria-hidden', 'true');
-
-  card.append(info, lock);
-  card.addEventListener('click', action);
-  lessonList.appendChild(card);
+  lock.setAttribute('aria-hidden','true');
+  card.replaceChildren(info,lock);
+  card.setAttribute('aria-label',text[0] + '. ' + text[1]);
+  card.setAttribute('aria-controls',id === 'test-entry-card' ? 'inline-test-form' : 'inline-results-form');
+  return card;
 }
 
-function createInlineTestForm() {
-  if (document.getElementById('inline-test-form')) return;
-
-  const form = document.createElement('form');
-  form.id = 'inline-test-form';
-  form.className = 'inline-test-form';
-  form.hidden = true;
-
-  const nameLabel = document.createElement('label');
-  nameLabel.className = 'inline-test-label';
-  nameLabel.htmlFor = 'inline-emp-name';
-  nameLabel.textContent = T[lang].lblName;
-  const nameInput = document.createElement('input');
-  nameInput.id = 'inline-emp-name';
-  nameInput.className = 'text-input';
-  nameInput.type = 'text';
-  nameInput.autocomplete = 'name';
-  nameInput.required = true;
-
-  const codeLabel = document.createElement('label');
-  codeLabel.className = 'inline-test-label';
-  codeLabel.htmlFor = 'inline-test-code';
-  codeLabel.textContent = CODE_T[lang].lbl;
-  const codeInput = document.createElement('input');
-  codeInput.id = 'inline-test-code';
-  codeInput.className = 'text-input';
-  codeInput.type = 'password';
-  codeInput.autocomplete = 'off';
-  codeInput.required = true;
-
-  const error = document.createElement('p');
-  error.id = 'inline-test-error';
-  error.className = 'error-msg';
-  error.hidden = true;
-
-  const submit = document.createElement('button');
-  submit.type = 'submit';
-  submit.className = 'btn btn-primary btn-block';
-  submit.textContent = T[lang].btnStart;
-
-  form.append(nameLabel, nameInput, codeLabel, codeInput, error, submit);
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    const name = nameInput.value.trim();
-    const code = codeInput.value.trim();
-    if (!name) {
-      error.textContent = T[lang].enterName;
-      error.hidden = false;
-      nameInput.focus();
-      return;
-    }
-    if (code !== TEST_CODE) {
-      error.textContent = CODE_T[lang].err;
-      error.hidden = false;
-      codeInput.focus();
-      return;
-    }
-    document.getElementById('emp-name').value = name;
-    document.getElementById('test-code').value = code;
-    startQuiz();
-  });
-
-  document.getElementById('study-body').appendChild(form);
+function createInlineTestForm(card) {
+  let form = document.getElementById('inline-test-form');
+  if (!form) {
+    form = document.createElement('form');
+    form.id = 'inline-test-form';
+    form.className = 'inline-test-form';
+    form.hidden = true;
+    form.innerHTML = '<label class="inline-test-label" for="inline-emp-name"></label><input id="inline-emp-name" class="text-input" type="text" autocomplete="name" required><label class="inline-test-label" for="inline-test-code"></label><input id="inline-test-code" class="text-input" type="password" autocomplete="off" required><p id="inline-test-error" class="error-msg" hidden></p><button class="btn btn-primary btn-block" type="submit"></button>';
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const name = document.getElementById('inline-emp-name').value.trim();
+      const code = document.getElementById('inline-test-code').value.trim();
+      const error = document.getElementById('inline-test-error');
+      if (!name) { error.textContent = T[lang].enterName; error.hidden = false; return; }
+      if (code !== TEST_CODE) { error.textContent = CODE_T[lang].err; error.hidden = false; return; }
+      error.hidden = true;
+      startQuiz(name,code);
+    });
+  }
+  form.querySelector('label[for="inline-emp-name"]').textContent = T[lang].lblName;
+  form.querySelector('label[for="inline-test-code"]').textContent = CODE_T[lang].lbl;
+  form.querySelector('button[type="submit"]').textContent = T[lang].btnStart;
+  card.insertAdjacentElement('afterend',form);
 }
 
-function openInlineTestForm() {
-  const form = document.getElementById('inline-test-form');
+function createInlineResultsForm(card) {
+  let form = document.getElementById('inline-results-form');
+  if (!form) {
+    form = document.createElement('form');
+    form.id = 'inline-results-form';
+    form.className = 'inline-test-form';
+    form.hidden = true;
+    form.innerHTML = '<label class="inline-test-label" for="inline-results-password"></label><input id="inline-results-password" class="text-input" type="password" autocomplete="off" required><p id="inline-results-error" class="error-msg" hidden></p><button class="btn btn-primary btn-block" type="submit"></button>';
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const error = document.getElementById('inline-results-error');
+      if (document.getElementById('inline-results-password').value !== PASSWORD) {
+        error.textContent = T[lang].pwWrong;
+        error.hidden = false;
+        return;
+      }
+      error.hidden = true;
+      renderRecords();
+      showScreen('records');
+    });
+  }
+  form.querySelector('label').textContent = T[lang].pwTitle;
+  form.querySelector('button[type="submit"]').textContent = T[lang].btnUnlock;
+  card.insertAdjacentElement('afterend',form);
+}
+
+function openInlineTestForm() { toggleInlineForm('inline-test-form','test-entry-card','inline-emp-name'); }
+function openInlineResultsForm() { toggleInlineForm('inline-results-form','results-entry-card','inline-results-password'); }
+function toggleInlineForm(formId,cardId,inputId) {
+  const form = document.getElementById(formId);
   if (!form) return;
-  form.hidden = false;
-  form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  form.querySelector('input').focus();
+  form.hidden = !form.hidden;
+  document.getElementById(cardId).setAttribute('aria-expanded',String(!form.hidden));
+  if (!form.hidden) {
+    form.scrollIntoView({behavior:'smooth',block:'nearest'});
+    document.getElementById(inputId).focus();
+  }
 }
+
+newEmployee = function() {
+  empName = '';
+  showStudy();
+  const name = document.getElementById('inline-emp-name');
+  const code = document.getElementById('inline-test-code');
+  if (name) name.value = '';
+  if (code) code.value = '';
+  openInlineTestForm();
+};
 
 
 applyTranslations();
