@@ -2,8 +2,8 @@ const PASS_POINTS = 65;       // pass at 65 points out of 100
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbyX4Quq5LQE5yF3o3q0x133Zy8iGzNGBosmgFONFS1s4EUhrX_ACRNfgUHyZEUJfS_P/exec";
 
 const QUIZ_LENGTH = 50;       // 10 each: food-safety MC, math, true/false, ordering, matching
-const PASSWORD = "1122";
-const TEST_CODE = "1234"; // code the manager gives employees when they are allowed to take the test
+const PASSWORD = "5555"; // manager password for the results
+const TEST_CODES = ["1009", "5413", "3004", "3329", "3324"]; // branch-specific test codes
 
 // ───── STATE ─────
 let lang = 'ar';
@@ -180,7 +180,7 @@ function createInlineTestForm(card) {
       const code = document.getElementById('inline-test-code').value.trim();
       const error = document.getElementById('inline-test-error');
       if (!name) { error.textContent = T[lang].enterName; error.hidden = false; return; }
-      if (code !== TEST_CODE) { error.textContent = CODE_T[lang].err; error.hidden = false; return; }
+      if (!TEST_CODES.includes(code)) { error.textContent = CODE_T[lang].err; error.hidden = false; return; }
       error.hidden = true;
       startQuiz(name,code);
     });
