@@ -1,22 +1,7 @@
 // ───── RECORDS ─────
 function showRecords() {
-  document.getElementById('pw-input').value = '';
-  document.getElementById('pw-error').style.display = 'none';
-  showScreen('password');
-  document.getElementById('pw-input').focus();
-}
-
-function checkPassword() {
-  const val = document.getElementById('pw-input').value;
-  if (val === PASSWORD) {
-    document.getElementById('pw-error').style.display = 'none';
-    renderRecords();
-    showScreen('records');
-  } else {
-    const e = document.getElementById('pw-error');
-    e.textContent = T[lang].pwWrong;
-    e.style.display = 'block';
-  }
+  showStudy();
+  openInlineResultsForm();
 }
 
 function renderRecords() {
