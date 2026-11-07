@@ -1,7 +1,7 @@
 // ───── RECORDS ─────
 function showRecords() {
   showStudy();
-  openInlineResultsForm();
+  revealInlineForm('inline-results-form','results-entry-card','inline-results-password');
 }
 
 function renderRecords() {
