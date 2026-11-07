@@ -271,3 +271,11 @@
     #screen-study .note-h2 { font-size: 1.15rem; }
     #screen-study .lesson-cta { align-self: stretch; text-align: center; }
   }
+
+
+  /* Keep the lesson list focused and make its final test entry distinct. */
+  #screen-study .lesson-hero { display: none; }
+  #screen-study .test-entry-card { cursor: pointer; border: 2px solid var(--st-acc); }
+  #screen-study .test-entry-card:hover { background: var(--st-acc-l); }
+  #screen-study .test-entry-lock { width: 38px; height: 38px; border-radius: 9px; background: var(--st-acc-l); border-color: var(--st-acc); color: var(--st-acc); font-size: 1.1rem; }
+  #screen-study .test-entry-card:focus-visible { outline: 3px solid var(--st-acc-2); outline-offset: 3px; }
