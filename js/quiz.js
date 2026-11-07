@@ -1,7 +1,7 @@
 // ───── QUIZ FLOW ─────
 function startQuiz(employeeName, testCode) {
   empName = String(employeeName || '').trim();
-  if (!empName || String(testCode || '').trim() !== TEST_CODE) return;
+  if (!empName || !TEST_CODES.includes(String(testCode || '').trim())) return;
   // 50 questions: 30 food-safety MC, 3 logic MC, 13 true/false, 2 ordering, 2 matching. Calculation questions are excluded.
   // Options are shuffled per employee so the answer position changes.
   const REASONING_CATS = ['Logic', 'Prioritizing', 'Reasoning'];
