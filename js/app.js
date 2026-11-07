@@ -107,5 +107,52 @@ document.getElementById('btn-upload').addEventListener('click', uploadRecords);
 document.getElementById('btn-new-emp').addEventListener('click', newEmployee);
 document.getElementById('btn-back-start').addEventListener('click', showStart);
 
+// Add a locked test entry after the last lesson. It uses the existing name and manager code form.
+const renderStudyWithoutTestEntry = renderStudy;
+renderStudy = function() {
+  renderStudyWithoutTestEntry();
+  addTestEntryCard();
+};
+
+function addTestEntryCard() {
+  const lessonList = document.querySelector('#study-body .lesson-list');
+  if (!lessonList || document.getElementById('test-entry-card')) return;
+
+  const labels = {
+    ar: ['الاختبار النهائي', 'أدخل اسمك ورمز الاختبار للبدء'],
+    en: ['Final test', 'Enter your name and test code to begin'],
+    hi: ['अंतिम परीक्षा', 'शुरू करने के लिए अपना नाम और परीक्षा कोड लिखें'],
+    bn: ['চূড়ান্ত পরীক্ষা', 'শুরু করতে আপনার নাম ও পরীক্ষার কোড লিখুন'],
+    id: ['Tes akhir', 'Masukkan nama dan kode tes untuk memulai'],
+    ne: ['अन्तिम परीक्षा', 'सुरु गर्न आफ्नो नाम र परीक्षा कोड लेख्नुहोस्'],
+    te: ['చివరి పరీక్ష', 'ప్రారంభించడానికి మీ పేరు, పరీక్ష కోడ్ నమోదు చేయండి']
+  };
+  const text = labels[lang] || labels.ar;
+  const card = document.createElement('button');
+  card.type = 'button';
+  card.id = 'test-entry-card';
+  card.className = 'lesson-card test-entry-card';
+  card.setAttribute('aria-label', text[0] + '. ' + text[1]);
+
+  const info = document.createElement('span');
+  info.className = 'lesson-info';
+  const title = document.createElement('span');
+  title.className = 'lesson-name';
+  title.textContent = text[0];
+  const detail = document.createElement('span');
+  detail.className = 'lesson-meta';
+  detail.textContent = text[1];
+  info.append(title, detail);
+
+  const lock = document.createElement('span');
+  lock.className = 'lesson-state test-entry-lock';
+  lock.textContent = '🔒';
+  lock.setAttribute('aria-hidden', 'true');
+
+  card.append(info, lock);
+  card.addEventListener('click', showStart);
+  lessonList.appendChild(card);
+}
+
 applyTranslations();
 showStudy(); // the site is the study notes only; the test screens stay in the code but are not reachable
