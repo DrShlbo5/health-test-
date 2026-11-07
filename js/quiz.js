@@ -1,20 +1,7 @@
 // ───── QUIZ FLOW ─────
-function startQuiz() {
-  empName = document.getElementById('emp-name').value.trim();
-  const err = document.getElementById('name-error');
-  if (!empName) {
-    err.textContent = T[lang].enterName;
-    err.style.display = 'block';
-    return;
-  }
-  err.style.display = 'none';
-  const codeErr = document.getElementById('code-error');
-  if (document.getElementById('test-code').value.trim() !== TEST_CODE) {
-    codeErr.textContent = CODE_T[lang].err;
-    codeErr.style.display = 'block';
-    return;
-  }
-  codeErr.style.display = 'none';
+function startQuiz(employeeName, testCode) {
+  empName = String(employeeName || '').trim();
+  if (!empName || String(testCode || '').trim() !== TEST_CODE) return;
   // 50 questions: 30 food-safety MC, 3 logic MC, 13 true/false, 2 ordering, 2 matching. Calculation questions are excluded.
   // Options are shuffled per employee so the answer position changes.
   const REASONING_CATS = ['Logic', 'Prioritizing', 'Reasoning'];
