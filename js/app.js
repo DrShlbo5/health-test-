@@ -94,7 +94,6 @@ document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', 
 document.getElementById('btn-rec-back').addEventListener('click', showStart);
 document.getElementById('btn-clear').addEventListener('click', clearRecords);
 document.getElementById('btn-upload').addEventListener('click', uploadRecords);
-document.getElementById('btn-new-emp').addEventListener('click', newEmployee);
 document.getElementById('btn-back-start').addEventListener('click', showStart);
 
 // Add a locked test entry after the last lesson. It uses the existing name and manager code form.
