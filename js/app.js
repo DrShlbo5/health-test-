@@ -116,22 +116,50 @@ renderStudy = function() {
 
 function addTestEntryCard() {
   const lessonList = document.querySelector('#study-body .lesson-list');
-  if (!lessonList || document.getElementById('test-entry-card')) return;
+  if (!lessonList) return;
 
   const labels = {
-    ar: ['الاختبار النهائي', 'أدخل اسمك ورمز الاختبار للبدء'],
-    en: ['Final test', 'Enter your name and test code to begin'],
-    hi: ['अंतिम परीक्षा', 'शुरू करने के लिए अपना नाम और परीक्षा कोड लिखें'],
-    bn: ['চূড়ান্ত পরীক্ষা', 'শুরু করতে আপনার নাম ও পরীক্ষার কোড লিখুন'],
-    id: ['Tes akhir', 'Masukkan nama dan kode tes untuk memulai'],
-    ne: ['अन्तिम परीक्षा', 'सुरु गर्न आफ्नो नाम र परीक्षा कोड लेख्नुहोस्'],
-    te: ['చివరి పరీక్ష', 'ప్రారంభించడానికి మీ పేరు, పరీక్ష కోడ్ నమోదు చేయండి']
+    ar: {
+      test: ['الاختبار', 'أدخل اسمك ورمز الاختبار للبدء'],
+      results: ['النتائج 🔒', 'أدخل كلمة مرور المدير لعرض النتائج']
+    },
+    en: {
+      test: ['Test', 'Enter your name and test code to begin'],
+      results: ['Results 🔒', 'Enter the manager password to view results']
+    },
+    hi: {
+      test: ['परीक्षा', 'शुरू करने के लिए अपना नाम और परीक्षा कोड लिखें'],
+      results: ['परिणाम 🔒', 'परिणाम देखने के लिए प्रबंधक का पासवर्ड लिखें']
+    },
+    bn: {
+      test: ['পরীক্ষা', 'শুরু করতে আপনার নাম ও পরীক্ষার কোড লিখুন'],
+      results: ['ফলাফল 🔒', 'ফলাফল দেখতে ম্যানেজারের পাসওয়ার্ড লিখুন']
+    },
+    id: {
+      test: ['Tes', 'Masukkan nama dan kode tes untuk memulai'],
+      results: ['Hasil 🔒', 'Masukkan kata sandi manajer untuk melihat hasil']
+    },
+    ne: {
+      test: ['परीक्षा', 'सुरु गर्न आफ्नो नाम र परीक्षा कोड लेख्नुहोस्'],
+      results: ['नतिजा 🔒', 'नतिजा हेर्न व्यवस्थापकको पासवर्ड लेख्नुहोस्']
+    },
+    te: {
+      test: ['పరీక్ష', 'ప్రారంభించడానికి మీ పేరు, పరీక్ష కోడ్ నమోదు చేయండి'],
+      results: ['ఫలితాలు 🔒', 'ఫలితాలు చూడటానికి నిర్వాహక పాస్‌వర్డ్ నమోదు చేయండి']
+    }
   };
   const text = labels[lang] || labels.ar;
+  createStudyActionCard(lessonList, 'test-entry-card', 'test-entry-card', text.test, showStart);
+  createStudyActionCard(lessonList, 'results-entry-card', 'results-entry-card', text.results, showRecords);
+}
+
+function createStudyActionCard(lessonList, id, kind, text, action) {
+  if (document.getElementById(id)) return;
+
   const card = document.createElement('button');
   card.type = 'button';
-  card.id = 'test-entry-card';
-  card.className = 'lesson-card test-entry-card';
+  card.id = id;
+  card.className = 'lesson-card ' + kind;
   card.setAttribute('aria-label', text[0] + '. ' + text[1]);
 
   const info = document.createElement('span');
@@ -150,9 +178,10 @@ function addTestEntryCard() {
   lock.setAttribute('aria-hidden', 'true');
 
   card.append(info, lock);
-  card.addEventListener('click', showStart);
+  card.addEventListener('click', action);
   lessonList.appendChild(card);
 }
+
 
 applyTranslations();
 showStudy(); // the site is the study notes only; the test screens stay in the code but are not reachable
