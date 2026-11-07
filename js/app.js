@@ -41,6 +41,7 @@ function setLang(l) {
   const resultsOpen = !!resultsForm && !resultsForm.hidden;
   const resultsValue = resultsOpen ? (document.getElementById('inline-results-password')?.value || '') : '';
   lang = l;
+  if (typeof studyLang !== 'undefined') studyLang = l;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
   applyTranslations();
   if (testOpen) { document.getElementById('inline-emp-name').value = testValues[0]; document.getElementById('inline-test-code').value = testValues[1]; revealInlineForm('inline-test-form','test-entry-card','inline-emp-name'); }
@@ -49,7 +50,7 @@ function setLang(l) {
   if (document.getElementById('screen-records').classList.contains('active')) renderRecords();
 }
 
-function applyTranslations() {
+function applyTranslations(skipStudyRender = false) {
   const t = T[lang];
   document.documentElement.lang = lang;
   document.getElementById('lbl-lang').textContent = t.lbl;
@@ -74,7 +75,7 @@ function applyTranslations() {
   document.getElementById('btn-rev-back').textContent = rt.btnRevBack;
   document.getElementById('study-title').textContent = STUDY_T[lang].title;
   document.getElementById('btn-study-back').textContent = STUDY_T[lang].back;
-  if (document.getElementById('screen-study').classList.contains('active')) renderStudy();
+  if (!skipStudyRender && document.getElementById('screen-study').classList.contains('active')) renderStudy();
 }
 
 function showScreen(id) {
@@ -106,6 +107,12 @@ renderStudy = function() {
 // Append the test and protected-results controls after the last lesson.
 const renderStudyWithoutActions = renderStudy;
 renderStudy = function() {
+  if (typeof studyLang !== 'undefined' && T[studyLang] && lang !== studyLang) {
+    lang = studyLang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn[data-lang]').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    applyTranslations(true);
+  }
   renderStudyWithoutActions();
   addTestEntryCard();
 };
