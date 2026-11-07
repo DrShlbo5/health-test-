@@ -3,7 +3,9 @@ const CODE_T = {
   en: { lbl: "Test code (from the manager)", err: "Incorrect test code" },
   hi: { lbl: "परीक्षा कोड (प्रबंधक से)", err: "परीक्षा कोड गलत है" },
   bn: { lbl: "পরীক্ষার কোড (ম্যানেজারের কাছ থেকে)", err: "পরীক্ষার কোড ভুল" },
-  id: { lbl: "Kode tes (dari manajer)", err: "Kode tes salah" }
+  id: { lbl: "Kode tes (dari manajer)", err: "Kode tes salah" },
+  ne: { lbl: "परीक्षा कोड (प्रबन्धकबाट)", err: "परीक्षा कोड गलत छ" },
+  te: { lbl: "పరీక్ష కోడ్ (నిర్వాహకుడి నుండి)", err: "పరీక్ష కోడ్ తప్పు" }
 };
 
 // Each question: q = question text, o = options (same order in all languages), c = index of correct option.
