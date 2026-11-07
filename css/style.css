@@ -283,3 +283,7 @@
   #screen-study .results-entry-card { cursor: pointer; border: 2px solid var(--st-slate); }
   #screen-study .results-entry-card:hover { background: var(--st-acc-l); }
   #screen-start .bottom-nav { display: none; }
+
+  #screen-study .inline-test-form { display: flex; flex-direction: column; gap: 10px; padding: 18px; background: var(--st-bg); border: 2px solid var(--st-acc); border-radius: 18px; box-shadow: var(--st-shadow); }
+  #screen-study .inline-test-form[hidden] { display: none; }
+  #screen-study .inline-test-label { color: var(--st-ink); font-weight: 800; }
