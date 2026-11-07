@@ -149,8 +149,9 @@ function addTestEntryCard() {
     }
   };
   const text = labels[lang] || labels.ar;
-  createStudyActionCard(lessonList, 'test-entry-card', 'test-entry-card', text.test, showStart);
+  createStudyActionCard(lessonList, 'test-entry-card', 'test-entry-card', text.test, openInlineTestForm);
   createStudyActionCard(lessonList, 'results-entry-card', 'results-entry-card', text.results, showRecords);
+  createInlineTestForm();
 }
 
 function createStudyActionCard(lessonList, id, kind, text, action) {
@@ -180,6 +181,79 @@ function createStudyActionCard(lessonList, id, kind, text, action) {
   card.append(info, lock);
   card.addEventListener('click', action);
   lessonList.appendChild(card);
+}
+
+function createInlineTestForm() {
+  if (document.getElementById('inline-test-form')) return;
+
+  const form = document.createElement('form');
+  form.id = 'inline-test-form';
+  form.className = 'inline-test-form';
+  form.hidden = true;
+
+  const nameLabel = document.createElement('label');
+  nameLabel.className = 'inline-test-label';
+  nameLabel.htmlFor = 'inline-emp-name';
+  nameLabel.textContent = T[lang].lblName;
+  const nameInput = document.createElement('input');
+  nameInput.id = 'inline-emp-name';
+  nameInput.className = 'text-input';
+  nameInput.type = 'text';
+  nameInput.autocomplete = 'name';
+  nameInput.required = true;
+
+  const codeLabel = document.createElement('label');
+  codeLabel.className = 'inline-test-label';
+  codeLabel.htmlFor = 'inline-test-code';
+  codeLabel.textContent = CODE_T[lang].lbl;
+  const codeInput = document.createElement('input');
+  codeInput.id = 'inline-test-code';
+  codeInput.className = 'text-input';
+  codeInput.type = 'password';
+  codeInput.autocomplete = 'off';
+  codeInput.required = true;
+
+  const error = document.createElement('p');
+  error.id = 'inline-test-error';
+  error.className = 'error-msg';
+  error.hidden = true;
+
+  const submit = document.createElement('button');
+  submit.type = 'submit';
+  submit.className = 'btn btn-primary btn-block';
+  submit.textContent = T[lang].btnStart;
+
+  form.append(nameLabel, nameInput, codeLabel, codeInput, error, submit);
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const name = nameInput.value.trim();
+    const code = codeInput.value.trim();
+    if (!name) {
+      error.textContent = T[lang].enterName;
+      error.hidden = false;
+      nameInput.focus();
+      return;
+    }
+    if (code !== TEST_CODE) {
+      error.textContent = CODE_T[lang].err;
+      error.hidden = false;
+      codeInput.focus();
+      return;
+    }
+    document.getElementById('emp-name').value = name;
+    document.getElementById('test-code').value = code;
+    startQuiz();
+  });
+
+  document.getElementById('study-body').appendChild(form);
+}
+
+function openInlineTestForm() {
+  const form = document.getElementById('inline-test-form');
+  if (!form) return;
+  form.hidden = false;
+  form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  form.querySelector('input').focus();
 }
 
 
